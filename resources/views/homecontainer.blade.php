@@ -59,18 +59,18 @@
                             <li><a href="basic_table.html">CONTACT US</a></li>
                             <li><a href="{{ URL::to('/login/') }}">LOGIN</a></li>
                             <li><a href="basic_table.html">FAQ'S</a></li>
-<!--                            <li class="dropdown">
-                                <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#">Extra <b class=" icon-angle-down"></b></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="blank.html">Blank Page</a></li>
-                                    <li><a href="boxed_page.html">Boxed Page</a></li>
-                                    <li><a href="profile.html">Profile</a></li>
-                                    <li><a href="invoice.html">Invoice</a></li>
-                                    <li><a href="search_result.html">Search Result</a></li>
-                                    <li><a href="404.html">404 Error Page</a></li>
-                                    <li><a href="500.html">500 Error Page</a></li>
-                                </ul>
-                            </li>-->
+                            <!--                            <li class="dropdown">
+                                                            <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#">Extra <b class=" icon-angle-down"></b></a>
+                                                            <ul class="dropdown-menu">
+                                                                <li><a href="blank.html">Blank Page</a></li>
+                                                                <li><a href="boxed_page.html">Boxed Page</a></li>
+                                                                <li><a href="profile.html">Profile</a></li>
+                                                                <li><a href="invoice.html">Invoice</a></li>
+                                                                <li><a href="search_result.html">Search Result</a></li>
+                                                                <li><a href="404.html">404 Error Page</a></li>
+                                                                <li><a href="500.html">500 Error Page</a></li>
+                                                            </ul>
+                                                        </li>-->
                         </ul>
 
                     </div>
@@ -88,62 +88,73 @@
 
         </section>
         <footer class="site-footer" style=" margin-top: 15px; background:none; color: #000; ">
-          <div class="text-center">
-              2018 &copy; WBDSchools-Abdullah Al Mamun.
-<!--              <a href="#" class="go-top">
-                  <i class="icon-angle-up"></i>
-              </a>-->
-          </div>
-      </footer>
+            <div class="text-center">
+                2018 &copy; WBDSchools-Abdullah Al Mamun.
+                <!--              <a href="#" class="go-top">
+                                  <i class="icon-angle-up"></i>
+                              </a>-->
+            </div>
+        </footer>
 
         <!-- js placed at the end of the document so the pages load faster -->
         <script src="{{ asset('wbdlibs/js/jquery-3.3.1.min.js') }}"></script>
         <script src="{{ asset('wbdlibs/js/bootstrap.min.js') }}"></script>
-        
+
         <!-- Ajax script for form validation -->
         <script type="text/javascript">
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
 
-                $('#data_form').on('submit', function (e) {
-                    e.preventDefault();
-                    data = $(this).serialize();
-                    url = $(this).attr('action');
+$('#data_form').on('submit', function (e) {
+    e.preventDefault();
+    data = $(this).serialize();
+    url = $(this).attr('action');
 
-                    $.ajax({
-                        url: url,
-                        type: 'POST',
-                        data: data,
-                        success: function (data) {
-                            console.log(data);
-                            if ($.isEmptyObject(data.errors)) {
-                                console.log(data.success);
-                                $('#data_form')[0].reset();
-                                $('.text-danger').remove();
-                                $('.form-group').removeClass('has-error').removeClass('has-success');
-                                $('.print-success-msg').html(data.success);
-                                $('.print-success-msg').css('display', 'block');
-                            } else {
-                                printMessageErrors(data.errors);
-                            }
-                        }
-                    });
-                });
+    $.ajax({
+        url: url,
+        type: 'POST',
+        data: data,
+        success: function (data) {
+            console.log(data);
+            if ($.isEmptyObject(data.errors)) {
+                console.log(data.success);
+                $('#data_form')[0].reset();
+                $('.text-danger').remove();
+                $('.form-group').removeClass('has-error').removeClass('has-success');
+                $('.print-success-msg').html(data.success);
+                $('.print-success-msg').css('display', 'block');
+            } else {
+                printMessageErrors(data.errors);
+            }
+        }
+    });
+});
 
-                function printMessageErrors(msg) {
-                    $('.form-group').removeClass('has-error').find('.text-danger').remove();
-                    $.each(msg, function (key, value) {
-                        var element = $('#' + key);
-                        element.closest('div.form-group')
-                                .addClass(value.length > 0 ? 'has-error' : 'has-success');
-                        $('.control-label').css('color', '#797979');
-                        element.after('<span class="text-danger"><span class="glyphicon glyphicon-exclamation-sign text-danger"></span> ' + value + '</span>');
-                    });
-                }
+function printMessageErrors(msg) {
+    $('.form-group').removeClass('has-error').find('.text-danger').remove();
+    $.each(msg, function (key, value) {
+        var element = $('#' + key);
+        element.closest('div.form-group')
+                .addClass(value.length > 0 ? 'has-error' : 'has-success');
+        $('.control-label').css('color', '#797979');
+        element.after('<span class="text-danger"><span class="glyphicon glyphicon-exclamation-sign text-danger"></span> ' + value + '</span>');
+    });
+}
         </script>
         <!-- Ajax -->
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#scl_nme').keyup(function () {
+                    var org_name = $('#scl_nme').val();
+                    var matches = org_name.match(/\b(\w)/g);
+                    var org_code = matches.join('').toUpperCase();
+                    $('#scl_cde').val(org_code);
+                });
+            });
+        </script>
     </body>
 </html>

@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
+use Validator;
 use Session;
 use DB;
-use Illuminate\Support\Facades\Redirect;
 
 class ProfileController extends Controller {
 
@@ -29,8 +30,8 @@ class ProfileController extends Controller {
 
         return view('dboardcontainer')->with('leftmenu', $leftMenu)->with('content', $usrProfile);
     }
-    
-    public function editProfile(){
+
+    public function editProfile() {
         $usrInfo = Session::get('usrInfo');
         if ($usrInfo->usrtyp == 'Teacher' AND $usrInfo->usrpwr == 1) {
             $leftMenu = view('menu.adminmenu');
@@ -44,6 +45,78 @@ class ProfileController extends Controller {
         }
 
         return view('dboardcontainer')->with('leftmenu', $leftMenu)->with('content', $editProfile);
+    }
+
+    public function updateProfile(Request $request) {
+        $usrId = Session::get('usrInfo')->id;
+        $sclCd = Session::get('usrInfo')->sclcd;
+
+        $proInfo = DB::table('usrpro')->select('*')->where('usrid', $usrId)->first();
+
+        $proDataValidate = Validator::make($request->all(), [
+                    'abt' => 'required|max:255',
+                    'fthr' => 'required|max:30',
+                    'mthr' => 'required|max:30',
+                    'cnt' => 'required',
+                    'dvn' => 'required',
+                    'dst' => 'required',
+                    'thn' => 'required',
+                    'adrs' => 'required|max:255',
+                    'rlgn' => 'required',
+                    'dob' => 'required|max:10',
+                    'mbl' => 'max:15',
+                    'skl' => 'max:255',
+                        ], [
+                    'abt.required' => 'You can\'t leave this empty.',
+                    'fthr.required' => 'You can\'t leave this empty.',
+                    'mthr.required' => 'You can\'t leave this empty.',
+                    'cnt.required' => 'Select your Contry.',
+                    'dvn.required' => 'Select your Division.',
+                    'dst.required' => 'Select your District.',
+                    'thn.required' => 'Select your Thana.',
+                    'adrs.required' => 'You can\'t leave this empty.',
+                    'rlgn.required' => 'Select your Relegion.',
+                    'dob.required' => 'You can\'t leave this empty.',
+                    'abt.max' => 'Maximum 255 character.',
+                    'fthr.max' => 'Maximum 30 character.',
+                    'mthr.max' => 'Maximum 30 character.',
+                    'adrs.max' => 'Maximum 255 character.',
+                    'dob.max' => 'Maximum 10 character.',
+                    'mbl.max' => 'Maximum 20 character.',
+                    'skl.max' => 'Maximum 255 character.',
+        ]);
+
+        if ($proDataValidate->passes()) {
+            $proEdtInfo = array();
+            $proEdtInfo['usrid'] = $usrId;
+            $proEdtInfo['sclcd'] = $sclCd;
+            $proEdtInfo['abt'] = $request->abt;
+            $proEdtInfo['fthr'] = $request->fthr;
+            $proEdtInfo['mthr'] = $request->mthr;
+            $proEdtInfo['cntid'] = $request->cnt;
+            $proEdtInfo['dvnid'] = $request->dvn;
+            $proEdtInfo['dstid'] = $request->dst;
+            $proEdtInfo['thnid'] = $request->thn;
+            $proEdtInfo['adr'] = $request->adrs;
+            $proEdtInfo['rlgn'] = $request->rlgn;
+            $proEdtInfo['dob'] = $request->dob;
+            $proEdtInfo['mbl'] = $request->mbl;
+            $proEdtInfo['skl'] = $request->skl;
+            
+            if ($proInfo) {
+                DB::table('usrpro')->where('usrid', $usrId)->update($proEdtInfo);
+            } else {
+                DB::table('usrpro')->insert($proEdtInfo);
+            }
+
+            return response()->json(['success' => '!!! User information successfully updated. !!!']);
+        } else {
+            return response()->json(['errors' => $proDataValidate->errors()]);
+        }
+    }
+
+    public function cngPsd() {
+        
     }
 
     /**

@@ -56,7 +56,7 @@ class SigninController extends Controller {
 
         $usrInfo = DB::table('usrreg')
                 ->join('sclreg', 'usrreg.sclcd', '=', 'sclreg.sclcde')
-                ->select('usrreg.*', 'sclreg.expdte')
+                ->select('usrreg.*', 'sclreg.sclnme', 'sclreg.scleml', 'sclreg.sclcde', 'sclreg.sclrfr', 'sclreg.jondt', 'sclreg.expdte')
                 ->whereRaw("(usrreg.usrid = '$usrName' AND usrreg.usrpsd = '$usrPsd') OR (usrreg.usreml = '$usrName' AND usrreg.usrpsd = '$usrPsd')")
                 ->first();
 
@@ -66,12 +66,22 @@ class SigninController extends Controller {
                     Session::put('errors', 'This school is not approved. Please contact to service provider.');
                     return Redirect::to('/login/');
                 }else{
-                    if ($usrInfo->usrsts == 1) {
-                        Session::put('usrInfo', $usrInfo);
-                        return Redirect::to('/');
-                    } else {
-                        Session::put('errors', 'Your account is not approved.');
+                    if($usrInfo->usrsts == 2 && $usrInfo->usrpwr == 1){
+                        Session::put('errors', 'Your account is blocked. Please contact to service provider.');
                         return Redirect::to('/login/');
+                    }else{
+                        if($usrInfo->usrsts == 2){
+                            Session::put('errors', 'Your account is blocked. Please contact to school admin.');
+                            return Redirect::to('/login/');
+                        }else{
+                            if ($usrInfo->usrsts == 1) {
+                                Session::put('usrInfo', $usrInfo);
+                                return Redirect::to('/');
+                            } else {
+                                Session::put('errors', 'Your account is not approved.');
+                                return Redirect::to('/login/');
+                            }
+                        }
                     }
                 }
             } else {

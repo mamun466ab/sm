@@ -64,6 +64,7 @@ class RegController extends Controller {
                     'adn_psd' => 'required|max:32|min:8',
                     'adn_cpd' => 'same:adn_psd',
                     'adn_rnk' => 'required|max:30',
+                    'adn_mbl' => 'required|max:15',
                         ], [
                     'scl_nme.required' => 'You can\'t leave this empty.',
                     'scl_eml.required' => 'You can\'t leave this empty.',
@@ -79,6 +80,7 @@ class RegController extends Controller {
                     'adn_uid.required' => 'You can\'t leave this empty.',
                     'adn_psd.required' => 'You can\'t leave this empty.',
                     'adn_rnk.required' => 'You can\'t leave this empty.',
+                    'adn_mbl.required' => 'You can\'t leave this empty.',
                     'adn_gnr.required' => 'You can\'t leave without select gender.',
                     'scl_nme.max' => 'Maximum 150 character.',
                     'scl_eml.max' => 'Maximum 100 character.',
@@ -95,6 +97,7 @@ class RegController extends Controller {
                     'adn_psd.max' => 'Maximum 20 character.',
                     'adn_rnk.max' => 'Maximum 30 character.',
                     'adn_psd.min' => 'Minimum 8 character.',
+                    'adn_mbl.min' => 'Minimum 15 character.',
                     'adn_cpd.same' => 'Password and confirm password not match.',
                     'scl_eml.email' => 'Please give a valid email.',
                     'adn_eml.email' => 'Please give a valid email.',
@@ -115,7 +118,7 @@ class RegController extends Controller {
             $sclRegInfo['dstid'] = $request->scl_dst;
             $sclRegInfo['thnid'] = $request->scl_thn;
             $sclRegInfo['sclrfr'] = $request->rfr_id;
-            $sclRegInfo['jondte'] = date('Y-m-d');
+            $sclRegInfo['jondt'] = date('Y-m-d');
             $sclRegInfo['expdte'] = date('Y-m-d', strtotime('+6 month'));
 
             $usrRegInfo = array();
@@ -130,6 +133,7 @@ class RegController extends Controller {
             $usrRegInfo['usrpwr'] = 1;
             $usrRegInfo['usrsts'] = 0;
             $usrRegInfo['jondte'] = date('Y-m-d');
+            $usrRegInfo['usrmbl'] = $request->adn_mbl;
 
             DB::table('sclreg')->insert($sclRegInfo);
             DB::table('usrreg')->insert($usrRegInfo);

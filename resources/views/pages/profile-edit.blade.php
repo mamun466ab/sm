@@ -22,116 +22,252 @@
                         <a href="#">
                             <img src="{{ asset('wbdlibs/img/profile-avatar.jpg') }}" alt="">
                         </a>
-                        <h1>Jonathan Smith</h1>
-                        <p>jsmith@flatlab.com</p>
+                        <h1>{{ Session::get('usrInfo')->usrnme }}</h1>
+                        <p>{{ Session::get('usrInfo')->usreml }}</p>
                     </div>
 
                     <ul class="nav nav-pills nav-stacked">
-                        <li class="active"><a href="{{ url('/profile/') }}"> <i class="icon-user"></i> Profile</a></li>
-                        <!--<li><a href="profile-activity.html"> <i class="icon-calendar"></i> Recent Activity <span class="label label-danger pull-right r-activity">9</span></a></li>-->
-                        <li><a href="{{ url('/edit-profile/') }}"> <i class="icon-edit"></i> Edit profile</a></li>
+                        <li><a href="{{ url('/profile/') }}"> <i class="icon-user"></i> Profile</a></li>
+                        <li class="active"><a href="{{ url('/edit-profile/') }}"> <i class="icon-edit"></i> Edit profile</a></li>
+                        <li><a href="{{ url('/change-password/') }}"> <i class="icon-edit"></i> Change Password</a></li>
                     </ul>
 
                 </section>
             </aside>
-                  <aside class="profile-info col-lg-9">
-                      <section class="panel">
-                          <div class="bio-graph-heading">
-                              <h1>Edit Profile</h1>
-                          </div>
-                          <div class="panel-body bio-graph-info">                              
-                              <form class="form-horizontal" role="form">
-                                  <div class="form-group">
-                                      <label for="about"  class="col-lg-2 control-label">About Me</label>
-                                      <div class="col-lg-10">
-                                          <textarea name="about" id="about" class="form-control" cols="30" rows="10">My Name is Ruhul</textarea>
-                                      </div>
-                                  </div>
-                                  <div class="form-group">
-                                      <label for="usrnme" class="col-lg-2 control-label">Name</label>
-                                      <div class="col-lg-6">
-                                          <input type="text" name="usrnme" class="form-control" id="usrnme" value="{{ Session::get('usrInfo')->usrnme }}" placeholder=" ">
-                                      </div>
-                                  </div>
-                                  <div class="form-group">
-                                      <label for="country" class="col-lg-2 control-label">Country</label>
-                                      <div class="col-lg-6">
-                                          <input type="text" name="country" class="form-control" id="country" placeholder=" ">
-                                      </div>
-                                  </div>
-                                  <div class="form-group">
-                                      <label for="birth" class="col-lg-2 control-label">Birthday</label>
-                                      <div class="col-lg-6">
-                                          <input name="birth" type="text" class="form-control" id="birth" placeholder=" ">
-                                      </div>
-                                  </div>
-                                  <div class="form-group">
-                                      <label for="email" class="col-lg-2 control-label">Email</label>
-                                      <div class="col-lg-6">
-                                          <input name="email" type="text" class="form-control" id="email" placeholder=" ">
-                                      </div>
-                                  </div>
-                                  <div class="form-group">
-                                      <label for="mobile" class="col-lg-2 control-label">Mobile</label>
-                                      <div class="col-lg-6">
-                                          <input name="mobile" type="text" class="form-control" id="mobile" placeholder=" ">
-                                      </div>
-                                  </div>
+            <aside class="profile-info col-lg-9">
+                <section class="panel">
+                    <div class="bio-graph-heading">
+                        <h1>Edit Profile</h1>
+                    </div>
+                    <?php
+                    $usrId = Session::get('usrInfo')->id;
+                    $proInfo = DB::table('usrpro')
+                            ->join('usrcnt', 'usrpro.cntid', '=', 'usrcnt.id')
+                            ->join('usrdvn', 'usrpro.dvnid', '=', 'usrdvn.id')
+                            ->join('usrdst', 'usrpro.dstid', '=', 'usrdst.id')
+                            ->join('usrthn', 'usrpro.thnid', '=', 'usrthn.id')
+                            ->select('usrpro.*', 'usrcnt.cnt', 'usrdvn.dvn', 'usrdst.dst', 'usrthn.thn')
+                            ->where('usrid', $usrId)
+                            ->first();
+                    if($proInfo){
+                        $disable = 'readonly="readonly"';
+                    }else{
+                        $disable = "";
+                    }
+                    ?> 
+                    <div class="panel-body bio-graph-info">                              
+                        <form action="{{ url('/update-profile/') }}" method="POST" enctype="multipart/form-data" class="form-horizontal" role="form" id="data_form">
+                            @csrf
+                            <div class="form-group">
+                                <label for="abt"  class="col-lg-2 control-label">About Me *</label>
+                                <div class="col-lg-10">
+                                    <textarea name="abt" id="abt" class="form-control" cols="30" rows="10" placeholder="About Yourself"><?php if($proInfo){echo $proInfo->abt;} ?></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="fthr" class="col-lg-2 control-label">Father&#8217;s Name *</label>
+                                <div class="col-lg-6">
+                                    <input type="text" name="fthr" class="form-control" id="fthr" value="<?php if($proInfo){echo $proInfo->fthr;} ?>" placeholder="Father&#8217;s Name" {{ $disable }}>
+                                </div>
+                            </div>
 
-                                  <div class="form-group">
-                                      <div class="col-lg-offset-2 col-lg-10">
-                                          <button type="submit" class="btn btn-success">Save</button>
-                                          <button type="button" class="btn btn-default">Cancel</button>
-                                      </div>
-                                  </div>
-                              </form>
-                          </div>
-                      </section>
-                      <section>
-                          <div class="panel panel-primary">
-                              <div class="panel-heading"> Sets New Password & Avatar</div>
-                              <div class="panel-body">
-                                  <form class="form-horizontal" role="form">
-                                      <div class="form-group">
-                                          <label for="crnt_psd" class="col-lg-2 control-label">Current Password</label>
-                                          <div class="col-lg-6">
-                                              <input name="crnt_psd" type="password" class="form-control" id="crnt_psd" placeholder=" ">
-                                          </div>
-                                      </div>
-                                      <div class="form-group">
-                                          <label for="new_psd" class="col-lg-2 control-label">New Password</label>
-                                          <div class="col-lg-6">
-                                              <input name="new_psd" type="password" class="form-control" id="new_psd" placeholder=" ">
-                                          </div>
-                                      </div>
-                                      <div class="form-group">
-                                          <label for="new_psd" class="col-lg-2 control-label">Re-type New Password</label>
-                                          <div class="col-lg-6">
-                                              <input name="new_psd" type="password" class="form-control" id="new_psd" placeholder=" ">
-                                          </div>
-                                      </div>
+                            <div class="form-group">
+                                <label for="mthr" class="col-lg-2 control-label">Mother&#8217;s Name *</label>
+                                <div class="col-lg-6">
+                                    <input type="text" name="mthr" class="form-control" id="mthr" value="<?php if($proInfo){echo $proInfo->mthr;} ?>" placeholder="Mother&#8217;s Name" {{ $disable }}>
+                                </div>
+                            </div>
 
-                                      <div class="form-group">
-                                          <label  class="col-lg-2 control-label">Change Profile Photo</label>
-                                          <div class="col-lg-6">
-                                              <input type="file" class="file-pos" id="exampleInputFile">
-                                          </div>
-                                      </div>
+                            <div class="form-group">
+                                <label for="cnt" class="col-sm-2 control-label"> Country *</label>
+                                <div class="col-sm-6">
+                                    <?php
+                                    $countries = DB::table('usrcnt')->get();
+                                    ?>
+                                    <select class="form-control" name="cnt" id="cnt" onchange="ajaxGET('dvn','{{URL::to('/division/')}}/'+this.value)" {{$disable}}>
+                                        <option value="<?php if($proInfo){echo $proInfo->cntid;}else{echo "";} ?>"><?php if($proInfo){echo $proInfo->cnt;}else{echo "Select Country";} ?></option>
+                                        @foreach ($countries as $country)
+                                        @if ($country->cnt == 'Bangladesh')
+                                        <option value="{{ $country->id }}">{{ $country->cnt }}</option>
+                                        @else
+                                        <option value="{{ $country->id }}" disabled="disabled">{{ $country->cnt }}</option>
+                                        @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div> <!-- /.form-group -->
 
-                                      <div class="form-group">
-                                          <div class="col-lg-offset-2 col-lg-10">
-                                              <button type="submit" class="btn btn-info">Save</button>
-                                              <button type="button" class="btn btn-default">Cancel</button>
-                                          </div>
-                                      </div>
-                                  </form>
-                              </div>
-                          </div>
-                      </section>
-                  </aside>
+                            <div class="form-group">
+                                <label for="dvn" class="col-sm-2 control-label"> Division *</label>
+                                <div class="col-sm-6">
+                                    <select class="form-control" name="dvn" id="dvn" onchange="ajaxGET('dst','{{URL::to('/district/')}}/'+this.value)" {{$disable}}>
+                                        <option value="<?php if($proInfo){echo $proInfo->dvnid;}else{echo "";} ?>"><?php if($proInfo){echo $proInfo->dvn;}else{echo "Select Country First";} ?></option>
+                                    </select>
+                                </div>
+                            </div> <!-- /.form-group -->
+
+                            <div class="form-group">
+                                <label for="dst" class="col-sm-2 control-label"> District *</label>
+                                <div class="col-sm-6">
+                                    <select class="form-control" name="dst" id="dst" onchange="ajaxGET('thn','{{URL::to('/thana/')}}/'+this.value)" {{$disable}}>
+                                        <option value="<?php if($proInfo){echo $proInfo->dstid;}else{echo "";} ?>"><?php if($proInfo){echo $proInfo->dst;}else{echo "Select Division First";} ?></option>
+                                    </select>
+                                </div>
+                            </div> <!-- /.form-group -->
+
+                            <div class="form-group">
+                                <label for="thn" class="col-sm-2 control-label"> Thana *</label>
+                                <div class="col-sm-6">
+                                    <select class="form-control" name="thn" id="thn" {{$disable}}>
+                                        <option value="<?php if($proInfo){echo $proInfo->thnid;}else{echo "";} ?>"><?php if($proInfo){echo $proInfo->thn;}else{echo "Select District First";} ?></option>
+                                    </select>
+                                </div>
+                            </div> <!-- /.form-group -->
+
+                            <div class="form-group">
+                                <label for="adrs" class="col-sm-2 control-label"> Address *</label>
+                                <div class="col-sm-6">
+                                    <input type="text" name="adrs" class="form-control" placeholder="PO,Village etc" id="adrs" value="<?php if($proInfo){echo $proInfo->adr;} ?>" {{ $disable }} />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="rlgn" class="col-sm-2 control-label"> Religion *</label>
+                                <div class="col-sm-6">
+                                    <select class="form-control" name="rlgn" id="rlgn">
+                                        <option value="<?php if($proInfo){echo $proInfo->rlgn;}else{echo "";} ?>"><?php if($proInfo){echo $proInfo->rlgn;}else{echo "Select Religion";} ?></option>
+                                        <option value="Islam">Islam</option>
+                                        <option value="Hindu">Hindu</option>
+                                        <option value="Cristian">Christianity</option>
+                                        <option value="Buddhist">Buddhist</option>
+                                    </select>
+                                </div>
+                            </div> <!-- /.form-group -->
+
+                            <div class="form-group">
+                                <label for="dob" class="col-lg-2 control-label">Date of Birth *</label>
+                                <div class="col-lg-6">
+                                    <input name="dob" type="text" class="form-control" id="datepicker1" placeholder="Date of Birth" value="<?php if($proInfo){echo $proInfo->dob;} ?>">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="mbl" class="col-lg-2 control-label">Mobile</label>
+                                <div class="col-lg-6">
+                                    <input name="mbl" type="text" class="form-control" id="mbl" placeholder="Mobile Number" value="<?php if($proInfo){echo $proInfo->mbl;} ?>">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="skl" class="col-lg-2 control-label">Other Skill</label>
+                                <div class="col-lg-6">
+                                    <input name="skl" type="text" class="form-control" id="skl" placeholder="Other's Skill" value="<?php if($proInfo){echo $proInfo->skl;} ?>">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-offset-2 col-lg-10">
+                                    <button type="submit" class="btn btn-success">Save</button>
+                                    <button type="button" class="btn btn-default">Cancel</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+                <section>
+                    <div class="panel panel-primary">
+                        <div class="panel-heading"> Sets New Password & Avatar</div>
+                        <div class="panel-body">
+                            <form class="form-horizontal" role="form">
+                                <div class="form-group">
+                                    <label for="crnt_psd" class="col-lg-2 control-label">Current Password</label>
+                                    <div class="col-lg-6">
+                                        <input name="crnt_psd" type="password" class="form-control" id="crnt_psd" placeholder=" ">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="new_psd" class="col-lg-2 control-label">New Password</label>
+                                    <div class="col-lg-6">
+                                        <input name="new_psd" type="password" class="form-control" id="new_psd" placeholder=" ">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="new_psd" class="col-lg-2 control-label">Re-type New Password</label>
+                                    <div class="col-lg-6">
+                                        <input name="new_psd" type="password" class="form-control" id="new_psd" placeholder=" ">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label  class="col-lg-2 control-label">Change Profile Photo</label>
+                                    <div class="col-lg-6">
+                                        <input type="file" class="file-pos" id="exampleInputFile">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-lg-offset-2 col-lg-10">
+                                        <button type="submit" class="btn btn-info">Save</button>
+                                        <button type="button" class="btn btn-default">Cancel</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+            </aside>
         </div>
-
         <!-- page end-->
     </section>
 </section>
+@endsection
+@section('jqueryfile')
+<script src="{{ asset('wbdlibs/ajax/ajax.js') }}"></script>
+<script src="{{ asset('wbdlibs/js/jquery-ui-1.9.2.custom.min.js') }}"></script>
+@endsection
+
+@section('jsscript')
+<!-- Ajax script for form validation -->
+$.ajaxSetup({
+headers: {
+'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+}
+});
+
+$('#data_form').on('submit', function (e) {
+e.preventDefault();
+data = $(this).serialize();
+url = $(this).attr('action');
+
+$.ajax({
+url: url,
+type: 'POST',
+data: data,
+success: function (data) {
+console.log(data);
+if ($.isEmptyObject(data.errors)) {
+console.log(data.success);
+$('#data_form')[0].reset();
+$('.text-danger').remove();
+$('.form-group').removeClass('has-error').removeClass('has-success');
+$('.print-success-msg').html(data.success);
+$('.print-success-msg').css('display', 'block');
+} else {
+printMessageErrors(data.errors);
+}
+}
+});
+});
+
+function printMessageErrors(msg) {
+$('.form-group').removeClass('has-error').find('.text-danger').remove();
+$.each(msg, function (key, value) {
+var element = $('#' + key);
+element.closest('div.form-group')
+.addClass(value.length > 0 ? 'has-error' : 'has-success');
+$('.control-label').css('color', '#797979');
+element.after('<span class="text-danger"><span class="glyphicon glyphicon-exclamation-sign text-danger"></span> ' + value + '</span>');
+});
+}
+<!-- Ajax -->
 @endsection
