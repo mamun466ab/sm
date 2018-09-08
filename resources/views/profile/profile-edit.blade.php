@@ -29,7 +29,7 @@
                     <ul class="nav nav-pills nav-stacked">
                         <li><a href="{{ url('/profile/') }}"> <i class="icon-user"></i> Profile</a></li>
                         <li class="active"><a href="{{ url('/edit-profile/') }}"> <i class="icon-edit"></i> Edit profile</a></li>
-                        <li><a href="{{ url('/change-password/') }}"> <i class="icon-edit"></i> Change Password</a></li>
+                        <li><a href="{{ url('/change-password/') }}"> <i class="icon-key"></i> Change Password</a></li>
                     </ul>
 
                 </section>
@@ -55,7 +55,8 @@
                         $disable = "";
                     }
                     ?> 
-                    <div class="panel-body bio-graph-info">                              
+                    <div class="panel-body bio-graph-info">
+                        <div class="alert alert-success print-success-msg text-center" style="display: none;"></div>
                         <form action="{{ url('/update-profile/') }}" method="POST" enctype="multipart/form-data" class="form-horizontal" role="form" id="data_form">
                             @csrf
                             <div class="form-group">
@@ -84,7 +85,7 @@
                                     <?php
                                     $countries = DB::table('usrcnt')->get();
                                     ?>
-                                    <select class="form-control" name="cnt" id="cnt" onchange="ajaxGET('dvn','{{URL::to('/division/')}}/'+this.value)" {{$disable}}>
+                                    <select class="form-control" name="cnt" id="cnt" onchange="ajaxGET('dvn','{{URL::to('/division/')}}/'+this.value)">
                                         <option value="<?php if($proInfo){echo $proInfo->cntid;}else{echo "";} ?>"><?php if($proInfo){echo $proInfo->cnt;}else{echo "Select Country";} ?></option>
                                         @foreach ($countries as $country)
                                         @if ($country->cnt == 'Bangladesh')
@@ -100,7 +101,7 @@
                             <div class="form-group">
                                 <label for="dvn" class="col-sm-2 control-label"> Division *</label>
                                 <div class="col-sm-6">
-                                    <select class="form-control" name="dvn" id="dvn" onchange="ajaxGET('dst','{{URL::to('/district/')}}/'+this.value)" {{$disable}}>
+                                    <select class="form-control" name="dvn" id="dvn" onchange="ajaxGET('dst','{{URL::to('/district/')}}/'+this.value)">
                                         <option value="<?php if($proInfo){echo $proInfo->dvnid;}else{echo "";} ?>"><?php if($proInfo){echo $proInfo->dvn;}else{echo "Select Country First";} ?></option>
                                     </select>
                                 </div>
@@ -109,7 +110,7 @@
                             <div class="form-group">
                                 <label for="dst" class="col-sm-2 control-label"> District *</label>
                                 <div class="col-sm-6">
-                                    <select class="form-control" name="dst" id="dst" onchange="ajaxGET('thn','{{URL::to('/thana/')}}/'+this.value)" {{$disable}}>
+                                    <select class="form-control" name="dst" id="dst" onchange="ajaxGET('thn','{{URL::to('/thana/')}}/'+this.value)">
                                         <option value="<?php if($proInfo){echo $proInfo->dstid;}else{echo "";} ?>"><?php if($proInfo){echo $proInfo->dst;}else{echo "Select Division First";} ?></option>
                                     </select>
                                 </div>
@@ -118,7 +119,7 @@
                             <div class="form-group">
                                 <label for="thn" class="col-sm-2 control-label"> Thana *</label>
                                 <div class="col-sm-6">
-                                    <select class="form-control" name="thn" id="thn" {{$disable}}>
+                                    <select class="form-control" name="thn" id="thn">
                                         <option value="<?php if($proInfo){echo $proInfo->thnid;}else{echo "";} ?>"><?php if($proInfo){echo $proInfo->thn;}else{echo "Select District First";} ?></option>
                                     </select>
                                 </div>
@@ -172,47 +173,6 @@
                                 </div>
                             </div>
                         </form>
-                    </div>
-                </section>
-                <section>
-                    <div class="panel panel-primary">
-                        <div class="panel-heading"> Sets New Password & Avatar</div>
-                        <div class="panel-body">
-                            <form class="form-horizontal" role="form">
-                                <div class="form-group">
-                                    <label for="crnt_psd" class="col-lg-2 control-label">Current Password</label>
-                                    <div class="col-lg-6">
-                                        <input name="crnt_psd" type="password" class="form-control" id="crnt_psd" placeholder=" ">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="new_psd" class="col-lg-2 control-label">New Password</label>
-                                    <div class="col-lg-6">
-                                        <input name="new_psd" type="password" class="form-control" id="new_psd" placeholder=" ">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="new_psd" class="col-lg-2 control-label">Re-type New Password</label>
-                                    <div class="col-lg-6">
-                                        <input name="new_psd" type="password" class="form-control" id="new_psd" placeholder=" ">
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label  class="col-lg-2 control-label">Change Profile Photo</label>
-                                    <div class="col-lg-6">
-                                        <input type="file" class="file-pos" id="exampleInputFile">
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div class="col-lg-offset-2 col-lg-10">
-                                        <button type="submit" class="btn btn-info">Save</button>
-                                        <button type="button" class="btn btn-default">Cancel</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
                     </div>
                 </section>
             </aside>

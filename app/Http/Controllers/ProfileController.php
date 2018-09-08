@@ -19,13 +19,13 @@ class ProfileController extends Controller {
         $usrInfo = Session::get('usrInfo');
         if ($usrInfo->usrtyp == 'Teacher' AND $usrInfo->usrpwr == 1) {
             $leftMenu = view('menu.adminmenu');
-            $usrProfile = view('pages.usrprofile');
+            $usrProfile = view('profile.usrprofile');
         } elseif ($usrInfo->usrtyp == 'Teacher' AND $usrInfo->usrpwr == 0) {
             $leftMenu = view('menu.teachermenu');
-            $usrProfile = view('pages.usrprofile');
+            $usrProfile = view('profile.usrprofile');
         } elseif ($usrInfo->usrtyp == 'Student' AND $usrInfo->usrpwr == 0) {
             $leftMenu = view('menu.studentmenu');
-            $usrProfile = view('pages.usrprofile');
+            $usrProfile = view('profile.usrprofile');
         }
 
         return view('dboardcontainer')->with('leftmenu', $leftMenu)->with('content', $usrProfile);
@@ -35,13 +35,29 @@ class ProfileController extends Controller {
         $usrInfo = Session::get('usrInfo');
         if ($usrInfo->usrtyp == 'Teacher' AND $usrInfo->usrpwr == 1) {
             $leftMenu = view('menu.adminmenu');
-            $editProfile = view('pages.profile-edit');
+            $editProfile = view('profile.profile-edit');
         } elseif ($usrInfo->usrtyp == 'Teacher' AND $usrInfo->usrpwr == 0) {
             $leftMenu = view('menu.teachermenu');
-            $editProfile = view('pages.profile-edit');
+            $editProfile = view('profile.profile-edit');
         } elseif ($usrInfo->usrtyp == 'Student' AND $usrInfo->usrpwr == 0) {
             $leftMenu = view('menu.studentmenu');
-            $editProfile = view('pages.profile-edit');
+            $editProfile = view('profile.profile-edit');
+        }
+
+        return view('dboardcontainer')->with('leftmenu', $leftMenu)->with('content', $editProfile);
+    }
+
+    public function passworChange() {
+        $usrInfo = Session::get('usrInfo');
+        if ($usrInfo->usrtyp == 'Teacher' AND $usrInfo->usrpwr == 1) {
+            $leftMenu = view('menu.adminmenu');
+            $editProfile = view('profile.password-change');
+        } elseif ($usrInfo->usrtyp == 'Teacher' AND $usrInfo->usrpwr == 0) {
+            $leftMenu = view('menu.teachermenu');
+            $editProfile = view('profile.password-change');
+        } elseif ($usrInfo->usrtyp == 'Student' AND $usrInfo->usrpwr == 0) {
+            $leftMenu = view('menu.studentmenu');
+            $editProfile = view('profile.password-change');
         }
 
         return view('dboardcontainer')->with('leftmenu', $leftMenu)->with('content', $editProfile);
@@ -102,7 +118,7 @@ class ProfileController extends Controller {
             $proEdtInfo['dob'] = $request->dob;
             $proEdtInfo['mbl'] = $request->mbl;
             $proEdtInfo['skl'] = $request->skl;
-            
+
             if ($proInfo) {
                 DB::table('usrpro')->where('usrid', $usrId)->update($proEdtInfo);
             } else {
@@ -115,68 +131,40 @@ class ProfileController extends Controller {
         }
     }
 
-    public function cngPsd() {
-        
-    }
+    public function changePassword(Request $request) {
+        $usrId = Session::get('usrInfo')->id;
+        $usrpsd = Session::get('usrInfo')->usrpsd;
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create() {
-        //
-    }
+        $proDataValidate = Validator::make($request->all(), [
+                    'crnt_psd' => 'required|max:32|min:8',
+                    'new_psd' => 'required|max:32|min:8',
+                    'new_cpsd' => 'required|max:32|min:8|same:new_psd',
+                        ], [
+                    'crnt_psd.required' => 'You can\'t leave this empty.',
+                    'new_psd.required' => 'You can\'t leave this empty.',
+                    'new_cpsd.required' => 'You can\'t leave this empty.',
+                    'crnt_psd.max' => 'Maximum 32 character.',
+                    'new_psd.max' => 'Maximum 32 character.',
+                    'new_cpsd.max' => 'Maximum 32 character.',
+                    'crnt_psd.min' => 'Minimum 8 character.',
+                    'new_psd.min' => 'Minimum 8 character.',
+                    'new_cpsd.min' => 'Minimum 8 character.',
+                    'new_cpsd.same' => 'New password and new confirm password not match.',
+        ]);
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request) {
-        //
-    }
+        if ($proDataValidate->passes()) {
+            $cngPsdInfo = array();
+            $cngPsdInfo['usrpsd'] = md5($request->new_psd);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id) {
-        //
-    }
+            if ($usrpsd == md5($request->crnt_psd)) {
+                DB::table('usrreg')->where('id', $usrId)->update($cngPsdInfo);
+            } else {
+                return response()->json(['errors' => array('crnt_psd' => 'Current password is not incorrect.')]);
+            }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id) {
-        //
+            return response()->json(['success' => '!!! User information successfully updated. !!!']);
+        } else {
+            return response()->json(['errors' => $proDataValidate->errors()]);
+        }
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id) {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id) {
-        //
-    }
-
 }

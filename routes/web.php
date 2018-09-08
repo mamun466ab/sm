@@ -23,6 +23,9 @@ Route::post('/user-login/', 'SigninController@usrLogin');
 Route::middleware('userCheck')->group(function(){
     Route::get('/profile/', 'ProfileController@index');
     Route::get('/edit-profile/', 'ProfileController@editProfile');
-    Route::get('/change-password/', 'ProfileController@cngPsd');
     Route::post('/update-profile/', 'ProfileController@updateProfile');
+    Route::get('/change-password/', 'ProfileController@passworChange');
+    Route::post('/password-change/', 'ProfileController@changePassword');
+    Route::get('/add-teacher/', 'AdiminController@addTeacher');
+    Route::get('/add-student/', 'AdiminController@addStudent');
 });

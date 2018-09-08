@@ -14,7 +14,7 @@ class AddUsrmblToUsrregTable extends Migration
     public function up()
     {
         Schema::table('usrreg', function (Blueprint $table) {
-            $table->string('usrmbl', 15);
+            $table->string('usrmbl', 15)->nullable();
         });
     }
 

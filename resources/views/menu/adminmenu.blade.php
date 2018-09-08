@@ -6,22 +6,35 @@
         <!-- sidebar menu start-->
         <ul class="sidebar-menu" id="nav-accordion">
             <li>
-                <a class="active" href="index.html">
+                <a href="{{ url('/') }}">
                     <i class="icon-dashboard"></i>
                     <span>Dashboard</span>
                 </a>
             </li>
+            
+            <li>
+                <a href="index.html">
+                    <i class="icon-user"></i>
+                    <span>Nominal Roll</span>
+                </a>
+            </li>
 
             <li class="sub-menu">
-                <a href="javascript:;" >
-                    <i class="icon-laptop"></i>
-                    <span>Layouts</span>
+                <a href="javascript:;" <?php if(isset($addTcrActive)){ echo $addTcrActive;}elseif(isset($addStdActive)){ echo $addStdActive;} ?>>
+                    <i class="icon-user"></i>
+                    <span>Add Member</span>
                 </a>
                 <ul class="sub">
-                    <li><a  href="boxed_page.html">Boxed Page</a></li>
-                    <li><a  href="horizontal_menu.html">Horizontal Menu</a></li>
-                    <li><a  href="language_switch_bar.html">Language Switch Bar</a></li>
+                    <li <?php if(isset($addTcrActive)){ echo $addTcrActive;} ?>><a  href="{{ url('/add-teacher/') }}">Add Teacher</a></li>
+                    <li <?php if(isset($addStdActive)){ echo $addStdActive;} ?>><a  href="{{ url('/add-student/') }}">Add Student</a></li>
                 </ul>
+            </li>
+            
+            <li>
+                <a href="add-subject">
+                    <i class="icon-book"></i>
+                    <span>Add Subject</span>
+                </a>
             </li>
 
             <li class="sub-menu">

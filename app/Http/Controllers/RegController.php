@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
+
 session_start();
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Validator;
@@ -9,6 +11,7 @@ use Session;
 use DB;
 
 class RegController extends Controller {
+
     public function index() {
         $usrInfo = Session::get('usrInfo');
         /* Signin check */
@@ -41,7 +44,7 @@ class RegController extends Controller {
         $tcrRegContent = view('home.tcrregcontent');
         return view('homecontainer')->with('content', $tcrRegContent);
     }
-
+    
     /*
      * School and admin registration
      */
@@ -111,7 +114,7 @@ class RegController extends Controller {
             $sclRegInfo = array();
             $sclRegInfo['sclnme'] = $request->scl_nme;
             $sclRegInfo['scleml'] = $request->scl_eml;
-            $sclRegInfo['sclcde'] = $request->scl_cde;
+            $sclRegInfo['sclcde'] = strtoupper($request->scl_cde);
             $sclRegInfo['scladr'] = $request->scl_adr;
             $sclRegInfo['cntid'] = $request->scl_cnt;
             $sclRegInfo['dvnid'] = $request->scl_dvn;
@@ -128,7 +131,7 @@ class RegController extends Controller {
             $usrRegInfo['usrtyp'] = "Teacher";
             $usrRegInfo['usrid'] = $request->adn_uid;
             $usrRegInfo['usrpsd'] = md5($request->adn_psd);
-            $usrRegInfo['sclcd'] = $request->scl_cde;
+            $usrRegInfo['sclcd'] = strtoupper($request->scl_cde);
             $usrRegInfo['usrrnk'] = $request->adn_rnk;
             $usrRegInfo['usrpwr'] = 1;
             $usrRegInfo['usrsts'] = 0;
@@ -191,7 +194,7 @@ class RegController extends Controller {
             $usrRegInfo['usrtyp'] = "Teacher";
             $usrRegInfo['usrid'] = $request->tcr_uid;
             $usrRegInfo['usrpsd'] = md5($request->tcr_psd);
-            $usrRegInfo['sclcd'] = $request->scl_cde;
+            $usrRegInfo['sclcd'] = strtoupper($request->scl_cde);
             $usrRegInfo['usrrnk'] = $request->tcr_rnk;
             $usrRegInfo['usrpwr'] = 0;
             $usrRegInfo['usrsts'] = 0;
@@ -258,7 +261,7 @@ class RegController extends Controller {
             $usrRegInfo['usrtyp'] = "Student";
             $usrRegInfo['usrid'] = $request->std_uid;
             $usrRegInfo['usrpsd'] = md5($request->std_psd);
-            $usrRegInfo['sclcd'] = $request->scl_cde;
+            $usrRegInfo['sclcd'] = strtoupper($request->scl_cde);
             $usrRegInfo['usrrnk'] = 0;
             $usrRegInfo['usrpwr'] = 0;
             $usrRegInfo['usrsts'] = 0;
@@ -267,13 +270,23 @@ class RegController extends Controller {
             $clsRol = array();
             $clsRol['stdcls'] = $request->std_cls;
             $clsRol['stdrol'] = $request->std_rol;
+            $clsRol['sclcd'] = strtoupper($request->scl_cde);
+
+            $clsRolInfo = DB::table('clsrol')
+                    ->select('*')
+                    ->whereRaw("(sclcd = '$request->scl_cde' AND stdcls = '$request->std_cls' AND stdrol = '$request->std_rol')")
+                    ->first();
 
             if ($checkSclCde->passes()) {
                 return response()->json(['errors' => array('scl_cde' => 'Invalid school code.')]);
             } else {
-                $id = DB::table('usrreg')->insertGetId($usrRegInfo);
-                $clsRol['stdid'] = $id;
-                DB::table('clsrol')->insert($clsRol);
+                if ($clsRolInfo) {
+                    return response()->json(['errors' => array('std_rol' => 'This class roll already exists.')]);
+                } else {
+                    $id = DB::table('usrreg')->insertGetId($usrRegInfo);
+                    $clsRol['stdid'] = $id;
+                    DB::table('clsrol')->insert($clsRol);
+                }
             }
 
             return response()->json(['success' => '!!! Teacher Registration Successfully Completed. !!!']);
@@ -281,65 +294,4 @@ class RegController extends Controller {
             return response()->json(['errors' => $stdDataValidate->errors()]);
         }
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create() {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request) {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id) {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id) {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id) {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id) {
-        //
-    }
-
 }

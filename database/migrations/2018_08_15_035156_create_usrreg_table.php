@@ -21,7 +21,7 @@ class CreateUsrregTable extends Migration
             $table->string('usrtyp', 7);
             $table->string('usrid', 30)->unique();
             $table->string('usrpsd', 32);
-            $table->string('sclcd', 30);
+            $table->string('sclcd', 8);
             $table->string('usrrnk', 30);
             $table->boolean('usrpwr');
             $table->tinyInteger('usrsts');

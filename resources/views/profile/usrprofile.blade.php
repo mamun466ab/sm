@@ -27,7 +27,7 @@
                     <ul class="nav nav-pills nav-stacked">
                         <li class="active"><a href="{{ url('/profile/') }}"> <i class="icon-user"></i> Profile</a></li>
                         <li><a href="{{ url('/edit-profile/') }}"> <i class="icon-edit"></i> Edit profile</a></li>
-                        <li><a href="{{ url('/change-password/') }}"> <i class="icon-edit"></i> Change Password</a></li>
+                        <li><a href="{{ url('/change-password/') }}"> <i class="icon-key"></i> Change Password</a></li>
                     </ul>
 
                 </section>
@@ -219,6 +219,54 @@
                             <div class="bio-row">
                                 <p><span>Referrer </span>: {{ Session::get('usrInfo')->sclrfr }}</p>
                             </div>
+                            <?php
+                            $usrType = Session::get('usrInfo')->usrtyp;
+
+                            if ($usrType = 'Student') {
+                                $clsRolInfo = DB::table('clsrol')
+                                        ->select('*')
+                                        ->where('stdid', $usrId)
+                                        ->first();
+                            ?>
+                            <div class="bio-row">
+                                <p><span>Class </span>: 
+                                    <?php
+                                        if($clsRolInfo){
+                                            if($clsRolInfo->stdcls == '6'){
+                                                echo 'Six';
+                                            }elseif ($clsRolInfo->stdcls == '7') {
+                                                echo 'Seven';
+                                            }elseif ($clsRolInfo->stdcls == '8') {
+                                                echo 'Eight';
+                                            }elseif ($clsRolInfo->stdcls == '9') {
+                                                echo 'Nine';
+                                            }elseif ($clsRolInfo->stdcls == '10') {
+                                                echo 'Ten';
+                                            }elseif ($clsRolInfo->stdcls == '11') {
+                                                echo 'Enter 1st Year';
+                                            }elseif ($clsRolInfo->stdcls == '12') {
+                                                echo 'Enter 2nd Year';
+                                            }
+                                        }else{
+                                            echo '<span style="color:red;">Not Applicable</span>';
+                                        }
+                                    ?>
+                                </p>
+                            </div>
+                            <div class="bio-row">
+                                <p><span>Roll </span>: 
+                                    <?php
+                                        if($clsRolInfo){
+                                            echo $clsRolInfo->stdrol;
+                                        }else{
+                                            echo '<span style="color:red;">Not Applicable</span>';
+                                        }
+                                    ?>
+                                </p>
+                            </div>
+                            <?php 
+                            }
+                            ?>
                         </div>
 
                         <div class="row">

@@ -3,14 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/F:/xampp/htdocs/OneDrive/sm/resources/views/pages/profile-edit.blade.php</file>
-            <file>file:/F:/xampp/htdocs/OneDrive/sm/app/Http/Controllers/RegController.php</file>
-            <file>file:/F:/xampp/htdocs/OneDrive/sm/resources/views/home/sclregcontent.blade.php</file>
+            <file>file:/F:/xampp/htdocs/OneDrive/sm/resources/views/dashboard/admin.blade.php</file>
+            <file>file:/F:/xampp/htdocs/OneDrive/sm/app/Http/Controllers/AdiminController.php</file>
+            <file>file:/F:/xampp/htdocs/OneDrive/sm/resources/views/admin/add-student.blade.php</file>
+            <file>file:/F:/xampp/htdocs/OneDrive/sm/resources/views/menu/adminmenu.blade.php</file>
+            <file>file:/F:/xampp/htdocs/OneDrive/sm/resources/views/admin/add-teacher.blade.php</file>
             <file>file:/F:/xampp/htdocs/OneDrive/sm/routes/web.php</file>
-            <file>file:/F:/xampp/htdocs/OneDrive/sm/app/Http/Controllers/ProfileController.php</file>
             <file>file:/F:/xampp/htdocs/OneDrive/sm/app/Http/Controllers/SigninController.php</file>
-            <file>file:/F:/xampp/htdocs/OneDrive/sm/resources/views/pages/usrprofile.blade.php</file>
+            <file>file:/F:/xampp/htdocs/OneDrive/sm/wbdlibs/js/count.js</file>
             <file>file:/F:/xampp/htdocs/OneDrive/sm/resources/views/dboardcontainer.blade.php</file>
+            <file>file:/F:/xampp/htdocs/OneDrive/sm/resources/views/profile/profile-edit.blade.php</file>
         </group>
     </open-files>
 </project-private>
