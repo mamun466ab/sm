@@ -10,9 +10,29 @@ use Session;
 class AdiminController extends Controller
 {
     /*
-     * load add-teacher page for admin admon
+     * load student-list page for admin
      */
+    public function studentList(){
+        $usrInfo = Session::get('usrInfo');
+        $url = url()->current();
+        $urlParts = explode('/', $url);
+        $endParts = end($urlParts);
+        if($endParts == 'student-list'){
+            $activeClass = 'class="active"';
+        }
+        if ($usrInfo->usrtyp == 'Teacher' AND $usrInfo->usrpwr == 1) {
+            $leftMenu = view('menu.adminmenu')->with('addStdLstActive', $activeClass);
+            $addTeacher = view('admin.student-list');
+        } else{
+            return Redirect::to('/');
+        }
+
+        return view('dboardcontainer')->with('leftmenu', $leftMenu)->with('content', $addTeacher);
+    }
     
+    /*
+     * load add-teacher page for admin
+     */
     public function addTeacher(){
         $usrInfo = Session::get('usrInfo');
         $url = url()->current();
@@ -30,6 +50,10 @@ class AdiminController extends Controller
 
         return view('dboardcontainer')->with('leftmenu', $leftMenu)->with('content', $addTeacher);
     }
+    
+    /*
+     * load add-student page for admin
+     */
     
     public function addStudent(){
         $usrInfo = Session::get('usrInfo');

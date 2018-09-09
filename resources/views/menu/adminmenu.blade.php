@@ -6,16 +6,16 @@
         <!-- sidebar menu start-->
         <ul class="sidebar-menu" id="nav-accordion">
             <li>
-                <a href="{{ url('/') }}">
+                <a href="{{ url('/') }}" <?php if(isset($dBrdActv)){ echo $dBrdActv;} ?>>
                     <i class="icon-dashboard"></i>
                     <span>Dashboard</span>
                 </a>
             </li>
             
             <li>
-                <a href="index.html">
+                <a href="student-list" <?php if(isset($addStdLstActive)){ echo $addStdLstActive;} ?>>
                     <i class="icon-user"></i>
-                    <span>Nominal Roll</span>
+                    <span>Student List</span>
                 </a>
             </li>
 
