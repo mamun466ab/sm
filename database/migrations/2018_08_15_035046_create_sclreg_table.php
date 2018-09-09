@@ -24,7 +24,7 @@ class CreateSclregTable extends Migration
             $table->unsignedInteger('dstid');
             $table->unsignedInteger('thnid');
             $table->string('sclrfr', 30)->nullable();
-            $table->string('jondte', 10);
+            $table->string('jondt', 10);
             $table->string('expdte', 10);
         });
     }

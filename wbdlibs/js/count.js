@@ -18,8 +18,8 @@ function countUp(count)
         }
     }, int_speed);
 }
-
-countUp(495);
+var count = document.getElementById("cont").textContent;
+countUp(count);
 
 function countUp2(count)
 {
@@ -41,8 +41,8 @@ function countUp2(count)
         }
     }, int_speed);
 }
-
-countUp2(947);
+var count2 = document.getElementById("cont2").textContent;
+countUp2(count2);
 
 function countUp3(count)
 {
@@ -64,8 +64,8 @@ function countUp3(count)
         }
     }, int_speed);
 }
-
-countUp3(328);
+var count3 = document.getElementById("cont3").textContent;
+countUp3(count3);
 
 function countUp4(count)
 {
@@ -87,5 +87,5 @@ function countUp4(count)
         }
     }, int_speed);
 }
-
-countUp4(10328);
+var count4 = document.getElementById("cont4").textContent;
+countUp4(count4);

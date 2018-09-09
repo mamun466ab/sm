@@ -56,7 +56,7 @@ class SigninController extends Controller {
 
         $usrInfo = DB::table('usrreg')
                 ->join('sclreg', 'usrreg.sclcd', '=', 'sclreg.sclcde')
-                ->select('usrreg.*', 'sclreg.expdte')
+                ->select('usrreg.*', 'sclreg.sclnme', 'sclreg.scleml', 'sclreg.sclcde', 'sclreg.sclrfr', 'sclreg.jondt', 'sclreg.expdte')
                 ->whereRaw("(usrreg.usrid = '$usrName' AND usrreg.usrpsd = '$usrPsd') OR (usrreg.usreml = '$usrName' AND usrreg.usrpsd = '$usrPsd')")
                 ->first();
 
@@ -66,12 +66,22 @@ class SigninController extends Controller {
                     Session::put('errors', 'This school is not approved. Please contact to service provider.');
                     return Redirect::to('/login/');
                 }else{
-                    if ($usrInfo->usrsts == 1) {
-                        Session::put('usrInfo', $usrInfo);
-                        return Redirect::to('/');
-                    } else {
-                        Session::put('errors', 'Your account is not approved.');
+                    if($usrInfo->usrsts == 2 && $usrInfo->usrpwr == 1){
+                        Session::put('errors', 'Your account is blocked. Please contact to service provider.');
                         return Redirect::to('/login/');
+                    }else{
+                        if($usrInfo->usrsts == 2){
+                            Session::put('errors', 'Your account is blocked. Please contact to school admin.');
+                            return Redirect::to('/login/');
+                        }else{
+                            if ($usrInfo->usrsts == 1) {
+                                Session::put('usrInfo', $usrInfo);
+                                return Redirect::to('/');
+                            } else {
+                                Session::put('errors', 'Your account is not approved.');
+                                return Redirect::to('/login/');
+                            }
+                        }
                     }
                 }
             } else {
@@ -89,65 +99,4 @@ class SigninController extends Controller {
         Session::forget('usrInfo');
         return Redirect::to('/login/');
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create() {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request) {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id) {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id) {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id) {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id) {
-        //
-    }
-
 }

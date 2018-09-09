@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateClsrolTable extends Migration
+class AddUsrmblToUsrregTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class CreateClsrolTable extends Migration
      */
     public function up()
     {
-        Schema::create('clsrol', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedInteger('stdid');
-            $table->string('sclcd', 8);
-            $table->unsignedInteger('stdcls');
-            $table->unsignedInteger('stdrol');
+        Schema::table('usrreg', function (Blueprint $table) {
+            $table->string('usrmbl', 15)->nullable();
         });
     }
 
@@ -29,6 +25,8 @@ class CreateClsrolTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('clsrol');
+        Schema::table('usrreg', function (Blueprint $table) {
+            //
+        });
     }
 }

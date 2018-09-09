@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
+
 session_start();
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Validator;
@@ -9,6 +11,7 @@ use Session;
 use DB;
 
 class RegController extends Controller {
+
     public function index() {
         $usrInfo = Session::get('usrInfo');
         /* Signin check */
@@ -41,7 +44,7 @@ class RegController extends Controller {
         $tcrRegContent = view('home.tcrregcontent');
         return view('homecontainer')->with('content', $tcrRegContent);
     }
-
+    
     /*
      * School and admin registration
      */
@@ -64,6 +67,7 @@ class RegController extends Controller {
                     'adn_psd' => 'required|max:32|min:8',
                     'adn_cpd' => 'same:adn_psd',
                     'adn_rnk' => 'required|max:30',
+                    'adn_mbl' => 'required|max:15',
                         ], [
                     'scl_nme.required' => 'You can\'t leave this empty.',
                     'scl_eml.required' => 'You can\'t leave this empty.',
@@ -79,6 +83,7 @@ class RegController extends Controller {
                     'adn_uid.required' => 'You can\'t leave this empty.',
                     'adn_psd.required' => 'You can\'t leave this empty.',
                     'adn_rnk.required' => 'You can\'t leave this empty.',
+                    'adn_mbl.required' => 'You can\'t leave this empty.',
                     'adn_gnr.required' => 'You can\'t leave without select gender.',
                     'scl_nme.max' => 'Maximum 150 character.',
                     'scl_eml.max' => 'Maximum 100 character.',
@@ -95,6 +100,7 @@ class RegController extends Controller {
                     'adn_psd.max' => 'Maximum 20 character.',
                     'adn_rnk.max' => 'Maximum 30 character.',
                     'adn_psd.min' => 'Minimum 8 character.',
+                    'adn_mbl.min' => 'Minimum 15 character.',
                     'adn_cpd.same' => 'Password and confirm password not match.',
                     'scl_eml.email' => 'Please give a valid email.',
                     'adn_eml.email' => 'Please give a valid email.',
@@ -108,14 +114,14 @@ class RegController extends Controller {
             $sclRegInfo = array();
             $sclRegInfo['sclnme'] = $request->scl_nme;
             $sclRegInfo['scleml'] = $request->scl_eml;
-            $sclRegInfo['sclcde'] = $request->scl_cde;
+            $sclRegInfo['sclcde'] = strtoupper($request->scl_cde);
             $sclRegInfo['scladr'] = $request->scl_adr;
             $sclRegInfo['cntid'] = $request->scl_cnt;
             $sclRegInfo['dvnid'] = $request->scl_dvn;
             $sclRegInfo['dstid'] = $request->scl_dst;
             $sclRegInfo['thnid'] = $request->scl_thn;
             $sclRegInfo['sclrfr'] = $request->rfr_id;
-            $sclRegInfo['jondte'] = date('Y-m-d');
+            $sclRegInfo['jondt'] = date('Y-m-d');
             $sclRegInfo['expdte'] = date('Y-m-d', strtotime('+6 month'));
 
             $usrRegInfo = array();
@@ -125,11 +131,12 @@ class RegController extends Controller {
             $usrRegInfo['usrtyp'] = "Teacher";
             $usrRegInfo['usrid'] = $request->adn_uid;
             $usrRegInfo['usrpsd'] = md5($request->adn_psd);
-            $usrRegInfo['sclcd'] = $request->scl_cde;
+            $usrRegInfo['sclcd'] = strtoupper($request->scl_cde);
             $usrRegInfo['usrrnk'] = $request->adn_rnk;
             $usrRegInfo['usrpwr'] = 1;
             $usrRegInfo['usrsts'] = 0;
             $usrRegInfo['jondte'] = date('Y-m-d');
+            $usrRegInfo['usrmbl'] = $request->adn_mbl;
 
             DB::table('sclreg')->insert($sclRegInfo);
             DB::table('usrreg')->insert($usrRegInfo);
@@ -187,7 +194,7 @@ class RegController extends Controller {
             $usrRegInfo['usrtyp'] = "Teacher";
             $usrRegInfo['usrid'] = $request->tcr_uid;
             $usrRegInfo['usrpsd'] = md5($request->tcr_psd);
-            $usrRegInfo['sclcd'] = $request->scl_cde;
+            $usrRegInfo['sclcd'] = strtoupper($request->scl_cde);
             $usrRegInfo['usrrnk'] = $request->tcr_rnk;
             $usrRegInfo['usrpwr'] = 0;
             $usrRegInfo['usrsts'] = 0;
@@ -254,7 +261,7 @@ class RegController extends Controller {
             $usrRegInfo['usrtyp'] = "Student";
             $usrRegInfo['usrid'] = $request->std_uid;
             $usrRegInfo['usrpsd'] = md5($request->std_psd);
-            $usrRegInfo['sclcd'] = $request->scl_cde;
+            $usrRegInfo['sclcd'] = strtoupper($request->scl_cde);
             $usrRegInfo['usrrnk'] = 0;
             $usrRegInfo['usrpwr'] = 0;
             $usrRegInfo['usrsts'] = 0;
@@ -263,13 +270,23 @@ class RegController extends Controller {
             $clsRol = array();
             $clsRol['stdcls'] = $request->std_cls;
             $clsRol['stdrol'] = $request->std_rol;
+            $clsRol['sclcd'] = strtoupper($request->scl_cde);
+
+            $clsRolInfo = DB::table('clsrol')
+                    ->select('*')
+                    ->whereRaw("(sclcd = '$request->scl_cde' AND stdcls = '$request->std_cls' AND stdrol = '$request->std_rol')")
+                    ->first();
 
             if ($checkSclCde->passes()) {
                 return response()->json(['errors' => array('scl_cde' => 'Invalid school code.')]);
             } else {
-                $id = DB::table('usrreg')->insertGetId($usrRegInfo);
-                $clsRol['stdid'] = $id;
-                DB::table('clsrol')->insert($clsRol);
+                if ($clsRolInfo) {
+                    return response()->json(['errors' => array('std_rol' => 'This class roll already exists.')]);
+                } else {
+                    $id = DB::table('usrreg')->insertGetId($usrRegInfo);
+                    $clsRol['stdid'] = $id;
+                    DB::table('clsrol')->insert($clsRol);
+                }
             }
 
             return response()->json(['success' => '!!! Teacher Registration Successfully Completed. !!!']);
@@ -277,65 +294,4 @@ class RegController extends Controller {
             return response()->json(['errors' => $stdDataValidate->errors()]);
         }
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create() {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request) {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id) {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id) {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id) {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id) {
-        //
-    }
-
 }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateClsrolTable extends Migration
+class CreateExtsubTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateClsrolTable extends Migration
      */
     public function up()
     {
-        Schema::create('clsrol', function (Blueprint $table) {
+        Schema::create('extsub', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('stdid');
-            $table->string('sclcd', 8);
-            $table->unsignedInteger('stdcls');
-            $table->unsignedInteger('stdrol');
+            $table->string('sclcde', 8);
+            $table->string('sub', 30);
+            $table->unsignedInteger('subcd')->unique();
         });
     }
 
@@ -29,6 +28,6 @@ class CreateClsrolTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('clsrol');
+        Schema::dropIfExists('extsub');
     }
 }

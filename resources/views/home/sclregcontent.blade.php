@@ -138,6 +138,13 @@
             </div>
             
             <div class="form-group">
+                <label for="adn_mbl" class="col-sm-3 control-label">Admin Mobile *</label>
+                <div class="col-sm-9">
+                    <input type="text" name="adn_mbl" class="form-control" placeholder="Admin Mobile Number" id="adn_mbl" />
+                </div>
+            </div>
+            
+            <div class="form-group">
                 <label for="adn_uid" class="col-sm-3 control-label">Admin Username *</label>
                 <div class="col-sm-9">
                     <input type="text" name="adn_uid" class="form-control" placeholder="Admin Username" id="adn_uid" />
