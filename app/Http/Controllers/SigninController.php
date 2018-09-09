@@ -16,6 +16,12 @@ class SigninController extends Controller {
      */
     public function index() {
         $usrInfo = Session::get('usrInfo');
+        $url = url()->current();
+        $urlParts = explode('/', $url);
+        $endParts = end($urlParts);
+        if($endParts == 'sm'){
+            $activeClass = 'class="active"';
+        }
         /* Signin check */
         if($usrInfo == NULL){
             return Redirect::to('/login/');
@@ -25,7 +31,7 @@ class SigninController extends Controller {
         $leftMenu = "";
         
         if ($usrInfo->usrtyp == 'Teacher' AND $usrInfo->usrpwr == 1) {
-            $leftMenu = view('menu.adminmenu');
+            $leftMenu = view('menu.adminmenu')->with('dBrdActv', $activeClass);
             $adminContent = view('dashboard.admin');
         } elseif ($usrInfo->usrtyp == 'Teacher' AND $usrInfo->usrpwr == 0) {
             $leftMenu = view('menu.teachermenu');
