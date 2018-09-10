@@ -28,14 +28,8 @@ Route::middleware('userCheck')->group(function(){
     Route::post('/password-change/', 'ProfileController@changePassword');
     Route::get('/add-teacher/', 'AdiminController@addTeacher');
     Route::get('/add-student/', 'AdiminController@addStudent');
-    Route::get('/student-list/', 'AdiminController@studentList');
+    Route::get('/student-list/', 'CommonController@studentList');
 });
-
-
-
-
-
-
 
 //Super Admin Area ==============================
 Route::get('/sm-super-admin/', 'SuperAdminController@index');

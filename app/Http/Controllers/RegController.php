@@ -112,10 +112,10 @@ class RegController extends Controller {
 
         if ($sclDataValidate->passes()) {
             $sclRegInfo = array();
-            $sclRegInfo['sclnme'] = $request->scl_nme;
+            $sclRegInfo['sclnme'] = ucfirst($request->scl_nme);
             $sclRegInfo['scleml'] = $request->scl_eml;
             $sclRegInfo['sclcde'] = strtoupper($request->scl_cde);
-            $sclRegInfo['scladr'] = $request->scl_adr;
+            $sclRegInfo['scladr'] = ucfirst($request->scl_adr);
             $sclRegInfo['cntid'] = $request->scl_cnt;
             $sclRegInfo['dvnid'] = $request->scl_dvn;
             $sclRegInfo['dstid'] = $request->scl_dst;
@@ -125,14 +125,14 @@ class RegController extends Controller {
             $sclRegInfo['expdte'] = date('Y-m-d', strtotime('+6 month'));
 
             $usrRegInfo = array();
-            $usrRegInfo['usrnme'] = $request->adn_nme;
+            $usrRegInfo['usrnme'] = ucfirst($request->adn_nme);
             $usrRegInfo['usreml'] = $request->adn_eml;
             $usrRegInfo['usrgnr'] = $request->adn_gnr;
             $usrRegInfo['usrtyp'] = "Teacher";
             $usrRegInfo['usrid'] = $request->adn_uid;
             $usrRegInfo['usrpsd'] = md5($request->adn_psd);
             $usrRegInfo['sclcd'] = strtoupper($request->scl_cde);
-            $usrRegInfo['usrrnk'] = $request->adn_rnk;
+            $usrRegInfo['usrrnk'] = ucfirst($request->adn_rnk);
             $usrRegInfo['usrpwr'] = 1;
             $usrRegInfo['usrsts'] = 0;
             $usrRegInfo['jondte'] = date('Y-m-d');
@@ -188,14 +188,14 @@ class RegController extends Controller {
 
         if ($tcrDataValidate->passes()) {
             $usrRegInfo = array();
-            $usrRegInfo['usrnme'] = $request->tcr_nme;
+            $usrRegInfo['usrnme'] = ucfirst($request->tcr_nme);
             $usrRegInfo['usreml'] = $request->tcr_eml;
             $usrRegInfo['usrgnr'] = $request->tcr_gnr;
             $usrRegInfo['usrtyp'] = "Teacher";
             $usrRegInfo['usrid'] = $request->tcr_uid;
             $usrRegInfo['usrpsd'] = md5($request->tcr_psd);
             $usrRegInfo['sclcd'] = strtoupper($request->scl_cde);
-            $usrRegInfo['usrrnk'] = $request->tcr_rnk;
+            $usrRegInfo['usrrnk'] = ucfirst($request->tcr_rnk);
             $usrRegInfo['usrpwr'] = 0;
             $usrRegInfo['usrsts'] = 0;
             $usrRegInfo['jondte'] = date('Y-m-d');
@@ -227,6 +227,7 @@ class RegController extends Controller {
                     'std_psd' => 'required|max:32|min:8',
                     'std_cpd' => 'same:std_psd',
                     'scl_cde' => 'required|max:8',
+                    'ssn_yr' => 'required',
                         ], [
                     'std_nme.required' => 'You can\'t leave this empty.',
                     'std_eml.required' => 'You can\'t leave this empty.',
@@ -236,6 +237,7 @@ class RegController extends Controller {
                     'scl_cde.required' => 'You can\'t leave this empty.',
                     'std_gnr.required' => 'You can\'t leave without select gender.',
                     'std_cls.required' => 'You can\'t leave without select gender.',
+                    'ssn_yr.required' => 'You can\'t leave without select session.',
                     'std_nme.max' => 'Maximum 100 character.',
                     'std_eml.max' => 'Maximum 100 character.',
                     'std_uid.max' => 'Maximum 30 character.',
@@ -255,7 +257,7 @@ class RegController extends Controller {
 
         if ($stdDataValidate->passes()) {
             $usrRegInfo = array();
-            $usrRegInfo['usrnme'] = $request->std_nme;
+            $usrRegInfo['usrnme'] = ucfirst($request->std_nme);
             $usrRegInfo['usreml'] = $request->std_eml;
             $usrRegInfo['usrgnr'] = $request->std_gnr;
             $usrRegInfo['usrtyp'] = "Student";
@@ -271,10 +273,11 @@ class RegController extends Controller {
             $clsRol['stdcls'] = $request->std_cls;
             $clsRol['stdrol'] = $request->std_rol;
             $clsRol['sclcd'] = strtoupper($request->scl_cde);
+            $clsRol['yr'] = $request->ssn_yr;
 
             $clsRolInfo = DB::table('clsrol')
                     ->select('*')
-                    ->whereRaw("(sclcd = '$request->scl_cde' AND stdcls = '$request->std_cls' AND stdrol = '$request->std_rol')")
+                    ->whereRaw("(sclcd = '$request->scl_cde' AND stdcls = '$request->std_cls' AND stdrol = '$request->std_rol' AND yr = '$request->ssn_yr')")
                     ->first();
 
             if ($checkSclCde->passes()) {

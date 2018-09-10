@@ -67,6 +67,19 @@
                     </div>
 
                     <div class="form-group">
+                        <label for="ssn_yr" class="col-sm-3 control-label">Session *</label>
+                        <div class="col-sm-9">
+                            <select name="ssn_yr" id="ssn_yr" class="form-control" style="color: #000; padding: 6px; margin-top: 15px;">
+                                <option value="">Select Year</option>
+
+                                @for($i = 2010; $i <= date('Y'); $i++){
+                                <option value="{{ $i }}">{{ $i }}</option>
+                                @endfor;
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
                         <label for="scl_cde" class="col-sm-3 control-label">School Code *</label>
                         <div class="col-sm-9" style="margin-bottom: 15px;">
                             <input type="text" name="scl_cde" class="form-control" value="{{ Session::get('usrInfo')->sclcde }}" id="scl_cde" readonly="readonly" />
