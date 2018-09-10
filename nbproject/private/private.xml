@@ -6,8 +6,11 @@
             <file>file:/F:/xampp/htdocs/OneDrive/sm/resources/views/dashboard/admin.blade.php</file>
             <file>file:/F:/xampp/htdocs/OneDrive/sm/resources/views/admin/student-list.blade.php</file>
             <file>file:/F:/xampp/htdocs/OneDrive/sm/app/Http/Controllers/AdiminController.php</file>
+            <file>file:/F:/xampp/htdocs/OneDrive/sm/database/migrations/2018_09_10_163350_add_year_to_clsrol_table.php</file>
             <file>file:/F:/xampp/htdocs/OneDrive/sm/resources/views/menu/adminmenu.blade.php</file>
             <file>file:/F:/xampp/htdocs/OneDrive/sm/resources/views/admin/add-teacher.blade.php</file>
+            <file>file:/F:/xampp/htdocs/OneDrive/sm/app/Http/Controllers/RegController.php</file>
+            <file>file:/F:/xampp/htdocs/OneDrive/sm/database/migrations/2018_09_08_175249_create_extsub_table.php</file>
             <file>file:/F:/xampp/htdocs/OneDrive/sm/routes/web.php</file>
             <file>file:/F:/xampp/htdocs/OneDrive/sm/app/Http/Controllers/SigninController.php</file>
             <file>file:/F:/xampp/htdocs/OneDrive/sm/resources/views/dboardcontainer.blade.php</file>

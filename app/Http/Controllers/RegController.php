@@ -227,6 +227,7 @@ class RegController extends Controller {
                     'std_psd' => 'required|max:32|min:8',
                     'std_cpd' => 'same:std_psd',
                     'scl_cde' => 'required|max:8',
+                    'ssn_yr' => 'required',
                         ], [
                     'std_nme.required' => 'You can\'t leave this empty.',
                     'std_eml.required' => 'You can\'t leave this empty.',
@@ -236,6 +237,7 @@ class RegController extends Controller {
                     'scl_cde.required' => 'You can\'t leave this empty.',
                     'std_gnr.required' => 'You can\'t leave without select gender.',
                     'std_cls.required' => 'You can\'t leave without select gender.',
+                    'ssn_yr.required' => 'You can\'t leave without select session.',
                     'std_nme.max' => 'Maximum 100 character.',
                     'std_eml.max' => 'Maximum 100 character.',
                     'std_uid.max' => 'Maximum 30 character.',
@@ -271,10 +273,11 @@ class RegController extends Controller {
             $clsRol['stdcls'] = $request->std_cls;
             $clsRol['stdrol'] = $request->std_rol;
             $clsRol['sclcd'] = strtoupper($request->scl_cde);
+            $clsRol['yr'] = $request->ssn_yr;
 
             $clsRolInfo = DB::table('clsrol')
                     ->select('*')
-                    ->whereRaw("(sclcd = '$request->scl_cde' AND stdcls = '$request->std_cls' AND stdrol = '$request->std_rol')")
+                    ->whereRaw("(sclcd = '$request->scl_cde' AND stdcls = '$request->std_cls' AND stdrol = '$request->std_rol' AND yr = '$request->ssn_yr')")
                     ->first();
 
             if ($checkSclCde->passes()) {
