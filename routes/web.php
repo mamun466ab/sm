@@ -29,7 +29,6 @@ Route::middleware('userCheck')->group(function(){
     Route::get('/add-teacher/', 'AdiminController@addTeacher');
     Route::get('/add-student/', 'AdiminController@addStudent');
     Route::get('/student-list/', 'CommonController@studentList');
-    Route::get('/student-list/', 'AdiminController@studentList');
 });
 
 //Super Admin Area ==============================

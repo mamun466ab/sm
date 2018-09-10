@@ -9,8 +9,26 @@
         <!-- page start-->
         <div class="row">
             <div class="col-lg-12">
+                <?php
+                $sclCde = Session::get('usrInfo')->sclcd;
+                $sclInfo = DB::table('sclreg')
+                        ->join('usrdst', 'sclreg.dstid', '=', 'usrdst.id')
+                        ->join('usrthn', 'sclreg.thnid', '=', 'usrthn.id')
+                        ->select('sclreg.*', 'usrdst.dst', 'usrthn.thn')
+                        ->where('sclreg.sclcde', $sclCde)
+                        ->first();
+                ?>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
                 <section class="panel">
                     <header class="panel-heading">
+                        <p style="text-align: center;">
+                            <span style="font-size: 33px; font-weight: bold;">{{ $sclInfo->sclnme }}</span><br />
+                            <span style="font-size: 18px; font-weight: bold;">{{ $sclInfo->scladr }}</span><br />
+                            <span style="font-size: 18px; font-weight: bold;">{{ $sclInfo->thn }}, {{ $sclInfo->dst }}</span><br />
+                        </p>
                         Student List
                     </header>
                     <div class="panel-body">
@@ -28,7 +46,6 @@
                                     </tr>
                                 </thead>
                                 <?php
-                                $sclCde = Session::get('usrInfo')->sclcd;
                                 $stdInfo = DB::table('clsrol')
                                         ->join('usrreg', 'clsrol.stdid', '=', 'usrreg.id')
                                         ->select('clsrol.*', 'usrreg.usrnme', 'usrreg.usreml', 'usrreg.usrid', 'usrreg.usrmbl', 'usrreg.jondte')
@@ -42,7 +59,23 @@
                                     <tr>
                                         <td>{{ $val->stdrol }}</td>
                                         <td>{{ $val->usrnme }}</td>
-                                        <td>{{ $val->stdcls }}</td>
+                                        <td>
+                                            @if($val->stdcls == 6)
+                                            Six
+                                            @elseif($val->stdcls == 7)
+                                            Seven
+                                            @elseif($val->stdcls == 8)
+                                            Eight
+                                            @elseif($val->stdcls == 9)
+                                            Nine
+                                            @elseif($val->stdcls == 10)
+                                            Ten
+                                            @elseif($val->stdcls == 11)
+                                            Enter 1st Year
+                                            @elseif($val->stdcls == 12)
+                                            Enter 2nd Year
+                                            @endif
+                                        </td>
                                         <td>{{ $val->usreml }}</td>
                                         <td>{{ $val->usrmbl }}</td>
                                         <td>{{ $val->jondte }}</td>
