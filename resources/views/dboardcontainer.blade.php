@@ -16,7 +16,7 @@
         <!--external css-->
         <link href="{{ asset('wbdlibs/assets/font-awesome/css/font-awesome.css') }}" rel="stylesheet" />
         <link href="{{ asset('wbdlibs/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css') }}" rel="stylesheet" type="text/css" media="screen"/>
-        <link rel="stylesheet" href="{{ asset('wbdlibs/css/owl.carousel.css') }}" type="text/css">
+        <link href="{{ asset('wbdlibs/css/owl.carousel.css') }}" rel="stylesheet" type="text/css">
         <!-- Custom styles for this template -->
         <link href="{{ asset('wbdlibs/css/jquery-ui.css') }}" rel="stylesheet">
         <link href="{{ asset('wbdlibs/css/style.css') }}" rel="stylesheet">
@@ -31,17 +31,17 @@
     </head>
 
     <body>
-
         <section id="container" >
             <!--<div class="row">-->
-            <div class="col-lg-12" style="background: #033; color: #fff; padding: 2px; font-weight: bold;">
-                <span style="padding-left: 15px;">{{ Session::get('usrInfo')->sclnme }}</span>
-                <span class="pull-right" style="padding-right: 15px;">{{ date('Y-m-d') }}</span>
-            </div>
+
             <!--</div>-->
             <!--header start-->
-            <header class="header white-bg">
-                <div class="sidebar-toggle-box">
+            <header class="header white-bg" style="padding: 0 0">
+                <div class="col-lg-12" style="background: #033; color: #fff; padding: 2px; font-weight: bold;">
+                    <span style="padding-left: 15px;">{{ Session::get('usrInfo')->sclnme }}</span>
+                    <span class="pull-right" style="padding-right: 15px;">Expire Date : {{ Session::get('usrInfo')->expdte }}</span>
+                </div>
+                <div class="sidebar-toggle-box" style="margin-left: 15px;">
                     <div data-original-title="Toggle Navigation" data-placement="right" class="icon-reorder tooltips"></div>
                 </div>
                 <!--logo start-->
@@ -254,7 +254,7 @@
                     </ul>
                     <!--  notification end -->
                 </div>
-                <div class="top-nav ">
+                <div class="top-nav" style="margin-right: 15px;">
                     <!--search & user info start-->
                     <ul class="nav pull-right top-menu">
                         <li>
@@ -294,7 +294,6 @@
             </footer>
             <!--footer end-->
         </section>
-
         <!-- js placed at the end of the document so the pages load faster -->
         <!--<script src="{{ asset('wbdlibs/js/jquery.js') }}"></script>-->
         <!--<script src="{{ asset('wbdlibs/js/jquery-1.8.3.min.js') }}"></script>-->
@@ -340,38 +339,5 @@ $(function(){
 $('select.styled').customSelect();
 });
         </script>
-<!--        <script>
-            $(function () {
-            var tyear = new Date();
-            var year = tyear.getFullYear(); //yields year
-            $("#datepicker").keydown(function () {
-            return false;
-            })
-                    .datepicker({
-                    dateFormat: 'yy-mm-dd',
-                            changeMonth: true,
-                            changeYear: true,
-                            yearRange: '1730:' + year
-                    });
-            });
-        </script>-->
-        <script>
-            $(function() {
-            var closeText = $("#datepicker1").datepicker("option", "closeText")
-                    $("#datepicker1").datepicker({
-            dateFormat:'yy-mm-dd',
-                    changeYear: true,
-                    changeMonth: true,
-                    yearRange: '1930:2050',
-            });
-            $("#datepicker2").datepicker({
-            dateFormat:'yy-mm-dd',
-                    changeYear: true,
-                    changeMonth: true,
-                    yearRange: '1930:2050',
-            });
-            });
-        </script>
-
     </body>
 </html>

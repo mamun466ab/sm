@@ -4,7 +4,7 @@
 
 @section('content')
 <!--main content start-->
-<section id="main-content">
+<section id="main-content" style="padding-top: 15px;">
     <section class="wrapper">
         <!--state overview start-->
         <div class="row state-overview">

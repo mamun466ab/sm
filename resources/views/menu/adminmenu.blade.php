@@ -31,7 +31,7 @@
             </li>
             
             <li>
-                <a href="add-subject">
+                <a href="{{ url('add-subject') }}" <?php if(isset($addSubject)){ echo $addSubject;} ?>>
                     <i class="icon-book"></i>
                     <span>Add Subject</span>
                 </a>
