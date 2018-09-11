@@ -33,6 +33,12 @@
     <body>
 
         <section id="container" >
+            <!--<div class="row">-->
+            <div class="col-lg-12" style="background: #033; color: #fff; padding: 2px; font-weight: bold;">
+                <span style="padding-left: 15px;">{{ Session::get('usrInfo')->sclnme }}</span>
+                <span class="pull-right" style="padding-right: 15px;">{{ date('Y-m-d') }}</span>
+            </div>
+            <!--</div>-->
             <!--header start-->
             <header class="header white-bg">
                 <div class="sidebar-toggle-box">
@@ -326,7 +332,7 @@ navigation : true,
         singleItem : true,
         autoPlay:true
 
-        });
+});
 });
 //custom select box
 
@@ -350,22 +356,22 @@ $('select.styled').customSelect();
             });
         </script>-->
         <script>
- $( function() {
-   var closeText = $( "#datepicker1" ).datepicker( "option", "closeText" )
-   $( "#datepicker1" ).datepicker({
-     dateFormat:'yy-mm-dd',
-     changeYear: true,
-     changeMonth: true,
-     yearRange: '1930:2050',
-   });
-   $( "#datepicker2" ).datepicker({
-     dateFormat:'yy-mm-dd',
-     changeYear: true,
-     changeMonth: true,
-     yearRange: '1930:2050',
-   });
- } );
- </script>
+            $(function() {
+            var closeText = $("#datepicker1").datepicker("option", "closeText")
+                    $("#datepicker1").datepicker({
+            dateFormat:'yy-mm-dd',
+                    changeYear: true,
+                    changeMonth: true,
+                    yearRange: '1930:2050',
+            });
+            $("#datepicker2").datepicker({
+            dateFormat:'yy-mm-dd',
+                    changeYear: true,
+                    changeMonth: true,
+                    yearRange: '1930:2050',
+            });
+            });
+        </script>
 
     </body>
 </html>

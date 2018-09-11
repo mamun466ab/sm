@@ -183,7 +183,6 @@
 @endsection
 @section('jqueryfile')
 <script src="{{ asset('wbdlibs/ajax/ajax.js') }}"></script>
-<script src="{{ asset('wbdlibs/js/jquery-ui-1.9.2.custom.min.js') }}"></script>
 @endsection
 
 @section('jsscript')
