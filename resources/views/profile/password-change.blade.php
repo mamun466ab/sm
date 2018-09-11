@@ -12,7 +12,7 @@
 
 
 
-<section id="main-content">
+<section id="main-content" style="margin-bottom: 400px;">
     <section class="wrapper">
         <!-- page start-->
         <div class="row">

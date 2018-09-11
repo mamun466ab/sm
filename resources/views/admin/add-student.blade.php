@@ -3,7 +3,7 @@
 @section('title', 'Add Student')
 
 @section('content')
-<section id="main-content">
+<section id="main-content" style="padding-top: 15px;">
     <section class="wrapper">
 
         <div class="container" style="margin-bottom: 15px; margin-top: -100px;">

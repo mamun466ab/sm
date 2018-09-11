@@ -16,8 +16,8 @@ class CreateExtsubTable extends Migration
         Schema::create('extsub', function (Blueprint $table) {
             $table->increments('id');
             $table->string('sclcde', 8);
-            $table->string('sub', 30);
-            $table->unsignedInteger('subcd')->unique();
+            $table->string('exsub', 30);
+            $table->unsignedInteger('exsubcd')->unique();
         });
     }
 

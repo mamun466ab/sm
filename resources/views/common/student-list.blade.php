@@ -4,7 +4,7 @@
 
 @section('content')
 <!--main content start-->
-<section id="main-content">
+<section id="main-content" style="padding-top: 15px;">
     <section class="wrapper">
             <select name="std_cls" id="std_cls" class="form-control" style="width: 30%; color: #000; padding: 6px;" onchange="ajaxGET('stdInfo','{{ URL::to('/list-student/') }}/'+this.value)">
                 <option value="">Select Your Class</option>
