@@ -6,20 +6,17 @@
 <!--main content start-->
 <section id="main-content">
     <section class="wrapper">
+            <select name="std_cls" id="std_cls" class="form-control" style="width: 30%; color: #000; padding: 6px;" onchange="ajaxGET('stdInfo','{{ URL::to('/list-student/') }}/'+this.value)">
+                <option value="">Select Your Class</option>
+                <option value="6">Class Six</option>
+                <option value="7">Class Seven</option>
+                <option value="8">Class Eight</option>
+                <option value="9">Class Nine</option>
+                <option value="10">Class Ten</option>
+                <option value="11">Enter 1st Year</option>
+                <option value="12">Enter 2nd Year</option>
+            </select>
         <!-- page start-->
-        <div class="row">
-            <div class="col-lg-12">
-                <?php
-                $sclCde = Session::get('usrInfo')->sclcd;
-                $sclInfo = DB::table('sclreg')
-                        ->join('usrdst', 'sclreg.dstid', '=', 'usrdst.id')
-                        ->join('usrthn', 'sclreg.thnid', '=', 'usrthn.id')
-                        ->select('sclreg.*', 'usrdst.dst', 'usrthn.thn')
-                        ->where('sclreg.sclcde', $sclCde)
-                        ->first();
-                ?>
-            </div>
-        </div>
         <div class="row">
             <div class="col-lg-12">
                 <section class="panel">
@@ -45,16 +42,7 @@
                                         <th class="numeric">Remarks</th>
                                     </tr>
                                 </thead>
-                                <?php
-                                $stdInfo = DB::table('clsrol')
-                                        ->join('usrreg', 'clsrol.stdid', '=', 'usrreg.id')
-                                        ->select('clsrol.*', 'usrreg.usrnme', 'usrreg.usreml', 'usrreg.usrid', 'usrreg.usrmbl', 'usrreg.jondte')
-                                        ->where('clsrol.sclcd', $sclCde)
-                                        ->orderBy('clsrol.stdcls')
-                                        ->orderBy('clsrol.stdrol')
-                                        ->get();
-                                ?>
-                                <tbody>
+                                <tbody id="stdInfo">
                                     @foreach($stdInfo as $val)
                                     <tr>
                                         <td>{{ $val->stdrol }}</td>
@@ -93,4 +81,8 @@
     </section>
 </section>
 <!--main content end-->
+@endsection
+
+@section('jqueryfile')
+<script src="{{ asset('wbdlibs/ajax/ajax.js') }}"></script>
 @endsection
