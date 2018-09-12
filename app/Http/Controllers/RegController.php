@@ -114,7 +114,7 @@ class RegController extends Controller {
             $sclRegInfo = array();
             $sclRegInfo['sclnme'] = ucfirst($request->scl_nme);
             $sclRegInfo['scleml'] = $request->scl_eml;
-            $sclRegInfo['sclcde'] = strtoupper($request->scl_cde);
+            $sclRegInfo['sclcd'] = strtoupper($request->scl_cde);
             $sclRegInfo['scladr'] = ucfirst($request->scl_adr);
             $sclRegInfo['cntid'] = $request->scl_cnt;
             $sclRegInfo['dvnid'] = $request->scl_dvn;

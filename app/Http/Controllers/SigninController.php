@@ -61,8 +61,8 @@ class SigninController extends Controller {
         $usrPsd = md5($request->usr_psd);
 
         $usrInfo = DB::table('usrreg')
-                ->join('sclreg', 'usrreg.sclcd', '=', 'sclreg.sclcde')
-                ->select('usrreg.*', 'sclreg.sclnme', 'sclreg.scleml', 'sclreg.sclcde', 'sclreg.sclrfr', 'sclreg.jondt', 'sclreg.expdte')
+                ->join('sclreg', 'usrreg.sclcd', '=', 'sclreg.sclcd')
+                ->select('usrreg.*', 'sclreg.sclnme', 'sclreg.scleml', 'sclreg.sclrfr', 'sclreg.jondt', 'sclreg.expdte')
                 ->whereRaw("(usrreg.usrid = '$usrName' AND usrreg.usrpsd = '$usrPsd') OR (usrreg.usreml = '$usrName' AND usrreg.usrpsd = '$usrPsd')")
                 ->first();
 
@@ -77,7 +77,7 @@ class SigninController extends Controller {
                         return Redirect::to('/login/');
                     }else{
                         if($usrInfo->usrsts == 2){
-                            Session::put('errors', 'Your account is blocked. Please contact to school admin.');
+                            Session::put('errors', 'Your account is blocked. Please contact to school admin or sevice provider.');
                             return Redirect::to('/login/');
                         }else{
                             if ($usrInfo->usrsts == 1) {
