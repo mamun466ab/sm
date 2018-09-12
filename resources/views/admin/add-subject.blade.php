@@ -9,35 +9,32 @@
             <div class="col-sm-12 col-md-12 col-lg-6">
                 <section class="panel">
                     <header class="panel-heading">
-                        Subject List
+                        <strong>Subject List</strong>
                     </header>
-                    <table class="table">
+                    <?php
+                    $cmnSub = DB::table('subject')->select('*')->get();
+                    $i = 1;
+                    ?>
+                    <table class="table table-bordered table-striped table-condensed">
                         <thead>
                             <tr>
-                                <th>#</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Username</th>
+                                <th>Subject</th>
+                                <th>Code</th>
+                                <th>Subject</th>
+                                <th>Code</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>1</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td>@twitter</td>
+                                <?php
+                                foreach ($cmnSub as $sub):
+                                    echo '<td>' . $sub->sub . '</td><td>' . $sub->subcd . '</td>';
+                                    if ($i % 2 == 0):
+                                        echo '</tr><tr>';
+                                    endif;
+                                    $i++;
+                                endforeach;
+                                ?>
                             </tr>
                         </tbody>
                     </table>
@@ -51,7 +48,7 @@
                         <strong>Add Extra Subject</strong>
                     </header>
                     <div class="panel-body">
-                        <form action="subject-add" method="POST" role="form">
+                        <form action="subject-add" method="POST" role="form" id="data_form">
                             @csrf
                             <div class="form-group">
                                 <label for="subnme">Subject Name</label>

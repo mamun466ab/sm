@@ -24,7 +24,7 @@ class CommonController extends Controller {
                 ->join('usrdst', 'sclreg.dstid', '=', 'usrdst.id')
                 ->join('usrthn', 'sclreg.thnid', '=', 'usrthn.id')
                 ->select('sclreg.*', 'usrdst.dst', 'usrthn.thn')
-                ->where('sclreg.sclcde', $sclCde)
+                ->where('sclreg.sclcd', $sclCde)
                 ->first();
 
         $stdInfo = DB::table('clsrol')

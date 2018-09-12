@@ -6,18 +6,22 @@
 <!--main content start-->
 <section id="main-content" style="padding-top: 15px;">
     <section class="wrapper">
-            <select name="std_cls" id="std_cls" class="form-control" style="width: 30%; color: #000; padding: 6px;" onchange="ajaxGET('stdInfo','{{ URL::to('/list-student/') }}/'+this.value)">
-                <option value="">Select Your Class</option>
-                <option value="6">Class Six</option>
-                <option value="7">Class Seven</option>
-                <option value="8">Class Eight</option>
-                <option value="9">Class Nine</option>
-                <option value="10">Class Ten</option>
-                <option value="11">Enter 1st Year</option>
-                <option value="12">Enter 2nd Year</option>
-            </select>
-        <!-- page start-->
         <div class="row">
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <select name="std_cls" id="std_cls" class="form-control" style="color: #000; padding: 6px;" onchange="ajaxGET('stdInfo','{{ URL::to('/list-student/') }}/'+this.value)">
+                    <option value="">Select Your Class</option>
+                    <option value="6">Class Six</option>
+                    <option value="7">Class Seven</option>
+                    <option value="8">Class Eight</option>
+                    <option value="9">Class Nine</option>
+                    <option value="10">Class Ten</option>
+                    <option value="11">Enter 1st Year</option>
+                    <option value="12">Enter 2nd Year</option>
+                </select>
+            </div>
+        </div>
+        <!-- page start-->
+        <div class="row" style="margin-top: 15px;">
             <div class="col-lg-12">
                 <section class="panel">
                     <header class="panel-heading">
@@ -81,8 +85,4 @@
     </section>
 </section>
 <!--main content end-->
-@endsection
-
-@section('jqueryfile')
-<script src="{{ asset('wbdlibs/ajax/ajax.js') }}"></script>
 @endsection

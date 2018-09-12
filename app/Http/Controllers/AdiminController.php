@@ -86,7 +86,7 @@ class AdiminController extends Controller
         }
         if ($usrInfo->usrtyp == 'Teacher' AND $usrInfo->usrpwr == 1) {
             $leftMenu = view('menu.adminmenu')->with('addSubject', $activeClass);
-            $addSubject = view('admin.subject-add');
+            $addSubject = view('admin.add-subject');
         } else{
             return Redirect::to('/');
         }
