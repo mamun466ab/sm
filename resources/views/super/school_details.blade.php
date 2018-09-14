@@ -39,7 +39,7 @@
                               <tr>
 
                                   <?php
-                                    $sclcd = $scl->sclcde;
+                                    $sclcd = $scl->sclcd;
                                     $admin = DB::table('usrreg')
                                               ->where('sclcd', $sclcd)
                                               ->where('usrpwr', '1')
@@ -54,7 +54,7 @@
                               </tr>
                               <tr>
                                   <th>School Teachers</th>
-                                  <td><a href="{{ url('/school-teachers-view') }}/{{ $scl->sclcde }}" class="btn btn-primary">Teachers View</a></td>
+                                  <td><a href="{{ url('/school-teachers-view') }}/{{ $scl->sclcd }}" class="btn btn-primary">Teachers View</a></td>
                               </tr>
                               <tr>
                                   <th>Email</th>
@@ -62,7 +62,7 @@
                               </tr>
                               <tr>
                                   <th>School Code</th>
-                                  <td>{{ $scl->sclcde }}</td>
+                                  <td>{{ $scl->sclcd }}</td>
                               </tr>
                               <tr>
                                   <th>Adress</th>
@@ -81,7 +81,7 @@
                                   <td>1-10</td>
                               </tr>
                               <?php
-                                $sclcd = $scl->sclcde;
+                                $sclcd = $scl->sclcd;
                                 $totalstn = DB::table('clsrol')
                                               ->where('sclcd', $sclcd)
                                               ->count();
