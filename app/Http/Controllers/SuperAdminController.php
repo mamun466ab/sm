@@ -76,7 +76,7 @@ class SuperAdminController extends Controller {
     public function admin_req_view(){
 
        $scl_admin_reqs = DB::table('usrreg')       
-                    ->leftJoin('sclreg', 'usrreg.sclcd', '=', 'sclreg.sclcde')
+                    ->leftJoin('sclreg', 'usrreg.sclcd', '=', 'sclreg.sclcd')
                     ->where('usrpwr', '0')
                     ->orderBy('usrreg.id', 'desc')
                     ->select('usrreg.*', 'sclreg.sclnme')
@@ -93,7 +93,7 @@ class SuperAdminController extends Controller {
     public function school_req_view(){
 
        $scl_admin_reqs = DB::table('usrreg')       
-                    ->leftJoin('sclreg', 'usrreg.sclcd', '=', 'sclreg.sclcde')
+                    ->leftJoin('sclreg', 'usrreg.sclcd', '=', 'sclreg.sclcd')
                     ->where('usrpwr', '0')
                     ->orderBy('usrreg.id', 'desc')
                     ->select('usrreg.*', 'sclreg.sclnme')
@@ -109,7 +109,7 @@ class SuperAdminController extends Controller {
     public function admin_active_view(){
 
        $scl_admin_reqs = DB::table('usrreg')       
-                    ->leftJoin('sclreg', 'usrreg.sclcd', '=', 'sclreg.sclcde')
+                    ->leftJoin('sclreg', 'usrreg.sclcd', '=', 'sclreg.sclcd')
                     ->where('usrpwr', '1')
                     ->orderBy('usrreg.id', 'desc')
                     ->select('usrreg.*', 'sclreg.sclnme')
@@ -588,13 +588,13 @@ class SuperAdminController extends Controller {
                         ->with('page_content', $index_content);
     }
 
-    public function scl_tcr_view($sclcde) {
+    public function scl_tcr_view($sclcd) {
         $scl_tcrs = DB::table('usrreg')
                     ->leftJoin('usrpro', 'usrreg.id', '=', 'usrpro.usrid')
                     ->leftJoin('usrdvn', 'usrdvn.id', '=', 'usrpro.dvnid')
                     ->leftJoin('usrdst', 'usrdst.id', '=', 'usrpro.dstid')
                     ->leftJoin('usrthn', 'usrthn.id', '=', 'usrpro.thnid')
-                    ->where('usrreg.sclcd', $sclcde)
+                    ->where('usrreg.sclcd', $sclcd)
                     ->select('usrreg.*', 'usrthn.thn', 'usrdst.dst', 'usrdvn.dvn', 'usrpro.abt', 'usrpro.fthr', 'usrpro.mthr', 'usrpro.rlgn', 'usrpro.dob', 'usrpro.pic')
                     ->get();
         $index_content = view('super.scl_teachers_list_view')
@@ -627,7 +627,7 @@ class SuperAdminController extends Controller {
                 $data = DB::table('sclreg')
                         ->leftJoin('usrthn', 'usrthn.id', '=', 'sclreg.thnid')
                         ->orderBy('sclreg.id', 'asc')
-                        ->where('sclreg.sclcde', 'like', "$search")
+                        ->where('sclreg.sclcd', 'like', "$search")
                         ->orwhere('sclreg.sclnme', 'like', "%$search%")
                         ->orderBy('sclreg.sclnme', 'asc')
                         ->select('sclreg.*', 'usrthn.thn')

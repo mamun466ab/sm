@@ -67,7 +67,7 @@
                                 <td>{{ $i++ }}</td>
                                 <td>{{ $sclsrc->sclnme }}</td>
                                 <td>{{ $sclsrc->scleml }}</td>
-                                <td>{{ $sclsrc->sclcde }}</td>
+                                <td>{{ $sclsrc->sclcd }}</td>
                                 <td>{{ $sclsrc->scladr }}</td>
                                 <td>{{ $sclsrc->jondt }}</td>
                                 <td>{{ $sclsrc->expdte }}</td>

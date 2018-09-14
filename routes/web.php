@@ -56,7 +56,7 @@ Route::middleware('superAdmin')->group(function(){
 	Route::get('/admin-delete/{id}', 'SuperAdminController@admin_delete');
 
 	Route::get('/school-admin-view/{id}', 'SuperAdminController@scl_admin_view');
-	Route::get('/school-teachers-view/{sclcde}', 'SuperAdminController@scl_tcr_view');
+	Route::get('/school-teachers-view/{sclcd}', 'SuperAdminController@scl_tcr_view');
 	Route::get('/teacher-details/{id}', 'SuperAdminController@teacher_details');
 
 
