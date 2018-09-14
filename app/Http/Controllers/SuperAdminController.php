@@ -89,6 +89,23 @@ class SuperAdminController extends Controller {
                         ->with('content', $index_content);
     }
 
+
+    public function school_req_view(){
+
+       $scl_admin_reqs = DB::table('usrreg')       
+                    ->leftJoin('sclreg', 'usrreg.sclcd', '=', 'sclreg.sclcde')
+                    ->where('usrpwr', '0')
+                    ->orderBy('usrreg.id', 'desc')
+                    ->select('usrreg.*', 'sclreg.sclnme')
+                    ->get();
+
+        $index_content = view('super.admin_request')
+                ->with('scl_admin_reqs', $scl_admin_reqs);
+
+        return view('super.index')
+                        ->with('content', $index_content);
+    }
+
     public function admin_active_view(){
 
        $scl_admin_reqs = DB::table('usrreg')       
@@ -536,22 +553,12 @@ class SuperAdminController extends Controller {
         endif;
     }
 
-
-    public function regis_scl_view() {
-        $sclreg = DB::table('sclreg')
+    public function school_details($id) {
+        $total_stn = DB::table('sclreg')
                     ->leftJoin('usrthn', 'usrthn.id', '=', 'sclreg.thnid')
-                    ->orderBy('sclreg.id', 'asc')
+                    ->where('sclreg.id', $id)
                     ->select('sclreg.*', 'usrthn.thn')
                     ->get();
-        $index_content = view('super.scl_reg_view')
-                ->with('sclreg', $sclreg);
-
-        return view('super.index')
-                        ->with('page_content', $index_content);
-    }
-
-
-    public function school_details($id) {
         $sclreg = DB::table('sclreg')
                     ->leftJoin('usrthn', 'usrthn.id', '=', 'sclreg.thnid')
                     ->where('sclreg.id', $id)
@@ -565,6 +572,83 @@ class SuperAdminController extends Controller {
     }
 
 
+    public function scl_admin_view($id) {
+        $admin_details = DB::table('usrreg')
+                    ->leftJoin('usrpro', 'usrreg.id', '=', 'usrpro.usrid')
+                    ->leftJoin('usrdvn', 'usrdvn.id', '=', 'usrpro.dvnid')
+                    ->leftJoin('usrdst', 'usrdst.id', '=', 'usrpro.dstid')
+                    ->leftJoin('usrthn', 'usrthn.id', '=', 'usrpro.thnid')
+                    ->where('usrreg.id', $id)
+                    ->select('usrreg.*', 'usrthn.thn', 'usrdst.dst', 'usrdvn.dvn', 'usrpro.abt', 'usrpro.fthr', 'usrpro.mthr', 'usrpro.rlgn', 'usrpro.dob', 'usrpro.pic')
+                    ->get();
+        $index_content = view('super.admin_details')
+                ->with('admin_details', $admin_details);
+
+        return view('super.index')
+                        ->with('page_content', $index_content);
+    }
+
+    public function scl_tcr_view($sclcde) {
+        $scl_tcrs = DB::table('usrreg')
+                    ->leftJoin('usrpro', 'usrreg.id', '=', 'usrpro.usrid')
+                    ->leftJoin('usrdvn', 'usrdvn.id', '=', 'usrpro.dvnid')
+                    ->leftJoin('usrdst', 'usrdst.id', '=', 'usrpro.dstid')
+                    ->leftJoin('usrthn', 'usrthn.id', '=', 'usrpro.thnid')
+                    ->where('usrreg.sclcd', $sclcde)
+                    ->select('usrreg.*', 'usrthn.thn', 'usrdst.dst', 'usrdvn.dvn', 'usrpro.abt', 'usrpro.fthr', 'usrpro.mthr', 'usrpro.rlgn', 'usrpro.dob', 'usrpro.pic')
+                    ->get();
+        $index_content = view('super.scl_teachers_list_view')
+                ->with('scl_tcrs', $scl_tcrs);
+
+        return view('super.index')
+                        ->with('page_content', $index_content);
+    }
+
+    public function teacher_details($id) {
+        $teacher_details = DB::table('usrreg')
+                    ->leftJoin('usrpro', 'usrreg.id', '=', 'usrpro.usrid')
+                    ->leftJoin('usrdvn', 'usrdvn.id', '=', 'usrpro.dvnid')
+                    ->leftJoin('usrdst', 'usrdst.id', '=', 'usrpro.dstid')
+                    ->leftJoin('usrthn', 'usrthn.id', '=', 'usrpro.thnid')
+                    ->where('usrreg.id', $id)
+                    ->select('usrreg.*', 'usrthn.thn', 'usrdst.dst', 'usrdvn.dvn', 'usrpro.abt', 'usrpro.fthr', 'usrpro.mthr', 'usrpro.rlgn', 'usrpro.dob', 'usrpro.pic')
+                    ->get();
+        $index_content = view('super.teacher_details')
+                ->with('teacher_details', $teacher_details);
+
+        return view('super.index')
+                        ->with('page_content', $index_content);
+    }
+
+
+    public function search_scl_list(Request $request) {
+            $search = $request->searching_name;
+            if($search != null){
+                $data = DB::table('sclreg')
+                        ->leftJoin('usrthn', 'usrthn.id', '=', 'sclreg.thnid')
+                        ->orderBy('sclreg.id', 'asc')
+                        ->where('sclreg.sclcde', 'like', "$search")
+                        ->orwhere('sclreg.sclnme', 'like', "%$search%")
+                        ->orderBy('sclreg.sclnme', 'asc')
+                        ->select('sclreg.*', 'usrthn.thn')
+                        ->get();
+
+                $index_content = view('super.scl_search')
+                                            ->with('data', $data);
+                return view('super.index')->with('content', $index_content);
+            }else{                
+                $data = DB::table('sclreg')
+                    ->leftJoin('usrthn', 'usrthn.id', '=', 'sclreg.thnid')
+                    ->orderBy('sclreg.id', 'asc')
+                    ->select('sclreg.*', 'usrthn.thn')
+                    ->get();
+                $index_content = view('super.scl_search')
+                        ->with('data', $data);
+
+                return view('super.index')
+                    ->with('page_content', $index_content);
+            }
+    }
 
 
 

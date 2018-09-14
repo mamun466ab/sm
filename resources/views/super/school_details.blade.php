@@ -1,6 +1,6 @@
 @extends('super.index')
 @section('content')
-@section('title', 'School Details')
+@section('title', 'School Admin Details')
 
       <!--main content start-->
       <section id="main-content">
@@ -25,7 +25,7 @@
                           </div>
                           <div class="space15"></div>
 
-                          @foreach ($sclreg as $scl)
+                        @foreach ($sclreg as $scl)
 
                           <table class="table table-striped table-hover table-bordered" id="editable-sample">
                               <tr>
@@ -35,6 +35,26 @@
                               <tr>
                                   <th>Payment</th>
                                   <td><span class="label label-success">Success</span></td>
+                              </tr>
+                              <tr>
+
+                                  <?php
+                                    $sclcd = $scl->sclcde;
+                                    $admin = DB::table('usrreg')
+                                              ->where('sclcd', $sclcd)
+                                              ->where('usrpwr', '1')
+                                              ->get(); 
+                                  ?>
+                                  <th>School Current Admin Name</th>
+                                  @foreach ($admin as $adm)
+                                  <td><a href="{{ url('/school-admin-view') }}/{{ $adm->id }}" class="label label-inverse">
+                                    {{ $adm->usrnme }}
+                                  </a></td>
+                                  @endforeach
+                              </tr>
+                              <tr>
+                                  <th>School Teachers</th>
+                                  <td><a href="{{ url('/school-teachers-view') }}/{{ $scl->sclcde }}" class="btn btn-primary">Teachers View</a></td>
                               </tr>
                               <tr>
                                   <th>Email</th>
@@ -50,7 +70,7 @@
                               </tr>
                               <tr>
                                   <th>Joining Date</th>
-                                  <td>{{ $scl->jondte }}</td>
+                                  <td>{{ $scl->jondt }}</td>
                               </tr>
                               <tr>
                                   <th>Expire Date</th>
@@ -60,30 +80,94 @@
                                   <th>Class Management</th>
                                   <td>1-10</td>
                               </tr>
+                              <?php
+                                $sclcd = $scl->sclcde;
+                                $totalstn = DB::table('clsrol')
+                                              ->where('sclcd', $sclcd)
+                                              ->count();
+                                $cls6stn = DB::table('clsrol')
+                                        ->where('sclcd', $sclcd)
+                                        ->where('stdcls', '6')
+                                        ->count();
+                                $cls7stn = DB::table('clsrol')
+                                        ->where('sclcd', $sclcd)
+                                        ->where('stdcls', '7')
+                                        ->count();
+                                $cls8stn = DB::table('clsrol')
+                                        ->where('sclcd', $sclcd)
+                                        ->where('stdcls', '8')
+                                        ->count();
+                                $cls9stn = DB::table('clsrol')
+                                        ->where('sclcd', $sclcd)
+                                        ->where('stdcls', '9')
+                                        ->count();
+                                $cls10stn = DB::table('clsrol')
+                                        ->where('sclcd', $sclcd)
+                                        ->where('stdcls', '10')
+                                        ->count();
+                                $cls11stn = DB::table('clsrol')
+                                        ->where('sclcd', $sclcd)
+                                        ->where('stdcls', '11')
+                                        ->count();
+                                $cls12stn = DB::table('clsrol')
+                                        ->where('sclcd', $sclcd)
+                                        ->where('stdcls', '12')
+                                        ->count();
+                              ?>
                               <tr>
                                   <th>Total Students</th>
-                                  <td>----</td>
+                                  <td>{{ $totalstn }}</td>
                               </tr>
+
+                              @if ($cls6stn > 0)
                               <tr>
-                                  <th>class One Students</th>
-                                  <td>----</td>
+                                  <th>class Six Students</th>
+                                  <td>{{ $cls6stn }}</td>
                               </tr>
+                              @endif
+
+                              @if ($cls7stn > 0)
                               <tr>
-                                  <th>class Two Students</th>
-                                  <td>----</td>
+                                  <th>class 7 Students</th>
+                                  <td>{{ $cls7stn }}</td>
                               </tr>
+                              @endif
+
+                              @if ($cls8stn > 0)
                               <tr>
-                                  <th>class Three Students</th>
-                                  <td>----</td>
+                                  <th>class 8 Students</th>
+                                  <td>{{ $cls8stn }}</td>
                               </tr>
+                              @endif
+
+                              @if ($cls9stn > 0)
                               <tr>
-                                  <th>class Four Students</th>
-                                  <td>----</td>
+                                  <th>class 9 Students</th>
+                                  <td>{{ $cls9stn }}</td>
                               </tr>
+                              @endif
+
+                              @if ($cls10stn > 0)
                               <tr>
-                                  <th>class Five Students</th>
-                                  <td>----</td>
+                                  <th>class 10 Students</th>
+                                  <td>{{ $cls10stn }}</td>
                               </tr>
+                              @endif
+
+                              @if ($cls11stn > 0)
+                              <tr>
+                                  <th>class 11 Students</th>
+                                  <td>{{ $cls11stn }}</td>
+                              </tr>
+                              @endif
+
+                              @if ($cls12stn > 0)
+                              <tr>
+                                  <th>class 12 Students</th>
+                                  <td>{{ $cls12stn }}</td>
+                              </tr>
+                              @endif
+
                           </table>
                            @endforeach
                       </div>

@@ -7,8 +7,9 @@
           <section class="wrapper">
               <!-- page start-->
               <section class="panel">
-                  <header class="panel-heading">
-                      <a href="{{ url('/registered-school-view') }}" class="btn btn-primary">@yield('title') View</a>
+                  <header cla
+                  ss="panel-heading">
+                      <a href="{{ url('/search-school-list') }}" class="btn btn-primary">@yield('title') View</a>
                   </header>
                   <div class="panel-body">
                     <form action="{{ url('/search-school-list') }}" method="get" class="form-inline" role="form">
@@ -59,9 +60,9 @@
                           <?php
                             $i = 1;
                           ?>
-                @if (isset($scl_search))
-                        @if (count($scl_search) > 0)
-                          @foreach ($scl_search as $sclsrc)
+                @if (isset($data))
+                        @if (count($data) > 0)
+                          @foreach ($data as $sclsrc)
                               <tr class="">
                                 <td>{{ $i++ }}</td>
                                 <td>{{ $sclsrc->sclnme }}</td>
@@ -71,35 +72,13 @@
                                 <td>{{ $sclsrc->jondt }}</td>
                                 <td>{{ $sclsrc->expdte }}</td>
                                 <td><a class="btn btn-primary" href="{{ url('/school-details') }}/{{ $sclsrc->id }}"><i class="icon-eye-open"></i></a></td>
-                            </tr>
-                       
+                            </tr>                       
                          @endforeach
-                        @elseif(count($scl_search) == 0)
+                        @elseif(count($data) == 0)
                            <tr class="aler alert-danger">
                                <td colspan="9" style="text-align: center;">Searching value not match!</td>
                            </tr>
                         @endif
-                @elseif(isset($sclreg))                
-                      @if (count($sclreg) > 0)
-                          @foreach ($sclreg as $scl)
-
-                              <tr class="">
-                                  <td>{{ $i++ }}</td>
-                                  <td>{{ $scl->sclnme }}</td>
-                                  <td>{{ $scl->scleml }}</td>
-                                  <td>{{ $scl->sclcde }}</td>
-                                  <td>{{ $scl->scladr }}</td>
-                                  <td>{{ $scl->jondt }}</td>
-                                  <td>{{ $scl->expdte }}</td>
-                                  <td><a class="btn btn-primary" href="{{ url('/school-details') }}/{{ $scl->id }}"><i class="icon-eye-open"></i></a></td>
-                              </tr>
-                         
-                           @endforeach
-                          @elseif(count($sclreg) == 0)
-                             <tr class="aler alert-danger">
-                                 <td colspan="9" style="text-align: center;">There is no school found!</td>
-                             </tr>
-                          @endif
                 @endif
 
                               </tbody>

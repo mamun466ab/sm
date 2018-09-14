@@ -2,12 +2,48 @@
 @section('content')
 @section('title', 'Super Admin')
 
+<style>
+  .panel:hover{
+    background: #2A3542;
+  }
+</style>
 
       <!--main content start-->
       <section id="main-content">
           <section class="wrapper">
               <!--state overview start-->
               <div class="row state-overview">
+                  <div class="col-lg-3 col-sm-6">
+                    <a href="{{ url('/admin-request-view') }}">
+                      <section class="panel">
+                          <div class="symbol red">
+                              <i class="icon-user"></i>
+                          </div>
+                          
+                          <div class="value">
+                              <h1 class="">
+                                  {{ $totalUser = DB::table('usrreg')->where('usrpwr', '0')->count() }}
+                              </h1>
+                              <p>School Admin Requests</p>
+                          </div>
+                      </section>
+                    </a>
+                  </div>                  
+                  <div class="col-lg-3 col-sm-6">
+                    <a href="{{ url('/search-school-list') }}">
+                      <section class="panel">
+                          <div class="symbol red">
+                              <i class="icon-building"></i>
+                          </div>
+                          <div class="value">
+                              <h1 class="">
+                                {{ $totalStudent = DB::table('sclreg')->count() }}
+                              </h1>
+                              <p>Total Registered Schools</p>
+                          </div>
+                      </section>
+                    </a>
+                  </div>
                   <div class="col-lg-3 col-sm-6">
                       <section class="panel">
                           <div class="symbol terques">
@@ -44,21 +80,6 @@
                                   {{ $totalStudent = DB::table('usrreg')->where('usrsts', '1')->where('usrtyp', 'Student')->count() }}
                               </h1>
                               <p>Total Students</p>
-                          </div>
-                      </section>
-                  </div>
-                  <div class="col-lg-3 col-sm-6">
-                      <section class="panel">
-                          <div class="symbol red">
-                              <i class="icon-tags"></i>
-                          </div>
-                          <div class="value">
-                            <a href="{{ url('/registered-school-view') }}">
-                              <h1 class="">
-                                {{ $totalStudent = DB::table('sclreg')->count() }}
-                              </h1>
-                              <p>Total Registered Schools</p>
-                            </a>
                           </div>
                       </section>
                   </div>
