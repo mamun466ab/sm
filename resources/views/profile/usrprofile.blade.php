@@ -3,7 +3,7 @@
 @section('title', 'User Profile')
 
 @section('content')
-<section id="main-content">
+<section id="main-content" style="padding-top: 15px;">
     <section class="wrapper">
         <!-- page start-->
         <div class="row">

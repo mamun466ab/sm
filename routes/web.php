@@ -21,21 +21,26 @@ Route::post('/student-data/', 'RegController@studentData');
 Route::post('/user-login/', 'SigninController@usrLogin');
 
 Route::middleware('userCheck')->group(function(){
+    /*
+     * Get method
+     */
     Route::get('/profile/', 'ProfileController@index');
     Route::get('/edit-profile/', 'ProfileController@editProfile');
-    Route::post('/update-profile/', 'ProfileController@updateProfile');
     Route::get('/change-password/', 'ProfileController@passworChange');
-    Route::post('/password-change/', 'ProfileController@changePassword');
     Route::get('/add-teacher/', 'AdiminController@addTeacher');
     Route::get('/add-student/', 'AdiminController@addStudent');
-    Route::get('/student-list/', 'AdiminController@studentList');
+    Route::get('/add-subject/', 'AdiminController@addSubject');
+    Route::get('/student-list/', 'CommonController@studentList');
+    /*
+     * Post method
+     */
+    Route::post('/update-profile/', 'ProfileController@updateProfile');
+    Route::post('/password-change/', 'ProfileController@changePassword');
+    /*
+     * For ajax
+     */
+    Route::get('/list-student/{id}', 'AjaxController@listStudent');
 });
-
-
-
-
-
-
 
 //Super Admin Area ==============================
 Route::get('/sm-super-admin/', 'SuperAdminController@index');

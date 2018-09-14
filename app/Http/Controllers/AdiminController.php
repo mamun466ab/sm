@@ -72,4 +72,25 @@ class AdiminController extends Controller
 
         return view('dboardcontainer')->with('leftmenu', $leftMenu)->with('content', $addTeacher);
     }
+    
+    /*
+     * Add school extra subject
+     */
+    public function addSubject(){
+        $usrInfo = Session::get('usrInfo');
+        $url = url()->current();
+        $urlParts = explode('/', $url);
+        $endParts = end($urlParts);
+        if($endParts == 'add-subject'){
+            $activeClass = 'class="active"';
+        }
+        if ($usrInfo->usrtyp == 'Teacher' AND $usrInfo->usrpwr == 1) {
+            $leftMenu = view('menu.adminmenu')->with('addSubject', $activeClass);
+            $addSubject = view('admin.add-subject');
+        } else{
+            return Redirect::to('/');
+        }
+
+        return view('dboardcontainer')->with('leftmenu', $leftMenu)->with('content', $addSubject);
+    }
 }

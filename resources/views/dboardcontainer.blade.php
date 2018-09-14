@@ -16,7 +16,7 @@
         <!--external css-->
         <link href="{{ asset('wbdlibs/assets/font-awesome/css/font-awesome.css') }}" rel="stylesheet" />
         <link href="{{ asset('wbdlibs/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css') }}" rel="stylesheet" type="text/css" media="screen"/>
-        <link rel="stylesheet" href="{{ asset('wbdlibs/css/owl.carousel.css') }}" type="text/css">
+        <link href="{{ asset('wbdlibs/css/owl.carousel.css') }}" rel="stylesheet" type="text/css">
         <!-- Custom styles for this template -->
         <link href="{{ asset('wbdlibs/css/jquery-ui.css') }}" rel="stylesheet">
         <link href="{{ asset('wbdlibs/css/style.css') }}" rel="stylesheet">
@@ -31,11 +31,17 @@
     </head>
 
     <body>
-
         <section id="container" >
+            <!--<div class="row">-->
+
+            <!--</div>-->
             <!--header start-->
-            <header class="header white-bg">
-                <div class="sidebar-toggle-box">
+            <header class="header white-bg" style="padding: 0 0">
+                <div class="col-lg-12" style="background: #033; color: #fff; padding: 2px; font-weight: bold;">
+                    <span style="padding-left: 15px;">{{ Session::get('usrInfo')->sclnme }}</span>
+                    <span class="pull-right" style="padding-right: 15px;">Expire Date : {{ Session::get('usrInfo')->expdte }}</span>
+                </div>
+                <div class="sidebar-toggle-box" style="margin-left: 15px;">
                     <div data-original-title="Toggle Navigation" data-placement="right" class="icon-reorder tooltips"></div>
                 </div>
                 <!--logo start-->
@@ -248,7 +254,7 @@
                     </ul>
                     <!--  notification end -->
                 </div>
-                <div class="top-nav ">
+                <div class="top-nav" style="margin-right: 15px;">
                     <!--search & user info start-->
                     <ul class="nav pull-right top-menu">
                         <li>
@@ -288,7 +294,6 @@
             </footer>
             <!--footer end-->
         </section>
-
         <!-- js placed at the end of the document so the pages load faster -->
         <!--<script src="{{ asset('wbdlibs/js/jquery.js') }}"></script>-->
         <!--<script src="{{ asset('wbdlibs/js/jquery-1.8.3.min.js') }}"></script>-->
@@ -313,59 +318,67 @@
         <script src="{{ asset('wbdlibs/js/sparkline-chart.js') }}"></script>
         <script src="{{ asset('wbdlibs/js/easy-pie-chart.js') }}"></script>
         <script src="{{ asset('wbdlibs/js/count.js') }}"></script>
-        @yield('jqueryfile')
+        <script src="{{ asset('wbdlibs/ajax/ajax.js') }}"></script>
         <script>
-@yield('jsscript')
-
-        //owl carousel
-        $(document).ready(function() {
-$("#owl-demo").owlCarousel({
-navigation : true,
-        slideSpeed : 300,
-        paginationSpeed : 400,
-        singleItem : true,
-        autoPlay:true
-
+        <!-- Ajax script for form validation -->
+        $.ajaxSetup({
+        headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
         });
-});
-//custom select box
+        
+        $('#data_form').on('submit', function (e) {
+                e.preventDefault();
+        data = $(this).serialize();
+        url = $(this).attr('action');
+        $.ajax({
+        url: url,
+                type: 'POST',
+                data: data,
+                success: function (data) {
+                console.log(data);
+                if ($.isEmptyObject(data.errors)) {
+                console.log(data.success);
+                $('#data_form')[0].reset();
+                $('.text-danger').remove();
+                $('.form-group').removeClass('has-error').removeClass('has-success');
+                $('.print-success-msg').html(data.success);
+                $('.print-success-msg').css('display', 'block');
+        } else {
+                        printMessageErrors(data.errors);
+          }
+          }
+          });
+          });
+          
+          function printMessageErrors(msg) {
+                        $('.form-group').removeClass('has-error').find('.text-danger').remove();
+                $.each(msg, function (key, value) {
+                var element = $('#' + key);
+                element.closest('div.form-group')
+                        .addClass(value.length > 0 ? 'has-error' : 'has-success');
+                $('.control-label').css('color', '#797979');
+                element.after('<span class="text-danger"><span class="glyphicon glyphicon-exclamation-sign text-danger"></span> ' + value + '</span>');
+                    });
+                    }
+                    <!-- Ajax -->
+                
+                //owl carousel
+                $(document).ready(function() {
+                                            $("#owl-demo").owlCarousel({
+                                    navigation : true,
+                                            slideSpeed : 300,
+                                            paginationSpeed : 400,
+                                            singleItem : true,
+                                            autoPlay:true
 
-$(function(){
+                    });
+                    });
+                    //custom select box
+                        
+                        $(function(){
 $('select.styled').customSelect();
 });
         </script>
-<!--        <script>
-            $(function () {
-            var tyear = new Date();
-            var year = tyear.getFullYear(); //yields year
-            $("#datepicker").keydown(function () {
-            return false;
-            })
-                    .datepicker({
-                    dateFormat: 'yy-mm-dd',
-                            changeMonth: true,
-                            changeYear: true,
-                            yearRange: '1730:' + year
-                    });
-            });
-        </script>-->
-        <script>
- $( function() {
-   var closeText = $( "#datepicker1" ).datepicker( "option", "closeText" )
-   $( "#datepicker1" ).datepicker({
-     dateFormat:'yy-mm-dd',
-     changeYear: true,
-     changeMonth: true,
-     yearRange: '1930:2050',
-   });
-   $( "#datepicker2" ).datepicker({
-     dateFormat:'yy-mm-dd',
-     changeYear: true,
-     changeMonth: true,
-     yearRange: '1930:2050',
-   });
- } );
- </script>
-
     </body>
 </html>

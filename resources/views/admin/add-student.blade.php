@@ -3,7 +3,7 @@
 @section('title', 'Add Student')
 
 @section('content')
-<section id="main-content">
+<section id="main-content" style="padding-top: 15px;">
     <section class="wrapper">
 
         <div class="container" style="margin-bottom: 15px; margin-top: -100px;">
@@ -67,9 +67,22 @@
                     </div>
 
                     <div class="form-group">
+                        <label for="ssn_yr" class="col-sm-3 control-label">Session *</label>
+                        <div class="col-sm-9">
+                            <select name="ssn_yr" id="ssn_yr" class="form-control" style="color: #000; padding: 6px; margin-top: 15px;">
+                                <option value="">Select Year</option>
+
+                                @for($i = 2010; $i <= date('Y'); $i++){
+                                <option value="{{ $i }}">{{ $i }}</option>
+                                @endfor;
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
                         <label for="scl_cde" class="col-sm-3 control-label">School Code *</label>
                         <div class="col-sm-9" style="margin-bottom: 15px;">
-                            <input type="text" name="scl_cde" class="form-control" value="{{ Session::get('usrInfo')->sclcde }}" id="scl_cde" readonly="readonly" />
+                            <input type="text" name="scl_cde" class="form-control" value="{{ Session::get('usrInfo')->sclcd }}" id="scl_cde" readonly="readonly" />
                         </div>
                     </div>
 
@@ -111,50 +124,3 @@
     </section>
 </section>
 @endsection
-
-@section('jsscript')
-<!-- Ajax script for form validation -->
-$.ajaxSetup({
-headers: {
-'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-}
-});
-
-$('#data_form').on('submit', function (e) {
-e.preventDefault();
-data = $(this).serialize();
-url = $(this).attr('action');
-
-$.ajax({
-url: url,
-type: 'POST',
-data: data,
-success: function (data) {
-console.log(data);
-if ($.isEmptyObject(data.errors)) {
-console.log(data.success);
-$('#data_form')[0].reset();
-$('.text-danger').remove();
-$('.form-group').removeClass('has-error').removeClass('has-success');
-$('.print-success-msg').html(data.success);
-$('.print-success-msg').css('display', 'block');
-} else {
-printMessageErrors(data.errors);
-}
-}
-});
-});
-
-function printMessageErrors(msg) {
-$('.form-group').removeClass('has-error').find('.text-danger').remove();
-$.each(msg, function (key, value) {
-var element = $('#' + key);
-element.closest('div.form-group')
-.addClass(value.length > 0 ? 'has-error' : 'has-success');
-$('.control-label').css('color', '#797979');
-element.after('<span class="text-danger"><span class="glyphicon glyphicon-exclamation-sign text-danger"></span> ' + value + '</span>');
-});
-}
-<!-- Ajax -->
-@endsection
-
