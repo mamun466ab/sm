@@ -50,14 +50,20 @@ Route::get('/super-dashboard/', 'SuperAdminController@super_dashboard');
 Route::middleware('superAdmin')->group(function(){
 	//GET Methods ============
 	Route::get('/logout-super/', 'SuperAdminController@logoutSuper');
+
 	Route::get('/admin-request-view', 'SuperAdminController@admin_req_view');
 	Route::get('/admin-approve/{id}', 'SuperAdminController@admin_approve');
 	Route::get('/admin-delete/{id}', 'SuperAdminController@admin_delete');
 
+	Route::get('/school-admin-view/{id}', 'SuperAdminController@scl_admin_view');
+	Route::get('/school-teachers-view/{sclcde}', 'SuperAdminController@scl_tcr_view');
+	Route::get('/teacher-details/{id}', 'SuperAdminController@teacher_details');
+
+
 	Route::get('/admin-active-view', 'SuperAdminController@admin_active_view');	
 	Route::get('/admin-deactivate/{id}', 'SuperAdminController@admin_deactivate');
 
-	Route::get('/registered-school-view', 'SuperAdminController@regis_scl_view');
+	//Route::get('registered-school-view', 'SuperAdminController@regis_scl_view');
 	Route::get('/school-details/{id}', 'SuperAdminController@school_details');
 
 	Route::get('/country-view', 'SuperAdminController@country_view');
@@ -76,8 +82,6 @@ Route::middleware('superAdmin')->group(function(){
 	Route::get('/thana-edit/{id}', 'SuperAdminController@thana_edit');
 	Route::get('/thana-delete/{id}', 'SuperAdminController@thana_delete');
 
-	Route::match(['get', 'post'],'/find-place-view', 'SuperAdminController@find_place_view');
-
 	//Post methods============
 	Route::post('/country-create', 'SuperAdminController@country_create');
 	Route::post('/country-update', 'SuperAdminController@country_update');
@@ -92,4 +96,6 @@ Route::middleware('superAdmin')->group(function(){
 	Route::post('/thana-update', 'SuperAdminController@thana_update');
 
 	Route::match(['get', 'post'],'/find-place', 'SuperAdminController@find_place');
+
+	Route::match(['get', 'post'],'search-school-list', 'SuperAdminController@search_scl_list');
 });

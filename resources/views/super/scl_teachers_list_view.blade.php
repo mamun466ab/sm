@@ -1,6 +1,6 @@
 @extends('super.index')
 @section('content')
-@section('title', 'Registered School List')
+@section('title', 'School Wise Teachers List')
 
       <!--main content start-->
       <section id="main-content">
@@ -11,6 +11,15 @@
                       @yield('title') View
                   </header>
                   <div class="panel-body">
+                    <form action="{{ url('/find-place') }}" method="get" class="form-inline" role="form">
+                      @csrf
+                        <div class="form-group col-lg-4">
+                            <label class="sr-only" for="searching_name">Country Name</label>
+                            <input type="text" name="searching_name" class="form-control" id="searching_name" placeholder="Search Division, District and Thana">
+                        </div>
+                        <button type="submit" class="btn btn-success">Search Place</button>
+                    </form>
+
                       <div class="adv-table editable-table ">
                           <div class="clearfix">
                               <div class="btn-group pull-right">
@@ -38,12 +47,13 @@
                               <thead>
                               <tr>
                                   <th>SL.</th>
-                                  <th>School Name</th>
+                                  <th>Name</th>
+                                  <th>Photo</th>
                                   <th>Email</th>
+                                  <th>Rank</th>
+                                  <th>Mobile</th>
                                   <th>School Code</th>
-                                  <th>Adress</th>
                                   <th>Joining Date</th>
-                                  <th>Expire Date</th>
                                   <th>Details</th>
                               </tr>
                               </thead>
@@ -51,22 +61,23 @@
                           <?php
                             $i = 1;
                           ?>
-                      @if (count($sclreg) > 0)
-                          @foreach ($sclreg as $scl)
+                      @if (count($scl_tcrs) > 0)
+                          @foreach ($scl_tcrs as $scl_tcr)
 
                               <tr class="">
                                   <td>{{ $i++ }}</td>
-                                  <td>{{ $scl->sclnme }}</td>
-                                  <td>{{ $scl->scleml }}</td>
-                                  <td>{{ $scl->sclcde }}</td>
-                                  <td>{{ $scl->scladr }}</td>
-                                  <td>{{ $scl->jondte }}</td>
-                                  <td>{{ $scl->expdte }}</td>
-                                  <td><a class="btn btn-primary" href="{{ url('/school-details') }}/{{ $scl->id }}"><i class="icon-eye-open"></i></a></td>
+                                  <td>{{ $scl_tcr->usrnme }}</td>
+                                  <td><img src="{{ $scl_tcr->pic }}" width="50px" height="50px" alt="Photo"></td>
+                                  <td>{{ $scl_tcr->usreml }}</td>
+                                  <td>{{ $scl_tcr->usrrnk }}</td>
+                                  <td>{{ $scl_tcr->usrmbl }}</td>
+                                  <td>{{ $scl_tcr->sclcd }}</td>
+                                  <td>{{ $scl_tcr->jondte }}</td>
+                                  <td><a class="btn btn-primary" href="{{ url('/teacher-details') }}/{{ $scl_tcr->id }}"><i class="icon-eye-open"></i></a></td>
                               </tr>
                          
                            @endforeach
-                          @elseif(count($sclreg) == 0)
+                          @elseif(count($scl_tcrs) == 0)
                              <tr class="aler alert-danger">
                                  <td colspan="9" style="text-align: center;">There is no school found!</td>
                              </tr>

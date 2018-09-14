@@ -300,6 +300,7 @@
                       <ul class="sub">
                           <li><a  href="{{ url('/admin-request-view') }}">Admin Request view</a></li>
                           <li><a  href="{{ url('/admin-active-view') }}">Admin Active List</a></li>
+                          <li><a  href="{{ url('/search-school-list') }}">Registered School List</a></li>
                       </ul>
                   </li>
 
