@@ -6,18 +6,21 @@
       <section id="main-content">
           <section class="wrapper">
               <!-- page start-->
+              <?php
+                  $SCLCD = "";
+              ?>
               <section class="panel">
                   <header class="panel-heading">
-                      @yield('title') View
+                      @yield('title') View                      
                   </header>
                   <div class="panel-body">
-                    <form action="{{ url('/find-place') }}" method="get" class="form-inline" role="form">
+                    <form action="{{ url('/school-teachers-view') }}/sclcd" method="get" class="form-inline" role="form">
                       @csrf
                         <div class="form-group col-lg-4">
                             <label class="sr-only" for="searching_name">Country Name</label>
-                            <input type="text" name="searching_name" class="form-control" id="searching_name" placeholder="Search Division, District and Thana">
+                            <input type="text" name="searching_name" class="form-control" id="searching_name" placeholder="Search by name, email or mobile">
                         </div>
-                        <button type="submit" class="btn btn-success">Search Place</button>
+                        <button type="submit" class="btn btn-success">Search</button>
                     </form>
 
                       <div class="adv-table editable-table ">
@@ -53,7 +56,7 @@
                                   <th>Rank</th>
                                   <th>Mobile</th>
                                   <th>School Code</th>
-                                  <th>Joining Date</th>
+                                  <th>Action</th>
                                   <th>Details</th>
                               </tr>
                               </thead>
@@ -61,9 +64,11 @@
                           <?php
                             $i = 1;
                           ?>
-                      @if (count($scl_tcrs) > 0)
-                          @foreach ($scl_tcrs as $scl_tcr)
-
+                      @if (count($data) > 0)
+                          @foreach ($data as $scl_tcr)
+                              <?php
+                                $SCLCD = $scl_tcr->sclcd;
+                              ?>
                               <tr class="">
                                   <td>{{ $i++ }}</td>
                                   <td>{{ $scl_tcr->usrnme }}</td>
@@ -72,12 +77,22 @@
                                   <td>{{ $scl_tcr->usrrnk }}</td>
                                   <td>{{ $scl_tcr->usrmbl }}</td>
                                   <td>{{ $scl_tcr->sclcd }}</td>
-                                  <td>{{ $scl_tcr->jondte }}</td>
+                                  <?php
+                                    $admin_check = DB::table('usrreg')
+                                            ->where('sclcd', $scl_tcr->sclcd)
+                                            ->where('usrpwr', '1')
+                                            ->first();
+                                  ?>
+                                  @if ($admin_check)
+                                    <td><label class="label label-inverse">Current Admin</label></td>
+                                  @else
+                                    <td><a class="btn btn-primary" href="{{ url('/make-admin') }}/{{$scl_tcr->id}}/{{$scl_tcr->sclcd}}">Make Admin</a></td>
+                                  @endif
                                   <td><a class="btn btn-primary" href="{{ url('/teacher-details') }}/{{ $scl_tcr->id }}"><i class="icon-eye-open"></i></a></td>
                               </tr>
                          
                            @endforeach
-                          @elseif(count($scl_tcrs) == 0)
+                          @elseif(count($data) == 0)
                              <tr class="aler alert-danger">
                                  <td colspan="9" style="text-align: center;">There is no school found!</td>
                              </tr>

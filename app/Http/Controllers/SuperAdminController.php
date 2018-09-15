@@ -37,14 +37,6 @@ class SuperAdminController extends Controller {
         $totalTeacher = DB::table('usrreg')->where('usrtyp', 'Teacher')->count();
         $totalStudent = DB::table('usrreg')->where('usrtyp', 'Student')->count();
 
-        // $scl_reqs = DB::table('schools_reg')
-        //             ->leftJoin('thana', 'thana.id', '=', 'schools_reg.thana_id')
-        //             ->rightJoin('district', 'district.id', '=', 'thana.district_id')
-        //             ->where('status', '0')
-        //             ->orderBy('schools_reg.id', 'desc')
-        //             ->select('schools_reg.*', 'thana.thana_name', 'district.district_name')
-        //             ->get();
-
         $index_content = view('super.index_content')
                         ->with('totalUser', $totalUser)
                         ->with('totalTeacher', $totalTeacher)
@@ -134,13 +126,31 @@ class SuperAdminController extends Controller {
         }
     }
 
+    public function make_admin($id, $sclcd){
+        $adm_remove = DB::table('usrreg')
+                    ->where('sclcd', $sclcd)
+                    ->update(['usrpwr' => '0']);
+
+        $mk_admin = DB::table('usrreg')
+                    ->where('sclcd', $sclcd)
+                    ->where('id', $id)
+                    ->update(['usrpwr' => '1']);
+        if($mk_admin){
+            Session::put('message', 'New Admin Created successfully!!!');
+            return Redirect::to('/school-teachers-view/'.$sclcd);
+        }else{
+            Session::put('error', 'New Admin Not Created!!!');
+        }
+    }
+
     public function admin_deactivate($id){
+        $sclcd = DB::table('usrreg')->where('id', $id)->get();
         $update = DB::table('usrreg')
                     ->where('id', $id)
                     ->update(['usrpwr' => '0']);
         if($update){
             Session::put('message', 'Deactivated!!!');
-            return Redirect::to('/admin-active-view');
+            return Redirect::to('/admin-active-view/'.$sclcd->sclcd);
         }else{
             Session::put('error', 'Admin Not Deactivated!!!');
         }
@@ -588,20 +598,41 @@ class SuperAdminController extends Controller {
                         ->with('page_content', $index_content);
     }
 
-    public function scl_tcr_view($sclcd) {
-        $scl_tcrs = DB::table('usrreg')
+    public function scl_tcr_view(Request $request, $sclcd) {
+        $search = $request->searching_name;
+        if ($search != NULL) {
+            $data = DB::table('usrreg')
+                    ->leftJoin('usrpro', 'usrreg.id', '=', 'usrpro.usrid')
+                    ->leftJoin('usrdvn', 'usrdvn.id', '=', 'usrpro.dvnid')
+                    ->leftJoin('usrdst', 'usrdst.id', '=', 'usrpro.dstid')
+                    ->leftJoin('usrthn', 'usrthn.id', '=', 'usrpro.thnid')
+                    ->orderBy('usrreg.id', 'desc')
+                    ->where('usrreg.usrmbl', 'like', "$search")
+                    ->orwhere('usrreg.usrnme', 'like', "%$search%")
+                    ->orwhere('usrreg.usreml', 'like', "%$search%")
+                    ->select('usrreg.*', 'usrthn.thn', 'usrdst.dst', 'usrdvn.dvn', 'usrpro.abt', 'usrpro.fthr', 'usrpro.mthr', 'usrpro.rlgn', 'usrpro.dob', 'usrpro.pic')
+                    ->get();
+
+            $index_content = view('super.scl_teachers_list_view')
+                                        ->with('data', $data);
+            return view('super.index')->with('content', $index_content); 
+        }else{
+            $data = DB::table('usrreg')
                     ->leftJoin('usrpro', 'usrreg.id', '=', 'usrpro.usrid')
                     ->leftJoin('usrdvn', 'usrdvn.id', '=', 'usrpro.dvnid')
                     ->leftJoin('usrdst', 'usrdst.id', '=', 'usrpro.dstid')
                     ->leftJoin('usrthn', 'usrthn.id', '=', 'usrpro.thnid')
                     ->where('usrreg.sclcd', $sclcd)
+                    ->orderBy('usrreg.id', 'desc')
                     ->select('usrreg.*', 'usrthn.thn', 'usrdst.dst', 'usrdvn.dvn', 'usrpro.abt', 'usrpro.fthr', 'usrpro.mthr', 'usrpro.rlgn', 'usrpro.dob', 'usrpro.pic')
                     ->get();
-        $index_content = view('super.scl_teachers_list_view')
-                ->with('scl_tcrs', $scl_tcrs);
+            $index_content = view('super.scl_teachers_list_view')
+                ->with('data', $data)
+                ->with('sclcd', $sclcd);
 
-        return view('super.index')
+            return view('super.index')
                         ->with('page_content', $index_content);
+        }
     }
 
     public function teacher_details($id) {
