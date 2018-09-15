@@ -54,6 +54,7 @@ Route::middleware('superAdmin')->group(function(){
 	Route::get('/admin-request-view', 'SuperAdminController@admin_req_view');
 	Route::get('/admin-approve/{id}', 'SuperAdminController@admin_approve');
 	Route::get('/admin-delete/{id}', 'SuperAdminController@admin_delete');
+	Route::get('/make-admin/{id}/{sclcd}', 'SuperAdminController@make_admin');
 
 	Route::get('/school-admin-view/{id}', 'SuperAdminController@scl_admin_view');
 	Route::get('/school-teachers-view/{sclcd}', 'SuperAdminController@scl_tcr_view');
