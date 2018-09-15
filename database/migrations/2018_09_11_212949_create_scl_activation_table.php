@@ -15,8 +15,8 @@ class CreateSclActivationTable extends Migration
     {
         Schema::create('scl_activation', function (Blueprint $table) {
             $table->increments('id');
-            $table->tinyinter('adminid');
-            $table->tinyinter('sclid');
+            $table->tinyInteger('adminid');
+            $table->tinyInteger('sclid');
             $table->unsignedInteger('activation'); //1 active. 0 deactive
         });
     }

@@ -30,12 +30,14 @@ Route::middleware('userCheck')->group(function(){
     Route::get('/add-teacher/', 'AdiminController@addTeacher');
     Route::get('/add-student/', 'AdiminController@addStudent');
     Route::get('/add-subject/', 'AdiminController@addSubject');
+    Route::get('/select-subject/', 'CommonController@selectSubject');
     Route::get('/student-list/', 'CommonController@studentList');
     /*
      * Post method
      */
     Route::post('/update-profile/', 'ProfileController@updateProfile');
     Route::post('/password-change/', 'ProfileController@changePassword');
+    Route::post('/subject-add/', 'AdminInsertController@addSubject');
     /*
      * For ajax
      */

@@ -37,12 +37,12 @@
             <!--</div>-->
             <!--header start-->
             <header class="header white-bg" style="padding: 0 0">
-                <div class="col-lg-12" style="background: #033; color: #fff; padding: 2px; font-weight: bold;">
+                <div class="col-lg-12 hidden-sm" style="background: #033; color: #fff; padding: 2px; font-weight: bold;">
                     <span style="padding-left: 15px;">{{ Session::get('usrInfo')->sclnme }}</span>
                     <span class="pull-right" style="padding-right: 15px;">Expire Date : {{ Session::get('usrInfo')->expdte }}</span>
                 </div>
                 <div class="sidebar-toggle-box" style="margin-left: 15px;">
-                    <div data-original-title="Toggle Navigation" data-placement="right" class="icon-reorder tooltips"></div>
+                    <div data-original-title="Hide/Show Left Menu" data-placement="right" class="icon-reorder tooltips"></div>
                 </div>
                 <!--logo start-->
                 <a href="{{ url('/') }}" class="logo">WBDS<span>chools</span></a>

@@ -47,5 +47,26 @@ class CommonController extends Controller {
 
         return view('dboardcontainer')->with('leftmenu', $leftMenu)->with('content', $addTeacher);
     }
+    
+    public function selectSubject(){
+        $usrInfo = Session::get('usrInfo');
+        $url = url()->current();
+        $urlParts = explode('/', $url);
+        $endParts = end($urlParts);
+        
+        if ($endParts == 'select-subject') {
+            $activeClass = 'class="active"';
+        }
+        
+        if ($usrInfo->usrtyp == 'Teacher' AND $usrInfo->usrpwr == 1) {
+            $leftMenu = view('menu.adminmenu')
+                    ->with('slctSubject', $activeClass);
+            $selectSubject = view('common.select-subject');
+        } else {
+            return Redirect::to('/');
+        }
+
+        return view('dboardcontainer')->with('leftmenu', $leftMenu)->with('content', $selectSubject);
+    }
 
 }
