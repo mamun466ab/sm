@@ -19,7 +19,7 @@ class SuperAdminMiddleware
     {
         $superAdminId = Session::get('superAdminId');
         if($superAdminId == null){
-            Redirect::to('/super/')->send();
+            Redirect::to('/sm-super-admin/')->send();
         }
 
         return $next($request);
