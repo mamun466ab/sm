@@ -30,12 +30,23 @@
                 </ul>
             </li>
             
-            <li>
-                <a href="{{ url('add-subject') }}" <?php if(isset($addSubject)){ echo $addSubject;} ?>>
+            <li class="sub-menu">
+                <a href="javascript:;" <?php if(isset($addSubject)){ echo $addSubject;}elseif(isset($slctSubject)){ echo $slctSubject;} ?>>
+                    <i class="icon-user"></i>
+                    <span>Subject</span>
+                </a>
+                <ul class="sub">
+                    <li <?php if(isset($addSubject)){ echo $addSubject;} ?>><a  href="{{ url('/add-subject/') }}">Add Subject</a></li>
+                    <li <?php if(isset($slctSubject)){ echo $slctSubject;} ?>><a  href="{{ url('/select-subject/') }}">Select Subject</a></li>
+                </ul>
+            </li>
+            
+<!--            <li>
+                <a href="{{ url('add-subject') }}" <?php // if(isset($addSubject)){ echo $addSubject;} ?>>
                     <i class="icon-book"></i>
                     <span>Add Subject</span>
                 </a>
-            </li>
+            </li>-->
 
             <li class="sub-menu">
                 <a href="javascript:;" >
