@@ -31,6 +31,7 @@ Route::middleware('userCheck')->group(function(){
     Route::get('/add-student/', 'AdiminController@addStudent');
     Route::get('/add-subject/', 'AdiminController@addSubject');
     Route::get('/select-subject/', 'CommonController@selectSubject');
+    Route::get('/view-subject/', 'AdiminController@viewSubject');
     Route::get('/student-list/', 'CommonController@studentList');
     /*
      * Post method
@@ -38,10 +39,12 @@ Route::middleware('userCheck')->group(function(){
     Route::post('/update-profile/', 'ProfileController@updateProfile');
     Route::post('/password-change/', 'ProfileController@changePassword');
     Route::post('/subject-add/', 'AdminInsertController@addSubject');
+    Route::post('/select-subject/', 'CommonInsertController@selectSubject');
     /*
      * For ajax
      */
     Route::get('/list-student/{id}', 'AjaxController@listStudent');
+    Route::get('/student-list-option/{id}', 'AjaxController@listStudentOption');
 });
 
 //Super Admin Area ==============================

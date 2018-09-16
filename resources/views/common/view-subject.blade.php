@@ -1,8 +1,9 @@
 @extend('dboardcontainer')
 
-@section('title', 'Student List')
+@section('title', 'View Subject')
 
 @section('content')
+
 <!--main content start-->
 <section id="main-content" style="padding-top: 15px;">
     <section class="wrapper">
@@ -25,11 +26,6 @@
             <div class="col-lg-12">
                 <section class="panel">
                     <header class="panel-heading">
-                        <p style="text-align: center;">
-                            <span style="font-size: 33px; font-weight: bold;">{{ $sclInfo->sclnme }}</span><br />
-                            <span style="font-size: 18px; font-weight: bold;">{{ $sclInfo->scladr }}</span><br />
-                            <span style="font-size: 18px; font-weight: bold;">{{ $sclInfo->thn }}, {{ $sclInfo->dst }}</span><br />
-                        </p>
                         Student List
                     </header>
                     <div class="panel-body">
@@ -41,36 +37,31 @@
                                         <th>Name</th>
                                         <th>Class</th>
                                         <th>Subject</th>
-                                        <th>Mobile No</th>
-                                        <th>Join Date</th>
+                                        <th>Forth Subject</th>
+                                        <th>Extra Subject</th>
                                         <th>Remarks</th>
                                     </tr>
                                 </thead>
+
                                 <tbody id="stdInfo">
-                                    @foreach($stdInfo as $val)
+                                    @foreach($stdSub as $val)
                                     <tr>
                                         <td>{{ $val->stdrol }}</td>
                                         <td>{{ $val->usrnme }}</td>
+                                        <td>{{ $val->stdcls }}</td>
                                         <td>
-                                            @if($val->stdcls == 6)
-                                            Six
-                                            @elseif($val->stdcls == 7)
-                                            Seven
-                                            @elseif($val->stdcls == 8)
-                                            Eight
-                                            @elseif($val->stdcls == 9)
-                                            Nine
-                                            @elseif($val->stdcls == 10)
-                                            Ten
-                                            @elseif($val->stdcls == 11)
-                                            Enter 1st Year
-                                            @elseif($val->stdcls == 12)
-                                            Enter 2nd Year
-                                            @endif
+                                            <?php
+                                            $i = 1;
+                                            $subArray = explode(',', $val->sub);
+                                            foreach ($subArray as $subVal):
+                                                $subName = DB::table('subject')->select('sub')->where('subcd', $subVal)->first();
+                                                echo '<strong>' . $i . '.</strong> ' . $subName->sub . '&nbsp;&nbsp;&nbsp;';
+                                                $i++;
+                                            endforeach;
+                                            ?>
                                         </td>
-                                        <td>{{ $val->usreml }}</td>
-                                        <td>{{ $val->usrmbl }}</td>
-                                        <td>{{ $val->jondte }}</td>
+                                        <td>{{ $val->frthsub }}</td>
+                                        <td>{{ $val->extsub }}</td>
                                         <td></td>
                                     </tr>
                                     @endforeach
@@ -85,4 +76,5 @@
     </section>
 </section>
 <!--main content end-->
+
 @endsection

@@ -13,14 +13,13 @@ class AdminInsertController extends Controller
     public function addSubject(Request $request){
         $subjectValidator = Validator::make($request->all(), [
             'subnme' => 'required|max:30',
-            'subcde' => 'required|max:10|numeric',
+            'subcde' => 'required|max:10',
         ],[
             'subnme.required' => 'You can\'t leave this empty.',
             'subcde.required' => 'You can\'t leave this empty.',
             
             'subnme.max' => 'Maximum 30 character.',
             'subcde.max' => 'Maximum 10 character.',
-            'subcde.numeric' => 'Only number.',
         ]);
         
         if($subjectValidator->passes()){

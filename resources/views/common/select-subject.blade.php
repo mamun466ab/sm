@@ -18,11 +18,11 @@
                     </header>
                     <div class="panel-body">
                         <div class="alert alert-success print-success-msg text-center" style="display: none;"></div>
-                        <form action="subject-add" method="POST" role="form" id="data_form" class="form-horizontal" style="padding:15px;">
+                        <form action="select-subject" method="POST" role="form" id="data_form" class="form-horizontal" style="padding:15px;">
                             @csrf
                             <div class="form-group">
                                 <label for="stdcls">Class</label>
-                                <select name="stdcls" id="stdcls" class="form-control">
+                                <select name="stdcls" id="stdcls" class="form-control" onchange="ajaxGET('stdid','{{ URL::to('/student-list-option/') }}/'+this.value)">
                                     <option value="">Select Class</option>
                                     <option value="6">Six</option>
                                     <option value="7">Seven</option>
@@ -35,16 +35,9 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="stdnt">Select Student</label>
-                                <select name="stdnt" id="stdnt" class="form-control">
-                                    <option value="">Select Class</option>
-                                    <option value="6">Six</option>
-                                    <option value="7">Seven</option>
-                                    <option value="8">Eight</option>
-                                    <option value="9">Nine</option>
-                                    <option value="10">Ten</option>
-                                    <option value="11">Enter 1st Year</option>
-                                    <option value="12">Enter 2nd Year</option>
+                                <label for="stdid">Select Student</label>
+                                <select name="stdid" id="stdid" class="form-control">
+                                    <option value="">Select Class First</option>
                                 </select>
                             </div>
 
@@ -68,10 +61,15 @@
                                         <input type="checkbox" {{ $chcked }} name="cmnsub[]" id="inlineCheckbox1" value="{{ $sub->subcd }}"> {{ $sub->sub }}
                                     </label>
                                     @endforeach
-
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="extsub">Common Subject</label>
+                                <div id="extsub">
                                     @foreach($extSub as $exsub)
                                     <label class="checkbox-inline">
-                                        <input type="checkbox" name="cmnsub[]" id="inlineCheckbox1" value="{{ $exsub->exsubcd }}"> {{ $exsub->exsub }}
+                                        <input type="checkbox" name="extsub[]" id="inlineCheckbox1" value="{{ $exsub->exsubcd }}"> {{ $exsub->exsub }}
                                     </label>
                                     @endforeach
                                 </div>
@@ -85,16 +83,12 @@
                                 <div id="frtsub">
                                     @foreach($forthsub as $frsub)
                                     <label class="checkbox-inline">
-                                        <input type="checkbox" name="frtsub[]" id="inlineCheckbox1" value="{{ $frsub->subcd }}"> {{ $frsub->sub }}
+                                        <input type="checkbox" name="frtsub" id="inlineCheckbox1" value="{{ $frsub->subcd }}"> {{ $frsub->sub }}
                                     </label>
                                     @endforeach
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <label for="subcde">Subject Name</label>
-                                <input type="text" name="subcde" class="form-control" id="subcde" placeholder="Extra Subject Code">
-                            </div>
                             <button type="submit" class="btn btn-info">Submit</button>
                         </form>
 

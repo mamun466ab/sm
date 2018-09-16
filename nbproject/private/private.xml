@@ -5,14 +5,13 @@
         <group>
             <file>file:/F:/xampp/htdocs/OneDrive/sm/resources/views/common/select-subject.blade.php</file>
             <file>file:/F:/xampp/htdocs/OneDrive/sm/app/Http/Controllers/AdiminController.php</file>
+            <file>file:/F:/xampp/htdocs/OneDrive/sm/resources/views/common/view-subject.blade.php</file>
             <file>file:/F:/xampp/htdocs/OneDrive/sm/resources/views/menu/adminmenu.blade.php</file>
             <file>file:/F:/xampp/htdocs/OneDrive/sm/app/Http/Controllers/RegController.php</file>
             <file>file:/F:/xampp/htdocs/OneDrive/sm/app/Http/Controllers/CommonController.php</file>
             <file>file:/F:/xampp/htdocs/OneDrive/sm/routes/web.php</file>
+            <file>file:/F:/xampp/htdocs/OneDrive/sm/app/Http/Controllers/CommonInsertController.php</file>
             <file>file:/F:/xampp/htdocs/OneDrive/sm/resources/views/dboardcontainer.blade.php</file>
-            <file>file:/F:/xampp/htdocs/OneDrive/sm/resources/views/profile/profile-edit.blade.php</file>
-            <file>file:/F:/xampp/htdocs/OneDrive/sm/resources/views/admin/add-subject.blade.php</file>
-            <file>file:/F:/xampp/htdocs/OneDrive/sm/app/Http/Controllers/AdminInsertController.php</file>
         </group>
     </open-files>
 </project-private>

@@ -332,7 +332,6 @@ class ComposerStaticInit3a81d3d6c1c921418316791ba7d3e6e2
         'App\\Http\\Controllers\\CommonInsertController' => __DIR__ . '/../..' . '/app/Http/Controllers/CommonInsertController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\LocationController' => __DIR__ . '/../..' . '/app/Http/Controllers/LocationController.php',
-        'App\\Http\\Controllers\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/LoginController.php',
         'App\\Http\\Controllers\\ProfileController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProfileController.php',
         'App\\Http\\Controllers\\RegController' => __DIR__ . '/../..' . '/app/Http/Controllers/RegController.php',
         'App\\Http\\Controllers\\SigninController' => __DIR__ . '/../..' . '/app/Http/Controllers/SigninController.php',

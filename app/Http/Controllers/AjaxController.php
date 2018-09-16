@@ -56,4 +56,22 @@ class AjaxController extends Controller {
         }
     }
 
+    public function listStudentOption($id) {
+        $sclCde = Session::get('usrInfo')->sclcd;
+        $stdCls = $id;
+        $stdInfo = DB::table('clsrol')
+                ->join('usrreg', 'clsrol.stdid', '=', 'usrreg.id')
+                ->select('clsrol.*', 'usrreg.id', 'usrreg.usrnme', 'usrreg.usreml', 'usrreg.usrid', 'usrreg.usrmbl', 'usrreg.jondte')
+                ->whereRaw("(clsrol.sclcd = '$sclCde' AND clsrol.stdcls = '$stdCls')")
+                ->orderBy('clsrol.stdcls')
+                ->orderBy('clsrol.stdrol')
+                ->get();
+        if (!empty($stdInfo)) {
+            echo '<option value="">Select Student</option>';
+            foreach ($stdInfo as $lst):
+                echo '<option value="' . $lst->id . '">' . $lst->usrnme . '</option>';
+            endforeach;
+        }
+    }
+
 }

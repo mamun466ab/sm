@@ -31,11 +31,12 @@
             </li>
             
             <li class="sub-menu">
-                <a href="javascript:;" <?php if(isset($addSubject)){ echo $addSubject;}elseif(isset($slctSubject)){ echo $slctSubject;} ?>>
+                <a href="javascript:;" <?php if(isset($addSubject)){ echo $addSubject;}elseif(isset($slctSubject)){ echo $slctSubject;}elseif(isset($viewSubject)){ echo $viewSubject;} ?>>
                     <i class="icon-user"></i>
                     <span>Subject</span>
                 </a>
                 <ul class="sub">
+                    <li <?php if(isset($viewSubject)){ echo $viewSubject;} ?>><a  href="{{ url('/view-subject/') }}">View Subject</a></li>
                     <li <?php if(isset($addSubject)){ echo $addSubject;} ?>><a  href="{{ url('/add-subject/') }}">Add Subject</a></li>
                     <li <?php if(isset($slctSubject)){ echo $slctSubject;} ?>><a  href="{{ url('/select-subject/') }}">Select Subject</a></li>
                 </ul>

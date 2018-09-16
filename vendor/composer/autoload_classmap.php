@@ -19,7 +19,6 @@ return array(
     'App\\Http\\Controllers\\CommonInsertController' => $baseDir . '/app/Http/Controllers/CommonInsertController.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
     'App\\Http\\Controllers\\LocationController' => $baseDir . '/app/Http/Controllers/LocationController.php',
-    'App\\Http\\Controllers\\LoginController' => $baseDir . '/app/Http/Controllers/LoginController.php',
     'App\\Http\\Controllers\\ProfileController' => $baseDir . '/app/Http/Controllers/ProfileController.php',
     'App\\Http\\Controllers\\RegController' => $baseDir . '/app/Http/Controllers/RegController.php',
     'App\\Http\\Controllers\\SigninController' => $baseDir . '/app/Http/Controllers/SigninController.php',
