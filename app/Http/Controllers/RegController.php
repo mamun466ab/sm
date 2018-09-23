@@ -183,7 +183,7 @@ class RegController extends Controller {
         ]);
 
         $checkSclCde = Validator::make($request->all(), [
-                    'scl_cde' => 'unique:sclreg,sclcde',
+                    'scl_cde' => 'unique:sclreg,sclcd',
         ]);
 
         if ($tcrDataValidate->passes()) {
@@ -252,7 +252,7 @@ class RegController extends Controller {
         ]);
 
         $checkSclCde = Validator::make($request->all(), [
-                    'scl_cde' => 'unique:sclreg,sclcde',
+                    'scl_cde' => 'unique:sclreg,sclcd',
         ]);
 
         if ($stdDataValidate->passes()) {

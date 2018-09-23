@@ -352,7 +352,7 @@
           });
           
           function printMessageErrors(msg) {
-                        $('.form-group').removeClass('has-error').find('.text-danger').remove();
+                $('.form-group').removeClass('has-error').find('.text-danger').remove();
                 $.each(msg, function (key, value) {
                 var element = $('#' + key);
                 element.closest('div.form-group')

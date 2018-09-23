@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateExtsubTable extends Migration
+class CreateStudentSubjectTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateExtsubTable extends Migration
      */
     public function up()
     {
-        Schema::create('extsub', function (Blueprint $table) {
+        Schema::create('stdsub', function (Blueprint $table) {
             $table->increments('id');
+            $table->tinyInteger('stdid');
             $table->string('sclcd', 11);
-            $table->string('exsub', 30);
-            $table->unsignedInteger('exsubcd')->unique();
+            $table->string('sub', 255);
+            $table->string('frthsub', 50)->nullable();
         });
     }
 
@@ -28,6 +29,6 @@ class CreateExtsubTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('extsub');
+        Schema::dropIfExists('stdsub');
     }
 }

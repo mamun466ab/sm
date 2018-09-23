@@ -37,13 +37,13 @@
                             <table class="table table-bordered table-striped table-condensed">
                                 <thead>
                                     <tr>
-                                        <th class="numeric">Roll No</th>
-                                        <th class="numeric">Name</th>
-                                        <th class="numeric">Class</th>
-                                        <th class="numeric">Email Addres</th>
-                                        <th class="numeric">Mobile No</th>
-                                        <th class="numeric">Join Date</th>
-                                        <th class="numeric">Remarks</th>
+                                        <th>Roll No</th>
+                                        <th>Name</th>
+                                        <th>Class</th>
+                                        <th>Subject</th>
+                                        <th>Mobile No</th>
+                                        <th>Join Date</th>
+                                        <th>Remarks</th>
                                     </tr>
                                 </thead>
                                 <tbody id="stdInfo">

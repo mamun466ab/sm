@@ -1,6 +1,6 @@
 @extend('dboardcontainer')
 
-@section('title', 'Select Subject')
+@section('title', 'Change Subject')
 
 @section('content')
 <style type="text/css">
@@ -14,11 +14,11 @@
             <div class="col-sm-12 col-md-12 col-lg-6">
                 <section class="panel">
                     <header class="panel-heading">
-                        <strong>Select Subject</strong>
+                        <strong>Change Subject</strong>
                     </header>
                     <div class="panel-body">
                         <div class="alert alert-success print-success-msg text-center" style="display: none;"></div>
-                        <form action="select-subject" method="POST" role="form" class="form-horizontal" style="padding:15px;" id="data_form">
+                        <form action="subject-change" method="POST" role="form" class="form-horizontal" style="padding:15px;" id="data_form">
                             @csrf
                             <div class="form-group">
                                 <label for="stdcls">Class</label>
@@ -36,59 +36,13 @@
 
                             <div class="form-group">
                                 <label for="stdid">Select Student</label>
-                                <select name="stdid" id="stdid" class="form-control">
+                                <select name="stdid" id="stdid" class="form-control" onchange="ajaxGET('selectedSubject','{{ URL::to('/selected-subject/') }}/'+this.value)">
                                     <option value="">Select Class First</option>
                                 </select>
                             </div>
 
-                            <div class="form-group">
-                                <?php
-                                $cmnSub = DB::table('subject')->select('*')->get();
-                                $sclcd = Session::get('usrInfo')->sclcd;
-                                $extSub = DB::table('extsub')->select('*')->where('sclcd', $sclcd)->get();
-                                ?>
-                                <label for="cmnsub">Common Subject</label>
-                                <div id="cmnsub" style="color:blue;">
-                                    @foreach($cmnSub as $sub)
-                                    <?php
-                                    if ($sub->sts == 1):
-                                        $chcked = 'checked="checked"';
-                                    else:
-                                        $chcked = '';
-                                    endif;
-                                    ?>
-                                    <label class="checkbox-inline">
-                                        <input type="checkbox" {{ $chcked }} name="cmnsub[]" id="inlineCheckbox1" value="{{ $sub->subcd }}"> {{ $sub->sub }}
-                                    </label>
-                                    @endforeach
-                                </div>
-                            </div>
-                            
-                            @if(count($extSub) > 0)
-                            <div class="form-group">
-                                <label for="extsub">Extra Subject</label>
-                                <div id="extsub" style="color:#229954;">
-                                    @foreach($extSub as $exsub)
-                                    <label class="checkbox-inline">
-                                        <input type="checkbox" name="extsub[]" id="inlineCheckbox1" value="{{ $exsub->exsubcd }}"> {{ $exsub->exsub }}
-                                    </label>
-                                    @endforeach
-                                </div>
-                            </div>
-                            @endif
-
-                            <div class="form-group">
-                                <?php
-                                $forthsub = DB::table('subject')->select('*')->where('sts', 4)->get();
-                                ?>
-                                <label for="frtsub">Forth Subject</label>
-                                <div id="frtsub" style="color:#D35400;">
-                                    @foreach($forthsub as $frsub)
-                                    <label class="checkbox-inline">
-                                        <input type="checkbox" name="frtsub" id="inlineCheckbox1" value="{{ $frsub->subcd }}"> {{ $frsub->sub }}
-                                    </label>
-                                    @endforeach
-                                </div>
+                            <div id="selectedSubject">
+                                
                             </div>
 
                             <button type="submit" class="btn btn-info">Submit</button>
@@ -97,6 +51,7 @@
                     </div>
                 </section>
             </div>
+            
             <div class="col-sm-12 col-md-12 col-lg-6">
                 <section class="panel">
                     <header class="panel-heading">
