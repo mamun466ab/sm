@@ -18,6 +18,8 @@ class CommonController extends Controller {
         if ($endParts == 'student-list') {
             $activeClass = 'class="active"';
         }
+        
+        $stdSession = date('Y');
 
         $sclCde = Session::get('usrInfo')->sclcd;
         $sclInfo = DB::table('sclreg')
@@ -30,14 +32,13 @@ class CommonController extends Controller {
         $stdInfo = DB::table('clsrol')
                 ->join('usrreg', 'clsrol.stdid', '=', 'usrreg.id')
                 ->select('clsrol.*', 'usrreg.usrnme', 'usrreg.usreml', 'usrreg.usrid', 'usrreg.usrmbl', 'usrreg.jondte')
-                ->where('clsrol.sclcd', $sclCde)
+                ->whereRaw("(clsrol.sclcd = '$sclCde' AND clsrol.yr = '$stdSession')")
                 ->orderBy('clsrol.stdcls')
                 ->orderBy('clsrol.stdrol')
                 ->get();
 
         if ($usrInfo->usrtyp == 'Teacher' AND $usrInfo->usrpwr == 1) {
-            $leftMenu = view('menu.adminmenu')
-                    ->with('addStdLstActive', $activeClass);
+            $leftMenu = view('menu.adminmenu')->with('addStdLstActive', $activeClass);
             $addTeacher = view('common.student-list')
                     ->with('stdInfo', $stdInfo)
                     ->with('sclInfo', $sclInfo);
@@ -59,9 +60,28 @@ class CommonController extends Controller {
         }
         
         if ($usrInfo->usrtyp == 'Teacher' AND $usrInfo->usrpwr == 1) {
-            $leftMenu = view('menu.adminmenu')
-                    ->with('slctSubject', $activeClass);
+            $leftMenu = view('menu.adminmenu')->with('slctSubject', $activeClass);
             $selectSubject = view('common.select-subject');
+        } else {
+            return Redirect::to('/');
+        }
+
+        return view('dboardcontainer')->with('leftmenu', $leftMenu)->with('content', $selectSubject);
+    }
+    
+    public function viewRoutine(){
+        $usrInfo = Session::get('usrInfo');
+        $url = url()->current();
+        $urlParts = explode('/', $url);
+        $endParts = end($urlParts);
+        
+        if ($endParts == 'view-routine') {
+            $activeClass = 'class="active"';
+        }
+        
+        if ($usrInfo->usrtyp == 'Teacher' AND $usrInfo->usrpwr == 1) {
+            $leftMenu = view('menu.adminmenu')->with('viewRtn', $activeClass);
+            $selectSubject = view('common.view-routine');
         } else {
             return Redirect::to('/');
         }

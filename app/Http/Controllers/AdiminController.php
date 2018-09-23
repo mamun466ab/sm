@@ -88,7 +88,7 @@ class AdiminController extends Controller {
         }
         if ($usrInfo->usrtyp == 'Teacher' AND $usrInfo->usrpwr == 1) {
             $leftMenu = view('menu.adminmenu')->with('addSubject', $activeClass);
-            $addSubject = view('admin.add-subject');
+            $addSubject = view('admin.subject.add-subject');
         } else {
             return Redirect::to('/');
         }
@@ -123,12 +123,66 @@ class AdiminController extends Controller {
         if ($usrInfo->usrtyp == 'Teacher' AND $usrInfo->usrpwr == 1) {
             $leftMenu = view('menu.adminmenu')
                     ->with('viewSubject', $activeClass);
-            $selectSubject = view('common.view-subject')->with('stdSub', $stdSub);
+            $selectSubject = view('admin.subject.view-subject')->with('stdSub', $stdSub);
         } else {
             return Redirect::to('/');
         }
 
         return view('dboardcontainer')->with('leftmenu', $leftMenu)->with('content', $selectSubject);
+    }
+    
+    public function changeSubject(){
+        $usrInfo = Session::get('usrInfo');
+        $url = url()->current();
+        $urlParts = explode('/', $url);
+        $endParts = end($urlParts);
+        if ($endParts == 'change-subject') {
+            $activeClass = 'class="active"';
+        }
+        if ($usrInfo->usrtyp == 'Teacher' AND $usrInfo->usrpwr == 1) {
+            $leftMenu = view('menu.adminmenu')->with('chngSubject', $activeClass);
+            $changeSubject = view('admin.subject.change-subject');
+        } else {
+            return Redirect::to('/');
+        }
+
+        return view('dboardcontainer')->with('leftmenu', $leftMenu)->with('content', $changeSubject);
+    }
+    
+    public function classTime(){
+        $usrInfo = Session::get('usrInfo');
+        $url = url()->current();
+        $urlParts = explode('/', $url);
+        $endParts = end($urlParts);
+        if ($endParts == 'class-time') {
+            $activeClass = 'class="active"';
+        }
+        if ($usrInfo->usrtyp == 'Teacher' AND $usrInfo->usrpwr == 1) {
+            $leftMenu = view('menu.adminmenu')->with('classTime', $activeClass);
+            $changeSubject = view('admin.routine.class-time');
+        } else {
+            return Redirect::to('/');
+        }
+
+        return view('dboardcontainer')->with('leftmenu', $leftMenu)->with('content', $changeSubject);
+    }
+    
+    public function createRoutine(){
+        $usrInfo = Session::get('usrInfo');
+        $url = url()->current();
+        $urlParts = explode('/', $url);
+        $endParts = end($urlParts);
+        if ($endParts == 'create-routine') {
+            $activeClass = 'class="active"';
+        }
+        if ($usrInfo->usrtyp == 'Teacher' AND $usrInfo->usrpwr == 1) {
+            $leftMenu = view('menu.adminmenu')->with('crtRtn', $activeClass);
+            $changeSubject = view('admin.routine.create-routine');
+        } else {
+            return Redirect::to('/');
+        }
+
+        return view('dboardcontainer')->with('leftmenu', $leftMenu)->with('content', $changeSubject);
     }
 
 }

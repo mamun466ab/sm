@@ -69,7 +69,7 @@
                     <select name="ssn_yr" id="ssn_yr" class="form-control" style="color: #000; padding: 6px; margin-top: 15px;">
                         <option value="">Select Year</option>
                         
-                            @for($i = 2010; $i <= date('Y'); $i++){
+                            @for($i = 2010; $i <= (date('Y') + 1); $i++){
                             <option value="{{ $i }}">{{ $i }}</option>
                             @endfor;
                     </select>

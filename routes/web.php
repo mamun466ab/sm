@@ -27,24 +27,48 @@ Route::middleware('userCheck')->group(function(){
     Route::get('/profile/', 'ProfileController@index');
     Route::get('/edit-profile/', 'ProfileController@editProfile');
     Route::get('/change-password/', 'ProfileController@passworChange');
+    
     Route::get('/add-teacher/', 'AdiminController@addTeacher');
     Route::get('/add-student/', 'AdiminController@addStudent');
     Route::get('/add-subject/', 'AdiminController@addSubject');
-    Route::get('/select-subject/', 'CommonController@selectSubject');
     Route::get('/view-subject/', 'AdiminController@viewSubject');
+    Route::get('/change-subject/', 'AdiminController@changeSubject');
+    Route::get('/class-time/', 'AdiminController@classTime');
+    Route::get('/create-routine/', 'AdiminController@createRoutine');
+    
+    Route::get('/select-subject/', 'CommonController@selectSubject');
     Route::get('/student-list/', 'CommonController@studentList');
+    Route::get('/view-routine/', 'CommonController@viewRoutine');
+    
+    /*
+     * For all update
+     */
+    Route::post('/subject-change/', 'AdminUpdateController@subjectChange');
+    
     /*
      * Post method
      */
     Route::post('/update-profile/', 'ProfileController@updateProfile');
     Route::post('/password-change/', 'ProfileController@changePassword');
     Route::post('/subject-add/', 'AdminInsertController@addSubject');
+    Route::post('/class-time/', 'AdminInsertController@classTime');
+    Route::post('/routine-create/', 'AdminInsertController@routineCreate');
+    
     Route::post('/select-subject/', 'CommonInsertController@selectSubject');
     /*
      * For ajax
      */
     Route::get('/list-student/{id}', 'AjaxController@listStudent');
     Route::get('/student-list-option/{id}', 'AjaxController@listStudentOption');
+    Route::get('/subject-view/{id}', 'AjaxController@subjectView');
+    Route::get('/selected-subject/{id}', 'AjaxController@selectedSubject');
+    Route::get('/class-numbr/{num}', 'AjaxController@classNumber');
+    
+    /*
+     * For delete
+     */
+    Route::get('/delete-class-time/{sclcd}', 'DeleteController@deleteClassTime');
+    
 });
 
 //Super Admin Area ==============================
@@ -74,8 +98,7 @@ Route::middleware('superAdmin')->group(function(){
 
 	Route::get('/country-view', 'SuperAdminController@country_view');
 	Route::get('/country-edit/{id}', 'SuperAdminController@country_edit');
-	Route::get('/country-delete/{id}', 'SuperAdminController@country_delete')
-	;
+	Route::get('/country-delete/{id}', 'SuperAdminController@country_delete');
 	Route::get('/division-view', 'SuperAdminController@division_view');
 	Route::get('/division-edit/{id}', 'SuperAdminController@division_edit');
 	Route::get('/division-delete/{id}', 'SuperAdminController@division_delete');

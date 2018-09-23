@@ -17,7 +17,7 @@ class CreateSclregTable extends Migration
             $table->increments('id', 25);
             $table->string('sclnme', 150);
             $table->string('scleml', 100)->unique();
-            $table->string('sclcde', 8)->unique();
+            $table->string('sclcde', 11)->unique();
             $table->string('scladr', 255);
             $table->unsignedInteger('cntid');
             $table->unsignedInteger('dvnid');

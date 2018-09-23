@@ -58,6 +58,7 @@
                             <li><a href="basic_table.html">ABOUT US</a></li>
                             <li><a href="basic_table.html">CONTACT US</a></li>
                             <li><a href="{{ URL::to('/login/') }}">LOGIN</a></li>
+                            <li><a style="color:#044" href="{{ URL::to('/#/') }}">REFERRER</font></a></li>
                             <li><a href="basic_table.html">FAQ'S</a></li>
                             <!--                            <li class="dropdown">
                                                             <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#">Extra <b class=" icon-angle-down"></b></a>
