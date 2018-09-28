@@ -15,7 +15,7 @@ class AjaxController extends Controller {
         $stdSession = date('Y');
         $stdInfo = DB::table('clsrol')
                 ->join('usrreg', 'clsrol.stdid', '=', 'usrreg.id')
-                ->select('clsrol.*', 'usrreg.usrnme', 'usrreg.usreml', 'usrreg.usrid', 'usrreg.usrmbl', 'usrreg.jondte')
+                ->select('clsrol.*', 'usrreg.usrnme', 'usrreg.usreml', 'usrreg.usrid', 'usrreg.usrmbl', 'usrreg.jondte', 'usrreg.usrsts')
                 ->whereRaw("(clsrol.sclcd = '$sclCde' AND clsrol.stdcls = '$stdCls' AND clsrol.yr = '$stdSession')")
                 ->orderBy('clsrol.stdcls')
                 ->orderBy('clsrol.stdrol')
@@ -45,7 +45,54 @@ class AjaxController extends Controller {
                 echo '<td>' . $val->usreml . '</td>';
                 echo '<td>' . $val->usrmbl . '</td>';
                 echo '<td>' . $val->jondte . '</td>';
-                echo '<td></td>';
+                echo '<td>';
+                if ($val->usrsts == 1):
+                    echo '<span style="color: #3390FF;">Active</span>';
+                elseif ($val->usrsts == 2):
+                    echo '<span style="color: #FF9933;">Blocked</span>';
+                else:
+                    echo '<span style="color: #FF3633;">Inactive</span>';
+                endif;
+                echo '</td>';
+                echo '</tr>';
+            endforeach;
+        }else {
+            echo '<tr>';
+            echo '<td>';
+            echo 'No data found.';
+            echo '</td>';
+            echo '</tr>';
+        }
+    }
+
+    public function unblockBlock($usrid) {
+        $sclCde = Session::get('usrInfo')->sclcd;
+        $stdCls = $usrid;
+        $stdInfo = DB::table('usrreg')
+                ->select('*')
+                ->whereRaw("(usrnme LIKE '%$stdCls%' OR usreml LIKE '%$stdCls%' OR usrid LIKE '%$stdCls%' OR usrmbl LIKE '%$stdCls%') AND (sclcd = '$sclCde')")
+                ->orderBy('usrnme')
+                ->get();
+        if (!empty($stdInfo)) {
+            foreach ($stdInfo as $val):
+                echo '<tr>';
+                echo '<td>' . $val->usrnme . '</td>';
+                echo '<td>' . $val->usreml . '</td>';
+                echo '<td>' . $val->usrid . '</td>';
+                echo '<td>' . $val->usrtyp . '</td>';
+                echo '<td>' . $val->usrmbl . '</td>';
+                echo '<td>' . $val->jondte . '</td>';
+                echo '<td>';
+                if ($val->usrsts == 2):
+                    echo '<a class="btn btn-success btn-sm" href="' . url("/unblock/$val->id") . '">Unblock</a>';
+                else:
+                    if ($val->usrpwr != 1):
+                        echo '<a class="btn btn-danger btn-sm" href="' . url("/block/$val->id") . '">Block</a>';
+                    else:
+                        echo '';
+                    endif;
+                endif;
+                echo '</td>';
                 echo '</tr>';
             endforeach;
         }else {

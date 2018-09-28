@@ -16,12 +16,7 @@ class SigninController extends Controller {
      */
     public function index() {
         $usrInfo = Session::get('usrInfo');
-        $url = url()->current();
-        $urlParts = explode('/', $url);
-        $endParts = end($urlParts);
-        if($endParts == 'sm'){
             $activeClass = 'class="active"';
-        }
         /* Signin check */
         if($usrInfo == NULL){
             return Redirect::to('/login/');

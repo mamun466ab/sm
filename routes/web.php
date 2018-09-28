@@ -30,20 +30,26 @@ Route::middleware('userCheck')->group(function(){
     
     Route::get('/add-teacher/', 'AdiminController@addTeacher');
     Route::get('/add-student/', 'AdiminController@addStudent');
+    Route::get('/user-activation/', 'AdiminController@activeUser');
     Route::get('/add-subject/', 'AdiminController@addSubject');
     Route::get('/view-subject/', 'AdiminController@viewSubject');
     Route::get('/change-subject/', 'AdiminController@changeSubject');
     Route::get('/class-time/', 'AdiminController@classTime');
     Route::get('/create-routine/', 'AdiminController@createRoutine');
+    Route::get('/block-unblock/', 'AdiminController@blockUnblock');
     
     Route::get('/select-subject/', 'CommonController@selectSubject');
     Route::get('/student-list/', 'CommonController@studentList');
+    Route::get('/teacher-list/', 'CommonController@teacherList');
     Route::get('/view-routine/', 'CommonController@viewRoutine');
     
     /*
      * For all update
      */
     Route::post('/subject-change/', 'AdminUpdateController@subjectChange');
+    Route::get('/user-activate/{usrid}', 'AdminUpdateController@userActivate');
+    Route::get('/block/{usrid}', 'AdminUpdateController@userBlock');
+    Route::get('/unblock/{usrid}', 'AdminUpdateController@userUnblock');
     
     /*
      * Post method
@@ -59,6 +65,7 @@ Route::middleware('userCheck')->group(function(){
      * For ajax
      */
     Route::get('/list-student/{id}', 'AjaxController@listStudent');
+    Route::get('/unbolock-block/{usrid}', 'AjaxController@unblockBlock');
     Route::get('/student-list-option/{id}', 'AjaxController@listStudentOption');
     Route::get('/subject-view/{id}', 'AjaxController@subjectView');
     Route::get('/selected-subject/{id}', 'AjaxController@selectedSubject');

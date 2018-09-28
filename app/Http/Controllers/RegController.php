@@ -53,7 +53,7 @@ class RegController extends Controller {
         $sclDataValidate = Validator::make($request->all(), [
                     'scl_nme' => 'required|max:150',
                     'scl_eml' => 'required|max:100|email|unique:sclreg,scleml',
-                    'scl_cde' => 'required|max:8|unique:sclreg,sclcde',
+                    'scl_cde' => 'required|max:8|unique:sclreg,sclcd',
                     'scl_adr' => 'required|max:255',
                     'scl_cnt' => 'required|max:30',
                     'scl_dvn' => 'required|max:30',
