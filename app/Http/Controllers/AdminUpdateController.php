@@ -8,9 +8,9 @@ use Illuminate\Http\Request;
 use Validator;
 use Session;
 
-class AdminUpdateController extends Controller
-{
-    public function subjectChange(Request $subAll){
+class AdminUpdateController extends Controller {
+
+    public function subjectChange(Request $subAll) {
         $changeSubValidator = Validator::make($subAll->all(), [
                     'stdid' => 'required',
                     'cmnsub' => 'required',
@@ -31,7 +31,7 @@ class AdminUpdateController extends Controller
             $slctSub['frthsub'] = $subAll->frtsub;
             $slctSub['extsub'] = $extsub;
 
-            if(DB::table('stdsub')->where('stdid', $subAll->stdid)->update($slctSub)){
+            if (DB::table('stdsub')->where('stdid', $subAll->stdid)->update($slctSub)) {
                 return response()->json(['success' => '!!! Student subject Changed successfull. !!!']);
             } else {
                 return response()->json(['success' => '!!! Connection Error. !!!']);
@@ -40,4 +40,26 @@ class AdminUpdateController extends Controller
             return response()->json(['errors' => $changeSubValidator->errors()]);
         }
     }
+
+    public function userActivate($usrid) {
+        $slctSub = array();
+        $slctSub['usrsts'] = 1;
+        DB::table('usrreg')->where('id', $usrid)->update($slctSub);
+        return Redirect::to('/user-activation/');
+    }
+    
+    public function userBlock($usrid) {
+        $slctSub = array();
+        $slctSub['usrsts'] = 2;
+        DB::table('usrreg')->where('id', $usrid)->update($slctSub);
+        return Redirect::to('/block-unblock/');
+    }
+    
+    public function userUnblock($usrid) {
+        $slctSub = array();
+        $slctSub['usrsts'] = 1;
+        DB::table('usrreg')->where('id', $usrid)->update($slctSub);
+        return Redirect::to('/block-unblock/');
+    }
+
 }

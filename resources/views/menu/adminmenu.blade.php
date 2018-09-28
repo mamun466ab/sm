@@ -12,21 +12,27 @@
                 </a>
             </li>
             
-            <li>
-                <a href="student-list" <?php if(isset($addStdLstActive)){ echo $addStdLstActive;} ?>>
+            <li class="sub-menu">
+                <a href="javascript:;" <?php if(isset($stdLst)){ echo $stdLst;}elseif(isset($tcrLst)){ echo $tcrLst;} ?>>
                     <i class="icon-user"></i>
-                    <span>Student List</span>
+                    <span>Nominal Roll</span>
                 </a>
+                <ul class="sub">
+                    <li <?php if(isset($stdLst)){ echo $stdLst;} ?>><a  href="{{ url('/student-list/') }}">Student List</a></li>
+                    <li <?php if(isset($tcrLst)){ echo $tcrLst;} ?>><a  href="{{ url('/teacher-list/') }}">Teacher List</a></li>
+                </ul>
             </li>
 
             <li class="sub-menu">
-                <a href="javascript:;" <?php if(isset($addTcrActive)){ echo $addTcrActive;}elseif(isset($addStdActive)){ echo $addStdActive;} ?>>
+                <a href="javascript:;" <?php if(isset($addTcrActive)){ echo $addTcrActive;}elseif(isset($addStdActive)){ echo $addStdActive;}elseif(isset($actiovation)){ echo $actiovation;}elseif(isset($bldUblk)){ echo $bldUblk;} ?>>
                     <i class="icon-user"></i>
-                    <span>Add Member</span>
+                    <span>Student/Teacher</span>
                 </a>
                 <ul class="sub">
                     <li <?php if(isset($addTcrActive)){ echo $addTcrActive;} ?>><a  href="{{ url('/add-teacher/') }}">Add Teacher</a></li>
                     <li <?php if(isset($addStdActive)){ echo $addStdActive;} ?>><a  href="{{ url('/add-student/') }}">Add Student</a></li>
+                    <li <?php if(isset($actiovation)){ echo $actiovation;} ?>><a  href="{{ url('/user-activation/') }}">User Activation</a></li>
+                    <li <?php if(isset($bldUblk)){ echo $bldUblk;} ?>><a  href="{{ url('/block-unblock/') }}">Block/Unblock</a></li>
                 </ul>
             </li>
             
