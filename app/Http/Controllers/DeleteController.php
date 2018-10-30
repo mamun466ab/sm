@@ -11,6 +11,7 @@ class DeleteController extends Controller {
 
     public function deleteClassTime($sclcd) {
         DB::table('clstme')->where('sclcd', '=', $sclcd)->delete();
+        DB::table('clsrtn')->where('sclcd', '=', $sclcd)->delete();
         return Redirect::to('/class-time/');
     }
 

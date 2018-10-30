@@ -62,7 +62,7 @@
                     <div class="form-group">
                         <label for="std_rol" class="col-sm-3 control-label">Student Roll *</label>
                         <div class="col-sm-9">
-                            <input type="text" name="std_rol" class="form-control" placeholder="Student Roll" id="std_rol" />
+                            <input type="text" name="std_rol" class="form-control" placeholder="Student Roll" id="std_rol" oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\..*)\./g, '$1');" />
                         </div>
                     </div>
 

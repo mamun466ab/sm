@@ -13,86 +13,98 @@
 <div class="container">
 
     <form class="form-signin" action="{{ URL::to('school-data') }}" method="post" id="data_form">
-        <h2 class="form-signin-heading"><strong>school registration form</strong></h2>
+        <h2 class="form-signin-heading"><strong>school/collage registration form</strong></h2>
         <div class="login-wrap">
 
             <div class="alert alert-success print-success-msg text-center" style="display: none;"></div>
 
-            <p><strong>Enter School Details Below</strong></p>
+            <p><strong>Enter School/Collage Details Below</strong></p>
             @csrf
             <div class="form-group">
-                <label for="scl_nme" class="col-sm-3 control-label">School Name *</label>
+                <label for="scl_nme" class="col-sm-3 control-label">Institute *</label>
                 <div class="col-sm-9">
-                    <input type="text" name="scl_nme" class="form-control" placeholder="School Name" id="scl_nme" />
+                    <input type="text" name="scl_nme" class="form-control" placeholder="Name" id="scl_nme" />
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="scl_eml" class="col-sm-3 control-label">School Email *</label>
+                <label for="scl_eml" class="col-sm-3 control-label">Email *</label>
                 <div class="col-sm-9">
-                    <input type="text" name="scl_eml" class="form-control" placeholder="School Email" id="scl_eml" />
+                    <input type="text" name="scl_eml" class="form-control" placeholder="Email" id="scl_eml" />
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="scl_cde" class="col-sm-3 control-label">School Code *</label>
+                <label for="scl_cde" class="col-sm-3 control-label">Code *</label>
                 <div class="col-sm-9">
-                    <input type="text" name="scl_cde" class="form-control" placeholder="School Code" id="scl_cde" />
+                    <input type="text" name="scl_cde" class="form-control" placeholder="Code" id="scl_cde" />
                 </div>
             </div>
-            
-            
-            
-            <div class="form-group">
-                    <label for="scl_cnt" class="col-sm-3 control-label">School Country *</label>
-                    <div class="col-sm-9">
-	                    <?php
-	                    $countries = DB::table('usrcnt')->get();
-	                    ?>
-	                    <select class="form-control" name="scl_cnt" id="scl_cnt" onchange="ajaxGET('scl_dvn','{{URL::to('/division/')}}/'+this.value)">
-	                        <option value="">Select Country</option>
-	                        @foreach ($countries as $country)
-    	                        @if ($country->cnt == 'Bangladesh')
-    	                           <option value="{{ $country->id }}">{{ $country->cnt }}</option>
-    	                        @else
-    	                           <option value="{{ $country->id }}" disabled="disabled">{{ $country->cnt }}</option>
-    	                        @endif
-	                        @endforeach
-	                    </select>
-                    </div>
-                </div> <!-- /.form-group -->
 
-                <div class="form-group">
-                    <label for="scl_dvn" class="col-sm-3 control-label">School Division *</label>
-                    <div class="col-sm-9">
-	                    <select class="form-control" name="scl_dvn" id="scl_dvn" onchange="ajaxGET('scl_dst','{{URL::to('/district/')}}/'+this.value)">
-	                        <option value="">Select Country First</option>
-	                    </select>
-                    </div>
-                </div> <!-- /.form-group -->
 
-                <div class="form-group">
-                    <label for="scl_dst" class="col-sm-3 control-label">School District *</label>
-                    <div class="col-sm-9">
-	                    <select class="form-control" name="scl_dst" id="scl_dst" onchange="ajaxGET('scl_thn','{{URL::to('/thana/')}}/'+this.value)">
-	                        <option value="">Select Division First</option>
-	                    </select>
-                    </div>
-                </div> <!-- /.form-group -->
-
-                <div class="form-group">
-                    <label for="scl_thn" class="col-sm-3 control-label">School Thana *</label>
-                    <div class="col-sm-9">
-	                    <select class="form-control" name="scl_thn" id="scl_thn">
-	                        <option value="">Select District First</option>
-	                    </select>
-                    </div>
-                </div> <!-- /.form-group -->
 
             <div class="form-group">
-                <label for="scl_adr" class="col-sm-3 control-label">School Address *</label>
+                <label for="scl_cnt" class="col-sm-3 control-label">Country *</label>
+                <div class="col-sm-9">
+                    <?php
+                    $countries = DB::table('usrcnt')->get();
+                    ?>
+                    <select class="form-control" name="scl_cnt" id="scl_cnt" onchange="ajaxGET('scl_dvn','{{URL::to('/division/')}}/'+this.value)">
+                        <option value="">Select Country</option>
+                        @foreach ($countries as $country)
+                        @if ($country->cnt == 'Bangladesh')
+                        <option value="{{ $country->id }}">{{ $country->cnt }}</option>
+                        @else
+                        <option value="{{ $country->id }}" disabled="disabled">{{ $country->cnt }}</option>
+                        @endif
+                        @endforeach
+                    </select>
+                </div>
+            </div> <!-- /.form-group -->
+
+            <div class="form-group">
+                <label for="scl_dvn" class="col-sm-3 control-label">Division *</label>
+                <div class="col-sm-9">
+                    <select class="form-control" name="scl_dvn" id="scl_dvn" onchange="ajaxGET('scl_dst','{{URL::to('/district/')}}/'+this.value)">
+                        <option value="">Select Country First</option>
+                    </select>
+                </div>
+            </div> <!-- /.form-group -->
+
+            <div class="form-group">
+                <label for="scl_dst" class="col-sm-3 control-label">District *</label>
+                <div class="col-sm-9">
+                    <select class="form-control" name="scl_dst" id="scl_dst" onchange="ajaxGET('scl_thn','{{URL::to('/thana/')}}/'+this.value)">
+                        <option value="">Select Division First</option>
+                    </select>
+                </div>
+            </div> <!-- /.form-group -->
+
+            <div class="form-group">
+                <label for="scl_thn" class="col-sm-3 control-label">Thana *</label>
+                <div class="col-sm-9">
+                    <select class="form-control" name="scl_thn" id="scl_thn">
+                        <option value="">Select District First</option>
+                    </select>
+                </div>
+            </div> <!-- /.form-group -->
+
+            <div class="form-group">
+                <label for="scl_adr" class="col-sm-3 control-label">Address *</label>
                 <div class="col-sm-9">
                     <input type="text" name="scl_adr" class="form-control" placeholder="PO,Village etc" id="scl_adr" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="scl_typ" class="col-sm-3 control-label">Type *</label>
+                <div class="col-sm-9">
+                    <select class="form-control" name="scl_typ" id="scl_typ">
+                        <option value="">Select Type</option>
+                        <option value="s">School</option>
+                        <option value="c">Collage</option>
+                        <option value="b">School and Collage</option>
+                    </select>
                 </div>
             </div>
 
@@ -103,7 +115,7 @@
                 </div>
             </div>
 
-            <p><strong>Enter School Admin Details Below</strong></p>
+            <p><strong>Enter School/Collage Admin Details Below</strong></p>
 
             <div class="form-group">
                 <label for="adn_nme" class="col-sm-3 control-label">Admin Full Name *</label>
@@ -129,21 +141,21 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="form-group">
                 <label for="adn_rnk" class="col-sm-3 control-label">Admin Designation *</label>
                 <div class="col-sm-9">
                     <input type="text" name="adn_rnk" class="form-control" placeholder="Admin Designation" id="adn_rnk" />
                 </div>
             </div>
-            
+
             <div class="form-group">
                 <label for="adn_mbl" class="col-sm-3 control-label">Admin Mobile *</label>
                 <div class="col-sm-9">
                     <input type="text" name="adn_mbl" class="form-control" placeholder="Admin Mobile Number" id="adn_mbl" />
                 </div>
             </div>
-            
+
             <div class="form-group">
                 <label for="adn_uid" class="col-sm-3 control-label">Admin Username *</label>
                 <div class="col-sm-9">

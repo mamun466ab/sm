@@ -15,13 +15,15 @@
         <link href="{{ asset('wbdlibs/css/bootstrap-reset.css') }}" rel="stylesheet">
         <!--external css-->
         <link href="{{ asset('wbdlibs/assets/font-awesome/css/font-awesome.css') }}" rel="stylesheet" />
-        <link href="{{ asset('wbdlibs/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css') }}" rel="stylesheet" type="text/css" media="screen"/>
-        <link href="{{ asset('wbdlibs/css/owl.carousel.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('wbdlibs/assets/bootstrap-wysihtml5/bootstrap-wysihtml5.css') }}" rel="stylesheet" />
+        <link href="{{ asset('wbdlibs/assets/bootstrap-datepicker/css/datepicker.css') }}" rel="stylesheet" />
+        <link href="{{ asset('wbdlibs/assets/bootstrap-timepicker/compiled/timepicker.css') }}" rel="stylesheet" />
+        <!--<link href="{{ asset('wbdlibs/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css') }}" rel="stylesheet" type="text/css" media="screen"/>-->
+        <!--<link href="{{ asset('wbdlibs/css/owl.carousel.css') }}" rel="stylesheet" type="text/css">-->
         <!-- Custom styles for this template -->
-        <link href="{{ asset('wbdlibs/css/jquery-ui.css') }}" rel="stylesheet">
         <link href="{{ asset('wbdlibs/css/style.css') }}" rel="stylesheet">
         <link href="{{ asset('wbdlibs/css/style-responsive.css') }}" rel="stylesheet" />
-        <link href="{{ asset('/resources/demos/style.css') }}" rel="stylesheet" />
+        <!--<link href="{{ asset('/resources/demos/style.css') }}" rel="stylesheet" />-->
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
         <!--[if lt IE 9]>
@@ -36,7 +38,7 @@
 
             <!--</div>-->
             <!--header start-->
-            <header class="header white-bg" style="padding: 0 0">
+            <header class="header white-bg" style="padding: 0 0;">
                 <div class="col-lg-12 hidden-sm" style="background: #033; color: #fff; padding: 2px; font-weight: bold;">
                     <span style="padding-left: 15px;">{{ Session::get('usrInfo')->sclnme }}</span>
                     <span class="pull-right" style="padding-right: 15px;">Expire Date : {{ Session::get('usrInfo')->expdte }}</span>
@@ -297,28 +299,34 @@
         <!-- js placed at the end of the document so the pages load faster -->
         <!--<script src="{{ asset('wbdlibs/js/jquery.js') }}"></script>-->
         <!--<script src="{{ asset('wbdlibs/js/jquery-1.8.3.min.js') }}"></script>-->
-        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-        <script src="{{ asset('wbdlibs/js/bootstrap.min.js') }}"></script>
+        <!--<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>-->
+        <script type="text/javascript" src="{{ asset('wbdlibs/js/jquery-1.12.4.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('wbdlibs/js/bootstrap.min.js') }}"></script>
         <script class="include" type="text/javascript" src="{{ asset('wbdlibs/js/jquery.dcjqaccordion.2.7.js') }}"></script>
-        <script src="{{ asset('wbdlibs/js/jquery.scrollTo.min.js') }}"></script>
-        <script src="{{ asset('wbdlibs/js/jquery.nicescroll.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('wbdlibs/js/jquery.sparkline.js') }}" type="text/javascript"></script>
-        <script src="assets/jquery-easy-pie-chart/jquery.easy-pie-chart.js') }}"></script>
-        <script src="{{ asset('wbdlibs/js/owl.carousel.js') }}" ></script>
-        <script src="{{ asset('wbdlibs/js/jquery.customSelect.min.js') }}" ></script>
-        <script src="{{ asset('wbdlibs/js/respond.min.js') }}" ></script>
-
-        <script class="include" type="text/javascript" src="{{ asset('wbdlibs/js/jquery.dcjqaccordion.2.7.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('wbdlibs/js/jquery.scrollTo.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('wbdlibs/js/jquery.nicescroll.js') }}"></script>
+        <!--<script src="{{ asset('wbdlibs/js/jquery.sparkline.js') }}" type="text/javascript"></script>-->
+        <!--<script src="assets/jquery-easy-pie-chart/jquery.easy-pie-chart.js') }}"></script>-->
+        <!--<script src="{{ asset('wbdlibs/js/owl.carousel.js') }}" ></script>-->
+        <!--<script src="{{ asset('wbdlibs/js/jquery.customSelect.min.js') }}" ></script>-->
+        <script type="text/javascript" src="{{ asset('wbdlibs/js/respond.min.js') }}" ></script>
+        
+        <!--Date timepicker--> 
+        <script type="text/javascript" src="{{ asset('wbdlibs/assets/bootstrap-wysihtml5/wysihtml5-0.3.0.js') }}" ></script>
+        <script type="text/javascript" src="{{ asset('wbdlibs/assets/bootstrap-wysihtml5/bootstrap-wysihtml5.js') }}" ></script>
+        <script type="text/javascript" src="{{ asset('wbdlibs/assets/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('wbdlibs/assets/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('wbdlibs/assets/bootstrap-timepicker/js/bootstrap-timepicker.js') }}"></script>
 
         <!--common script for all pages-->
-        <script src="{{ asset('wbdlibs/js/common-scripts.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('wbdlibs/js/common-scripts.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('wbdlibs/js/advanced-form-components.js') }}"></script>
 
         <!--script for this page-->
-        <script src="{{ asset('wbdlibs/js/sparkline-chart.js') }}"></script>
-        <script src="{{ asset('wbdlibs/js/easy-pie-chart.js') }}"></script>
-        <script src="{{ asset('wbdlibs/js/count.js') }}"></script>
-        <script src="{{ asset('wbdlibs/ajax/ajax.js') }}"></script>
+        <!--<script src="{{ asset('wbdlibs/js/sparkline-chart.js') }}"></script>-->
+        <!--<script src="{{ asset('wbdlibs/js/easy-pie-chart.js') }}"></script>-->
+        <script type="text/javascript" src="{{ asset('wbdlibs/js/count.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('wbdlibs/ajax/ajax.js') }}"></script>
         <script>
         <!-- Ajax script for form validation -->
         $.ajaxSetup({

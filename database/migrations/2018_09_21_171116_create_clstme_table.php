@@ -14,6 +14,7 @@ class CreateClstmeTable extends Migration
     public function up()
     {
         Schema::create('clstme', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->string('sclcd', 11);
             $table->string('clstme', 20);
             $table->unsignedInteger('clsnum');

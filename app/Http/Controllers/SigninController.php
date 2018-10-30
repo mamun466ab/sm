@@ -57,7 +57,7 @@ class SigninController extends Controller {
 
         $usrInfo = DB::table('usrreg')
                 ->join('sclreg', 'usrreg.sclcd', '=', 'sclreg.sclcd')
-                ->select('usrreg.*', 'sclreg.sclnme', 'sclreg.scleml', 'sclreg.sclrfr', 'sclreg.jondt', 'sclreg.expdte')
+                ->select('usrreg.*', 'sclreg.sclnme', 'sclreg.scleml', 'sclreg.sclrfr', 'sclreg.jondt', 'sclreg.expdte', 'sclreg.scltyp')
                 ->whereRaw("(usrreg.usrid = '$usrName' AND usrreg.usrpsd = '$usrPsd') OR (usrreg.usreml = '$usrName' AND usrreg.usrpsd = '$usrPsd')")
                 ->first();
 

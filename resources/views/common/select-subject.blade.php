@@ -43,9 +43,10 @@
 
                             <div class="form-group">
                                 <?php
-                                $cmnSub = DB::table('subject')->select('*')->get();
                                 $sclcd = Session::get('usrInfo')->sclcd;
-                                $extSub = DB::table('extsub')->select('*')->where('sclcd', $sclcd)->get();
+                                $cmnSub = DB::table('subject')->select('*')->orderBy('sub')->get();
+                                $extSub = DB::table('extsub')->select('*')->where('sclcd', $sclcd)->orderBy('exsub')->get();
+                                $forthsub = DB::table('subject')->select('*')->where('sts', 4)->orderBy('sub')->get();
                                 ?>
                                 <label for="cmnsub">Common Subject</label>
                                 <div id="cmnsub" style="color:blue;">
@@ -78,9 +79,6 @@
                             @endif
 
                             <div class="form-group">
-                                <?php
-                                $forthsub = DB::table('subject')->select('*')->where('sts', 4)->get();
-                                ?>
                                 <label for="frtsub">Forth Subject</label>
                                 <div id="frtsub" style="color:#D35400;">
                                     @foreach($forthsub as $frsub)

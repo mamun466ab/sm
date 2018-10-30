@@ -59,6 +59,7 @@ class RegController extends Controller {
                     'scl_dvn' => 'required|max:30',
                     'scl_dst' => 'required|max:30',
                     'scl_thn' => 'required|max:30',
+                    'scl_typ' => 'required|max:30',
                     'rfr_id' => 'max:30',
                     'adn_nme' => 'required|max:100',
                     'adn_eml' => 'required|max:100|email|unique:usrreg,usreml',
@@ -73,10 +74,11 @@ class RegController extends Controller {
                     'scl_eml.required' => 'You can\'t leave this empty.',
                     'scl_cde.required' => 'You can\'t leave this empty.',
                     'scl_adr.required' => 'You can\'t leave this empty.',
-                    'scl_cnt.required' => 'You can\'t leave this empty.',
-                    'scl_dvn.required' => 'You can\'t leave this empty.',
-                    'scl_dst.required' => 'You can\'t leave this empty.',
-                    'scl_thn.required' => 'You can\'t leave this empty.',
+                    'scl_cnt.required' => 'You can\'t leave without select country.',
+                    'scl_dvn.required' => 'You can\'t leave without select division.',
+                    'scl_dst.required' => 'You can\'t leave without select sistrict.',
+                    'scl_thn.required' => 'You can\'t leave without select thana.',
+                    'scl_typ.required' => 'You can\'t leave without select school type.',
                     'rfr_id.required' => 'You can\'t leave this empty.',
                     'adn_nme.required' => 'You can\'t leave this empty.',
                     'adn_eml.required' => 'You can\'t leave this empty.',
@@ -93,6 +95,7 @@ class RegController extends Controller {
                     'scl_dvn.max' => 'Maximum 30 character.',
                     'scl_dst.max' => 'Maximum 30 character.',
                     'scl_thn.max' => 'Maximum 30 character.',
+                    'scl_typ.max' => 'Maximum 30 character.',
                     'rfr_id.max' => 'Maximum 30 character.',
                     'adn_nme.max' => 'Maximum 100 character.',
                     'adn_eml.max' => 'Maximum 100 character.',
@@ -120,6 +123,7 @@ class RegController extends Controller {
             $sclRegInfo['dvnid'] = $request->scl_dvn;
             $sclRegInfo['dstid'] = $request->scl_dst;
             $sclRegInfo['thnid'] = $request->scl_thn;
+            $sclRegInfo['scltyp'] = $request->scl_typ;
             $sclRegInfo['sclrfr'] = $request->rfr_id;
             $sclRegInfo['jondt'] = date('Y-m-d');
             $sclRegInfo['expdte'] = date('Y-m-d', strtotime('+6 month'));
