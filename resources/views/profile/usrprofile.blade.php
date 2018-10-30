@@ -205,7 +205,7 @@
                                 <p><span>School Name </span>: {{ Session::get('usrInfo')->sclnme }}</p>
                             </div>
                             <div class="bio-row">
-                                <p><span>School Code </span>: <span style="color: green;">{{ Session::get('usrInfo')->sclcde }}</span></p>
+                                <p><span>School Code </span>: <span style="color: green;">{{ Session::get('usrInfo')->sclcd }}</span></p>
                             </div>
                             <div class="bio-row">
                                 <p><span>Email Address</span>: {{ Session::get('usrInfo')->scleml }}</p>

@@ -28,20 +28,27 @@ Route::middleware('userCheck')->group(function(){
     Route::get('/edit-profile/', 'ProfileController@editProfile');
     Route::get('/change-password/', 'ProfileController@passworChange');
     
-    Route::get('/add-teacher/', 'AdiminController@addTeacher');
-    Route::get('/add-student/', 'AdiminController@addStudent');
-    Route::get('/user-activation/', 'AdiminController@activeUser');
-    Route::get('/add-subject/', 'AdiminController@addSubject');
-    Route::get('/view-subject/', 'AdiminController@viewSubject');
-    Route::get('/change-subject/', 'AdiminController@changeSubject');
-    Route::get('/class-time/', 'AdiminController@classTime');
-    Route::get('/create-routine/', 'AdiminController@createRoutine');
-    Route::get('/block-unblock/', 'AdiminController@blockUnblock');
+    Route::get('/add-teacher/', 'AdminController@addTeacher');
+    Route::get('/add-student/', 'AdminController@addStudent');
+    Route::get('/user-activation/', 'AdminController@activeUser');
+    Route::get('/add-subject/', 'AdminController@addSubject');
+    Route::get('/view-subject/', 'AdminController@viewSubject');
+    Route::get('/change-subject/', 'AdminController@changeSubject');
+    Route::get('/create-routine/', 'AdminController@createRoutine');
+    Route::get('/block-unblock/', 'AdminController@blockUnblock');
+    Route::get('/exam-time/', 'AdminController@exmTime');
+    Route::get('/exam-routine/', 'AdminController@exmRoutine');
     
     Route::get('/select-subject/', 'CommonController@selectSubject');
     Route::get('/student-list/', 'CommonController@studentList');
     Route::get('/teacher-list/', 'CommonController@teacherList');
     Route::get('/view-routine/', 'CommonController@viewRoutine');
+    Route::get('/view-exam-routine/', 'CommonController@viewExmRoutine');
+    
+    /*
+     * Route match
+     */
+    Route::match(['get', 'post'], '/class-time/', 'AdminController@classTime');
     
     /*
      * For all update
@@ -56,9 +63,12 @@ Route::middleware('userCheck')->group(function(){
      */
     Route::post('/update-profile/', 'ProfileController@updateProfile');
     Route::post('/password-change/', 'ProfileController@changePassword');
+    
     Route::post('/subject-add/', 'AdminInsertController@addSubject');
-    Route::post('/class-time/', 'AdminInsertController@classTime');
+    Route::post('/insert-class-time/', 'AdminInsertController@classTime');
     Route::post('/routine-create/', 'AdminInsertController@routineCreate');
+    Route::post('/exam-time/', 'AdminInsertController@examTime');
+    Route::post('/create-exm-routine/', 'AdminInsertController@crtExmRtn');
     
     Route::post('/select-subject/', 'CommonInsertController@selectSubject');
     /*
@@ -70,6 +80,9 @@ Route::middleware('userCheck')->group(function(){
     Route::get('/subject-view/{id}', 'AjaxController@subjectView');
     Route::get('/selected-subject/{id}', 'AjaxController@selectedSubject');
     Route::get('/class-numbr/{num}', 'AjaxController@classNumber');
+    Route::get('/exam-times/{num}', 'AjaxController@examTimes');
+    Route::get('/exm-rtn/{num}', 'AjaxController@exmRtn');
+    Route::get('/cls-rtn/{num}', 'AjaxController@clsRtn');
     
     /*
      * For delete

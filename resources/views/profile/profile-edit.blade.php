@@ -86,10 +86,14 @@
                                     $countries = DB::table('usrcnt')->get();
                                     ?>
                                     <select class="form-control" name="cnt" id="cnt" onchange="ajaxGET('dvn','{{URL::to('/division/')}}/'+this.value)">
-                                        <option value="<?php if($proInfo){echo $proInfo->cntid;}else{echo "";} ?>"><?php if($proInfo){echo $proInfo->cnt;}else{echo "Select Country";} ?></option>
+                                        <option value="">Select Country</option>
                                         @foreach ($countries as $country)
                                         @if ($country->cnt == 'Bangladesh')
+                                        @if($country->id == $proInfo->cntid)
+                                        <option selected="selected" value="{{ $country->id }}">{{ $country->cnt }}</option>
+                                        @else
                                         <option value="{{ $country->id }}">{{ $country->cnt }}</option>
+                                        @endif
                                         @else
                                         <option value="{{ $country->id }}" disabled="disabled">{{ $country->cnt }}</option>
                                         @endif
@@ -148,7 +152,7 @@
                             <div class="form-group">
                                 <label for="dob" class="col-lg-2 control-label">Date of Birth *</label>
                                 <div class="col-lg-6">
-                                    <input name="dob" type="text" class="form-control" id="datepicker1" placeholder="Date of Birth" value="<?php if($proInfo){echo $proInfo->dob;} ?>">
+                                    <input name="dob" type="text" class="form-control default-date-picker" onkeydown="return false" placeholder="Date of Birth" value="<?php if($proInfo){echo $proInfo->dob;} ?>">
                                 </div>
                             </div>
 

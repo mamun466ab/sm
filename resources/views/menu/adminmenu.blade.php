@@ -43,14 +43,14 @@
                 </a>
                 <ul class="sub">
                     <li <?php if(isset($viewSubject)){ echo $viewSubject;} ?>><a  href="{{ url('/view-subject/') }}">View Subject</a></li>
-                    <li <?php if(isset($addSubject)){ echo $addSubject;} ?>><a  href="{{ url('/add-subject/') }}">Add Subject</a></li>
                     <li <?php if(isset($slctSubject)){ echo $slctSubject;} ?>><a  href="{{ url('/select-subject/') }}">Select Subject</a></li>
                     <li <?php if(isset($chngSubject)){ echo $chngSubject;} ?>><a  href="{{ url('/change-subject/') }}">Change Subject</a></li>
+                    <li <?php if(isset($addSubject)){ echo $addSubject;} ?>><a  href="{{ url('/add-subject/') }}">Add Subject</a></li>
                 </ul>
             </li>
             
             <li class="sub-menu">
-                <a href="javascript:;" <?php if(isset($viewRtn)){ echo $viewRtn;}elseif(isset($updtRtn)){ echo $updtRtn;}elseif(isset($crtRtn)){ echo $crtRtn;}elseif(isset($classTime)){ echo $classTime;} ?>>
+                <a href="javascript:;" <?php if(isset($viewRtn)){ echo $viewRtn;}elseif(isset($crtRtn)){ echo $crtRtn;}elseif(isset($classTime)){ echo $classTime;} ?>>
                     <i class="icon-calendar"></i>
                     <span>Class Routine</span>
                 </a>
@@ -58,7 +58,18 @@
                     <li <?php if(isset($classTime)){ echo $classTime;} ?>><a  href="{{ url('/class-time/') }}">Class Time</a></li>
                     <li <?php if(isset($crtRtn)){ echo $crtRtn;} ?>><a  href="{{ url('/create-routine/') }}">Create Routine</a></li>
                     <li <?php if(isset($viewRtn)){ echo $viewRtn;} ?>><a  href="{{ url('/view-routine/') }}">View Routine</a></li>
-                    <li <?php if(isset($updtRtn)){ echo $updtRtn;} ?>><a  href="{{ url('/#/') }}">Update Routine</a></li>
+                </ul>
+            </li>
+            
+            <li class="sub-menu">
+                <a href="javascript:;" <?php if(isset($vwExmRtn)){ echo $vwExmRtn;}elseif(isset($exmRtn)){ echo $exmRtn;}elseif(isset($exmTime)){ echo $exmTime;} ?>>
+                    <i class="icon-calendar"></i>
+                    <span>Exam Routine</span>
+                </a>
+                <ul class="sub">
+                    <li <?php if(isset($exmTime)){ echo $exmTime;} ?>><a  href="{{ url('/exam-time/') }}">Exam Time</a></li>
+                    <li <?php if(isset($exmRtn)){ echo $exmRtn;} ?>><a  href="{{ url('/exam-routine/') }}">Create Routine</a></li>
+                    <li <?php if(isset($vwExmRtn)){ echo $vwExmRtn;} ?>><a  href="{{ url('/view-exam-routine/') }}">View Routine</a></li>
                 </ul>
             </li>
             

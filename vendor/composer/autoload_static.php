@@ -321,7 +321,7 @@ class ComposerStaticInit3a81d3d6c1c921418316791ba7d3e6e2
     public static $classMap = array (
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
-        'App\\Http\\Controllers\\AdiminController' => __DIR__ . '/../..' . '/app/Http/Controllers/AdiminController.php',
+        'App\\Http\\Controllers\\AdminController' => __DIR__ . '/../..' . '/app/Http/Controllers/AdminController.php',
         'App\\Http\\Controllers\\AdminInsertController' => __DIR__ . '/../..' . '/app/Http/Controllers/AdminInsertController.php',
         'App\\Http\\Controllers\\AdminUpdateController' => __DIR__ . '/../..' . '/app/Http/Controllers/AdminUpdateController.php',
         'App\\Http\\Controllers\\AjaxController' => __DIR__ . '/../..' . '/app/Http/Controllers/AjaxController.php',

@@ -19,10 +19,27 @@
             <div class="col-sm-12 col-md-12 col-lg-12">
                 <section class="panel">
                     <header class="panel-heading">
-                        <strong>Create Routine</strong>
+                        <strong>Create Class Routine</strong>
                     </header>
                     <div class="panel-body">
-                        <div class="alert alert-success print-success-msg text-center" style="display: none;"></div>
+                            <?php
+                                if(Session::get('msg') != NULL){
+                                    echo '<div class="alert alert-success print-success-msg text-center">';
+                                    echo Session::get('msg');
+                                    echo '</div>';
+                                    Session::forget('msg');
+                                }
+                            ?>
+                        
+                            <?php
+                                if(Session::get('errors') != NULL){
+                                    echo '<div class="alert alert-danger print-success-msg text-center">';
+                                    echo Session::get('errors');
+                                    echo '</div>';
+                                    Session::forget('errors');
+                                }
+                            ?>
+                        
                         <form action="routine-create" method="POST" role="form">
                             @csrf
 
@@ -30,7 +47,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label for="cls">Class *</label>
-                                        <select name="cls" id="cls" class="form-control" style="color: #000;" required="required">
+                                        <select name="cls" id="cls" class="form-control" style="color: #000;" required="required" onchange="ajaxGET('clsRtn','{{ URL::to('/cls-rtn/') }}/'+this.value)">
                                             <option value="">Select Class</option>
                                             <option value="6">Six</option>
                                             <option value="7">Seven</option>
@@ -43,156 +60,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <?php
-                            $sclcd = Session::get('usrInfo')->sclcd;
-                            $clstme = DB::table('clstme')->select('*')->where('sclcd', $sclcd)->get();
-                            $subject = DB::table('subject')->select('*')->orderBy('sub')->get();
-                            $extSub = DB::table('extsub')->select('*')->where('sclcd', $sclcd)->orderBy('exsub')->get();
-                            $i = 1;
-                            ?>
-
-                            <input type="hidden" name="ttlcls" value="{{ count($clstme) }}">
-                            <div class="row" style="margin-bottom:15px; color: rgb(121, 121, 121); font-weight: bold; text-align: center;">
-                                <div class="col-sm-12">
-                                    <div class="width14">Class Time</div>
-                                    <div class="width14">Saturday</div>
-                                    <div class="width14">Sunday</div>
-                                    <div class="width14">Monday</div>
-                                    <div class="width14">Tuesday</div>
-                                    <div class="width14">Wednesday</div>
-                                    <div class="width14">Thursday</div>
-                                </div>
-                            </div>
-
-                            <?php
-                            if (count($clstme) > 0):
-                                foreach ($clstme as $clsTm):
-                                    ?>
-                                    <div class = "row" style="margin-bottom:15px;">
-                                        <div cl                                    ass = "form-group">
-                                            <div class = "width14">
-                                                <input type = "text" name = "clstme{{$i}}" class = "form-control" id = "clstme{{$i}}" readonly="readonly" value = "{{$clsTm->clstme}}">
-                                            </div>
-                                            <div class = "width14">
-                                                <select name="sat{{$i}}" class="form-control" id="sat{{$i}}" required="required" style="color:#000;">
-                                                    <option value="">Subject</option>
-                                                    <option value="Tiffin Time">Tiffin Time</option>
-                                                    <optgroup label="Common Subject">
-                                                        @foreach($subject as $cmnSub)
-                                                        <option value="{{$cmnSub->sub}}">{{$cmnSub->sub}}</option>
-                                                        @endforeach
-                                                    </optgroup>
-
-                                                    <optgroup label="Extra Subject">
-                                                        @foreach($extSub as $exSub)
-                                                        <option value="{{$exSub->exsub}}">{{$exSub->exsub}}</option>
-                                                        @endforeach
-                                                    </optgroup>
-                                                </select>
-                                            </div>
-                                            <div class = "width14">
-                                                <select name="sun{{$i}}" class="form-control" id="sun{{$i}}" required="required" style="color:#000;">
-                                                    <option value="">Subject</option>
-                                                    <option value="Tiffin Time">Tiffin Time</option>
-                                                    <optgroup label="Common Subject">
-                                                        @foreach($subject as $cmnSub)
-                                                        <option value="{{$cmnSub->sub}}">{{$cmnSub->sub}}</option>
-                                                        @endforeach
-                                                    </optgroup>
-
-                                                    <optgroup label="Extra Subject">
-                                                        @foreach($extSub as $exSub)
-                                                        <option value="{{$exSub->exsub}}">{{$exSub->exsub}}</option>
-                                                        @endforeach
-                                                    </optgroup>
-                                                </select>
-                                            </div>
-                                            <div class = "width14">
-                                                <select name="mon{{$i}}" class="form-control" id="mon{{$i}}" required="required" style="color:#000;">
-                                                    <option value="">Subject</option>
-                                                    <option value="Tiffin Time">Tiffin Time</option>
-                                                    <optgroup label="Common Subject">
-                                                        @foreach($subject as $cmnSub)
-                                                        <option value="{{$cmnSub->sub}}">{{$cmnSub->sub}}</option>
-                                                        @endforeach
-                                                    </optgroup>
-
-                                                    <optgroup label="Extra Subject">
-                                                        @foreach($extSub as $exSub)
-                                                        <option value="{{$exSub->exsub}}">{{$exSub->exsub}}</option>
-                                                        @endforeach
-                                                    </optgroup>
-                                                </select>
-                                            </div>
-                                            <div class = "width14">
-                                                <select name="tue{{$i}}" class="form-control" id="tue{{$i}}" required="required" style="color:#000;">
-                                                    <option value="">Subject</option>
-                                                    <option value="Tiffin Time">Tiffin Time</option>
-                                                    <optgroup label="Common Subject">
-                                                        @foreach($subject as $cmnSub)
-                                                        <option value="{{$cmnSub->sub}}">{{$cmnSub->sub}}</option>
-                                                        @endforeach
-                                                    </optgroup>
-
-                                                    <optgroup label="Extra Subject">
-                                                        @foreach($extSub as $exSub)
-                                                        <option value="{{$exSub->exsub}}">{{$exSub->exsub}}</option>
-                                                        @endforeach
-                                                    </optgroup>
-                                                </select>
-                                            </div>
-                                            <div class = "width14">
-                                                <select name="wed{{$i}}" class="form-control" id="wed{{$i}}" required="required" style="color:#000;">
-                                                    <option value="">Subject</option>
-                                                    <option value="Tiffin Time">Tiffin Time</option>
-                                                    <optgroup label="Common Subject">
-                                                        @foreach($subject as $cmnSub)
-                                                        <option value="{{$cmnSub->sub}}">{{$cmnSub->sub}}</option>
-                                                        @endforeach
-                                                    </optgroup>
-
-                                                    <optgroup label="Extra Subject">
-                                                        @foreach($extSub as $exSub)
-                                                        <option value="{{$exSub->exsub}}">{{$exSub->exsub}}</option>
-                                                        @endforeach
-                                                    </optgroup>
-                                                </select>
-                                            </div>
-                                            <div class = "width14">
-                                                <select name="thu{{$i}}" class="form-control" id="thu{{$i}}" required="required" style="color:#000;">
-                                                    <option value="">Subject</option>
-                                                    <option value="Tiffin Time">Tiffin Time</option>
-                                                    <optgroup label="Common Subject">
-                                                        @foreach($subject as $cmnSub)
-                                                        <option value="{{$cmnSub->sub}}">{{$cmnSub->sub}}</option>
-                                                        @endforeach
-                                                    </optgroup>
-
-                                                    <optgroup label="Extra Subject">
-                                                        @foreach($extSub as $exSub)
-                                                        <option value="{{$exSub->exsub}}">{{$exSub->exsub}}</option>
-                                                        @endforeach
-                                                    </optgroup>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <?php
-                                    $i++;
-                                endforeach;
-                            else:
-                                ?>
-                            <div class="row" style="color:red; text-align: center;">
-                                <div class="col-sm-12">
-                                    Please first set the class time.
-                                </div>
-                            </div>
-                            <?php
-                            endif;
-                            ?>
-                            <div id="classTime" style="margin-bottom:15px;">
-
-                            </div>
+                            
+                            <div id="clsRtn"></div>
                             <button type="submit" class="btn btn-info">Submit</button>
                         </form>
 

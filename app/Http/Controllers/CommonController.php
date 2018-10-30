@@ -11,13 +11,6 @@ class CommonController extends Controller {
 
     public function studentList() {
         $usrInfo = Session::get('usrInfo');
-        $url = url()->current();
-        $urlParts = explode('/', $url);
-        $endParts = end($urlParts);
-
-        if ($endParts == 'student-list') {
-            $activeClass = 'class="active"';
-        }
         
         $stdSession = date('Y');
 
@@ -38,7 +31,7 @@ class CommonController extends Controller {
                 ->get();
 
         if ($usrInfo->usrtyp == 'Teacher' AND $usrInfo->usrpwr == 1) {
-            $leftMenu = view('menu.adminmenu')->with('stdLst', $activeClass);
+            $leftMenu = view('menu.adminmenu')->with('stdLst', 'class="active"');
             $addTeacher = view('common.student-list')
                     ->with('stdInfo', $stdInfo)
                     ->with('sclInfo', $sclInfo);
@@ -51,13 +44,6 @@ class CommonController extends Controller {
     
     public function teacherList() {
         $usrInfo = Session::get('usrInfo');
-        $url = url()->current();
-        $urlParts = explode('/', $url);
-        $endParts = end($urlParts);
-
-        if ($endParts == 'teacher-list') {
-            $activeClass = 'class="active"';
-        }
         
         $stdSession = date('Y');
 
@@ -76,7 +62,7 @@ class CommonController extends Controller {
                 ->get();
 
         if ($usrInfo->usrtyp == 'Teacher' AND $usrInfo->usrpwr == 1) {
-            $leftMenu = view('menu.adminmenu')->with('tcrLst', $activeClass);
+            $leftMenu = view('menu.adminmenu')->with('tcrLst', 'class="active"');
             $addTeacher = view('common.teacher-list')
                     ->with('tcrInfo', $tcrInfo)
                     ->with('sclInfo', $sclInfo);
@@ -89,16 +75,9 @@ class CommonController extends Controller {
     
     public function selectSubject(){
         $usrInfo = Session::get('usrInfo');
-        $url = url()->current();
-        $urlParts = explode('/', $url);
-        $endParts = end($urlParts);
-        
-        if ($endParts == 'select-subject') {
-            $activeClass = 'class="active"';
-        }
         
         if ($usrInfo->usrtyp == 'Teacher' AND $usrInfo->usrpwr == 1) {
-            $leftMenu = view('menu.adminmenu')->with('slctSubject', $activeClass);
+            $leftMenu = view('menu.adminmenu')->with('slctSubject', 'class="active"');
             $selectSubject = view('common.select-subject');
         } else {
             return Redirect::to('/');
@@ -109,17 +88,23 @@ class CommonController extends Controller {
     
     public function viewRoutine(){
         $usrInfo = Session::get('usrInfo');
-        $url = url()->current();
-        $urlParts = explode('/', $url);
-        $endParts = end($urlParts);
-        
-        if ($endParts == 'view-routine') {
-            $activeClass = 'class="active"';
-        }
         
         if ($usrInfo->usrtyp == 'Teacher' AND $usrInfo->usrpwr == 1) {
-            $leftMenu = view('menu.adminmenu')->with('viewRtn', $activeClass);
+            $leftMenu = view('menu.adminmenu')->with('viewRtn', 'class="active"');
             $selectSubject = view('common.view-routine');
+        } else {
+            return Redirect::to('/');
+        }
+
+        return view('dboardcontainer')->with('leftmenu', $leftMenu)->with('content', $selectSubject);
+    }
+    
+    public function viewExmRoutine(){
+        $usrInfo = Session::get('usrInfo');
+        
+        if ($usrInfo->usrtyp == 'Teacher' AND $usrInfo->usrpwr == 1) {
+            $leftMenu = view('menu.adminmenu')->with('vwExmRtn', 'class="active"');
+            $selectSubject = view('common.view-exam-routine');
         } else {
             return Redirect::to('/');
         }

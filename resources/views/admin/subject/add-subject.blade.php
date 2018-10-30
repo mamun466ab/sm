@@ -25,7 +25,7 @@
                                 <input type="text" name="subnme" class="form-control" id="subnme" placeholder="Extra Subject Name">
                             </div>
                             <div class="form-group">
-                                <label for="subcde">Subject Name</label>
+                                <label for="subcde">Subject Code</label>
                                 <input type="text" name="subcde" class="form-control" id="subcde" placeholder="Extra Subject Code">
                             </div>
                             <button type="submit" class="btn btn-info">Submit</button>
