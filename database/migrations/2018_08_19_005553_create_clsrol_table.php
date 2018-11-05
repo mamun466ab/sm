@@ -15,7 +15,7 @@ class CreateClsrolTable extends Migration
     {
         Schema::create('clsrol', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('stdid');
+            $table->unsignedBigInteger('stdid');
             $table->string('sclcd', 11);
             $table->unsignedInteger('stdcls');
             $table->unsignedInteger('stdrol');

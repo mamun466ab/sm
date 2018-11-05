@@ -14,8 +14,8 @@ class CreateStudentSubjectTable extends Migration
     public function up()
     {
         Schema::create('stdsub', function (Blueprint $table) {
-            $table->increments('id');
-            $table->tinyInteger('stdid');
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('stdid');
             $table->string('sclcd', 11);
             $table->string('sub', 255);
             $table->string('frthsub', 50)->nullable();

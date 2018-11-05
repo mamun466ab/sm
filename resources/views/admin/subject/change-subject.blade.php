@@ -42,7 +42,6 @@
                             </div>
 
                             <div id="selectedSubject">
-                                
                             </div>
 
                             <button type="submit" class="btn btn-info">Submit</button>

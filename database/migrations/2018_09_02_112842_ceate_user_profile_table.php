@@ -15,7 +15,7 @@ class CeateUserProfileTable extends Migration
     {
         Schema::create('usrpro', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('usrid');
+            $table->unsignedBigInteger('usrid');
             $table->string('sclcd', 11);
             $table->string('abt', 255);
             $table->string('fthr', 30);

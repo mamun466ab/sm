@@ -13,12 +13,13 @@ class AdminInsertController extends Controller {
     public function addSubject(Request $request) {
         $subjectValidator = Validator::make($request->all(), [
                     'subnme' => 'required|max:30',
-                    'subcde' => 'required|max:10',
+                    'subcde' => 'required|max:10|unique:extsub,exsubcd',
                         ], [
                     'subnme.required' => 'You can\'t leave this empty.',
                     'subcde.required' => 'You can\'t leave this empty.',
                     'subnme.max' => 'Maximum 30 character.',
                     'subcde.max' => 'Maximum 10 character.',
+                    'subcde.unique' => 'Subject code already exists.',
         ]);
 
         if ($subjectValidator->passes()) {
@@ -181,14 +182,14 @@ class AdminInsertController extends Controller {
                 $cls = 'cls' . $i;
                 $fstsub = 'fstexm' . $i;
                 $sndsub = 'sndexm' . $i;
-                
+
                 $exmrtn = array();
                 $exmrtn['sclcd'] = $sclcd;
                 $exmrtn['cls'] = $crtRtn->$cls;
                 $exmrtn['exmdte'] = $exmDte;
                 $exmrtn['fstsub'] = $crtRtn->$fstsub;
                 $exmrtn['sndsub'] = $crtRtn->$sndsub;
-                
+
                 DB::table('exmrtn')->insert($exmrtn);
             endfor;
             Session::put('msg', 'Routine created.');
@@ -197,20 +198,86 @@ class AdminInsertController extends Controller {
                 $cls = 'cls' . $n;
                 $fstsub = 'fstexm' . $n;
                 $sndsub = 'sndexm' . $n;
-                
+
                 $exmrtn = array();
                 $exmrtn['sclcd'] = $sclcd;
                 $exmrtn['cls'] = $crtRtn->$cls;
                 $exmrtn['exmdte'] = $exmDte;
                 $exmrtn['fstsub'] = $crtRtn->$fstsub;
                 $exmrtn['sndsub'] = $crtRtn->$sndsub;
-                
+
                 DB::table('exmrtn')->insert($exmrtn);
             endfor;
             Session::put('msg', 'Routine created.');
         }
-        
+
         return Redirect::to('/exam-routine/');
+    }
+
+    public function insrtNum(Request $addNumber) {
+        $sclcd = Session::get('usrInfo')->sclcd;
+        $stdcls = $addNumber->stdcls;
+        $stdid = $addNumber->stdid;
+        $stdssn = $addNumber->ssn;
+        $exmtyp = $addNumber->exmTyp;
+        $ttlsub = $addNumber->ttlsub;
+
+        $chkSubNum = DB::table('subnum')->select('*')->where('sclcd', $sclcd)->where('stdid', $stdid)->where('stdcls', $stdcls)->where('ssn', $stdssn)->where('exmtyp', $exmtyp)->get();
+
+        $numSum = 0;
+
+        if (count($chkSubNum) == 0):
+            for ($n = 1; $n < $ttlsub; $n++) {
+                $sub = 'sub' . $n;
+                $num = 'num' . $n;
+
+                $subNumArray = array();
+                $subNumArray['sclcd'] = $sclcd;
+                $subNumArray['stdid'] = $stdid;
+                $subNumArray['stdcls'] = $stdcls;
+                $subNumArray['sub'] = $addNumber->$sub;
+                $subNumArray['num'] = $addNumber->$num;
+                $subNumArray['ssn'] = $stdssn;
+                $subNumArray['exmtyp'] = $exmtyp;
+
+                $numSum += $addNumber->$num;
+
+                DB::table('subnum')->insert($subNumArray);
+            }
+
+            if (!empty($addNumber->frtnum)) {
+                $frtSubNumArray = array();
+                $frtSubNumArray['sclcd'] = $sclcd;
+                $frtSubNumArray['stdid'] = $stdid;
+                $frtSubNumArray['stdcls'] = $stdcls;
+                $frtSubNumArray['sub'] = $addNumber->frtsub;
+                $frtSubNumArray['num'] = $addNumber->frtnum;
+                $frtSubNumArray['ssn'] = $stdssn;
+                $frtSubNumArray['exmtyp'] = $exmtyp;
+                $frtSubNumArray['sts'] = 4;
+
+                $numSum += $addNumber->frtnum;
+
+                DB::table('subnum')->insert($frtSubNumArray);
+            }
+
+            $ttlNumArray = array();
+
+            $ttlNumArray['sclcd'] = $sclcd;
+            $ttlNumArray['stdid'] = $stdid;
+            $ttlNumArray['stdcls'] = $stdcls;
+            $ttlNumArray['ttlnum'] = $numSum;
+            $ttlNumArray['ssn'] = $stdssn;
+            $ttlNumArray['exmtyp'] = $exmtyp;
+
+            DB::table('ttlnum')->insert($ttlNumArray);
+
+            Session::put('msg', 'Subject number succesfully added.');
+            return Redirect::to('/add-number/');
+        else:
+            Session::put('errors', 'Already inserted.');
+            return Redirect::to('/add-number/');
+        endif;
     }
 
 }

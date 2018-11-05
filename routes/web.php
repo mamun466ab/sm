@@ -38,6 +38,7 @@ Route::middleware('userCheck')->group(function(){
     Route::get('/block-unblock/', 'AdminController@blockUnblock');
     Route::get('/exam-time/', 'AdminController@exmTime');
     Route::get('/exam-routine/', 'AdminController@exmRoutine');
+    Route::get('/add-number/', 'AdminController@addNumber');
     
     Route::get('/select-subject/', 'CommonController@selectSubject');
     Route::get('/student-list/', 'CommonController@studentList');
@@ -69,6 +70,7 @@ Route::middleware('userCheck')->group(function(){
     Route::post('/routine-create/', 'AdminInsertController@routineCreate');
     Route::post('/exam-time/', 'AdminInsertController@examTime');
     Route::post('/create-exm-routine/', 'AdminInsertController@crtExmRtn');
+    Route::post('/insert-number/', 'AdminInsertController@insrtNum');
     
     Route::post('/select-subject/', 'CommonInsertController@selectSubject');
     /*
@@ -83,6 +85,7 @@ Route::middleware('userCheck')->group(function(){
     Route::get('/exam-times/{num}', 'AjaxController@examTimes');
     Route::get('/exm-rtn/{num}', 'AjaxController@exmRtn');
     Route::get('/cls-rtn/{num}', 'AjaxController@clsRtn');
+    Route::get('/add-number-ajax/{stdid}', 'AjaxController@addNumber');
     
     /*
      * For delete

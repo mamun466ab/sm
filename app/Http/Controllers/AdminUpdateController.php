@@ -21,11 +21,12 @@ class AdminUpdateController extends Controller {
 
         if ($changeSubValidator->passes()) {
             $cmnsub = implode(',', $subAll->cmnsub);
-            if ($subAll->extsub) {
+            if (!empty($subAll->extsub)) {
                 $extsub = implode(',', $subAll->extsub);
             } else {
-                $extsub = "";
+                $extsub = NULL;
             }
+            
             $slctSub = array();
             $slctSub['sub'] = "$cmnsub";
             $slctSub['frthsub'] = $subAll->frtsub;

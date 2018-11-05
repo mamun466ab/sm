@@ -14,7 +14,7 @@ class CreateUsrregTable extends Migration
     public function up()
     {
         Schema::create('usrreg', function (Blueprint $table) {
-            $table->increments('id', 25);
+            $table->bigIncrements('id');
             $table->string('usrnme', 100);
             $table->string('usreml', 100)->unique();
             $table->string('usrgnr', 7);

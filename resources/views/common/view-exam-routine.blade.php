@@ -17,6 +17,8 @@
         $clsRtn10 = DB::table('exmrtn')->select('*')->where('sclcd', $sclcd)->where('cls', 'Ten')->get();
         $clsRtn11 = DB::table('exmrtn')->select('*')->where('sclcd', $sclcd)->where('cls', 'Enter 1st Year')->get();
         $clsRtn12 = DB::table('exmrtn')->select('*')->where('sclcd', $sclcd)->where('cls', 'Enter 2nd Year')->get();
+        $sclexmTme = DB::table('exmtm')->select('*')->where('sclcd', $sclcd)->where('scltyp', 's')->first();
+        $clgexmTme = DB::table('exmtm')->select('*')->where('sclcd', $sclcd)->where('scltyp', 'c')->first();
         $a = $b = $c = $d = $e = $f = $g = 1;
         $color = '#099';
         ?>
@@ -25,7 +27,7 @@
             <div class="col-lg-12">
                 <section class="panel">
                     <header class="panel-heading">
-                        <strong>Exam Routine for Class Six</strong>
+                        <strong>{{ $sclexmTme->exmtyp }} Exam Routine for Class Six</strong>
                     </header>
                     <div class="panel-body">
                         <section id="unseen">
@@ -34,8 +36,8 @@
                                     <tr>
                                         <th>Ser No</th>
                                         <th>Exam Date</th>
-                                        <th>First</th>
-                                        <th>Seccond</th>
+                                        <th>{{ $sclexmTme->fsttm }}</th>
+                                        <th>{{ $sclexmTme->sndtm }}</th>
                                     </tr>
                                 </thead>
 
@@ -63,7 +65,7 @@
             <div class="col-lg-12">
                 <section class="panel">
                     <header class="panel-heading">
-                        <strong>Class Routine for Class Seven</strong>
+                        <strong>{{ $sclexmTme->exmtyp }} Exam Routine for Class Seven</strong>
                     </header>
                     <div class="panel-body">
                         <section id="unseen">
@@ -72,8 +74,8 @@
                                     <tr>
                                         <th>Ser No</th>
                                         <th>Exam Date</th>
-                                        <th>First</th>
-                                        <th>Seccond</th>
+                                        <th>{{ $sclexmTme->fsttm }}</th>
+                                        <th>{{ $sclexmTme->sndtm }}</th>
                                     </tr>
                                 </thead>
 
@@ -101,7 +103,7 @@
             <div class="col-lg-12">
                 <section class="panel">
                     <header class="panel-heading">
-                        <strong>Class Routine for Class Eight</strong>
+                        <strong>{{ $sclexmTme->exmtyp }} Exam Routine for Class Eight</strong>
                     </header>
                     <div class="panel-body">
                         <section id="unseen">
@@ -110,8 +112,8 @@
                                     <tr>
                                         <th>Ser No</th>
                                         <th>Exam Date</th>
-                                        <th>First</th>
-                                        <th>Seccond</th>
+                                        <th>{{ $sclexmTme->fsttm }}</th>
+                                        <th>{{ $sclexmTme->sndtm }}</th>
                                     </tr>
                                 </thead>
 
@@ -133,12 +135,13 @@
             </div>
         </div>
         @endif
+        
         @if(count($clsRtn9) > 0)
         <div class="row" style="margin-top: 15px;">
             <div class="col-lg-12">
                 <section class="panel">
                     <header class="panel-heading">
-                        <strong>Class Routine for Class Nine</strong>
+                        <strong>{{ $sclexmTme->exmtyp }} Exam Routine for Class Nine</strong>
                     </header>
                     <div class="panel-body">
                         <section id="unseen">
@@ -147,8 +150,8 @@
                                     <tr>
                                         <th>Ser No</th>
                                         <th>Exam Date</th>
-                                        <th>First</th>
-                                        <th>Seccond</th>
+                                        <th>{{ $sclexmTme->fsttm }}</th>
+                                        <th>{{ $sclexmTme->sndtm }}</th>
                                     </tr>
                                 </thead>
 
@@ -170,12 +173,13 @@
             </div>
         </div>
         @endif
+        
         @if(count($clsRtn10) > 0)
         <div class="row" style="margin-top: 15px;">
             <div class="col-lg-12">
                 <section class="panel">
                     <header class="panel-heading">
-                        <strong>Class Routine for Class Ten</strong>
+                        <strong>{{ $sclexmTme->exmtyp }} Exam Routine for Class Ten</strong>
                     </header>
                     <div class="panel-body">
                         <section id="unseen">
@@ -184,8 +188,8 @@
                                     <tr>
                                         <th>Ser No</th>
                                         <th>Exam Date</th>
-                                        <th>First</th>
-                                        <th>Seccond</th>
+                                        <th>{{ $sclexmTme->fsttm }}</th>
+                                        <th>{{ $sclexmTme->sndtm }}</th>
                                     </tr>
                                 </thead>
 
@@ -213,7 +217,7 @@
             <div class="col-lg-12">
                 <section class="panel">
                     <header class="panel-heading">
-                        <strong>Class Routine for Class Enter 1st Year</strong>
+                        <strong>{{ $clgexmTme->exmtyp }} Exam Routine for Class Enter 1st Year</strong>
                     </header>
                     <div class="panel-body">
                         <section id="unseen">
@@ -222,8 +226,8 @@
                                     <tr>
                                         <th>Ser No</th>
                                         <th>Exam Date</th>
-                                        <th>First</th>
-                                        <th>Seccond</th>
+                                        <th>{{ $clgexmTme->fsttm }}</th>
+                                        <th>{{ $clgexmTme->sndtm }}</th>
                                     </tr>
                                 </thead>
 
@@ -250,7 +254,7 @@
             <div class="col-lg-12">
                 <section class="panel">
                     <header class="panel-heading">
-                        <strong>Class Routine for Class Enter 2nd Year</strong>
+                        <strong>{{ $clgexmTme->exmtyp }} Exam Routine for Class Enter 2nd Year</strong>
                     </header>
                     <div class="panel-body">
                         <section id="unseen">
@@ -259,8 +263,8 @@
                                     <tr>
                                         <th>Ser No</th>
                                         <th>Exam Date</th>
-                                        <th>First</th>
-                                        <th>Seccond</th>
+                                        <th>{{ $clgexmTme->fsttm }}</th>
+                                        <th>{{ $clgexmTme->sndtm }}</th>
                                     </tr>
                                 </thead>
 
