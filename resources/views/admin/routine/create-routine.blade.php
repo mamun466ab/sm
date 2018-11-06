@@ -38,6 +38,7 @@
                                     echo '</div>';
                                     Session::forget('errors');
                                 }
+                                $scltyp = Session::get('usrInfo')->scltyp;
                             ?>
                         
                         <form action="routine-create" method="POST" role="form">
@@ -49,6 +50,7 @@
                                         <label for="cls">Class *</label>
                                         <select name="cls" id="cls" class="form-control" style="color: #000;" required="required" onchange="ajaxGET('clsRtn','{{ URL::to('/cls-rtn/') }}/'+this.value)">
                                             <option value="">Select Class</option>
+                                            @if($scltyp == 'b')
                                             <option value="6">Six</option>
                                             <option value="7">Seven</option>
                                             <option value="8">Eight</option>
@@ -56,6 +58,16 @@
                                             <option value="10">Ten</option>
                                             <option value="11">Enter 1st Year</option>
                                             <option value="12">Enter 2nd Year</option>
+                                            @elseif($scltyp == 's')
+                                            <option value="6">Six</option>
+                                            <option value="7">Seven</option>
+                                            <option value="8">Eight</option>
+                                            <option value="9">Nine</option>
+                                            <option value="10">Ten</option>
+                                            @elseif($scltyp == 'c')
+                                            <option value="11">Enter 1st Year</option>
+                                            <option value="12">Enter 2nd Year</option>
+                                            @endif
                                         </select>
                                     </div>
                                 </div>

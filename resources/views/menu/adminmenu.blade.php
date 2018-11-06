@@ -73,6 +73,42 @@
                 </ul>
             </li>
             
+            <li class="sub-menu">
+                <a href="javascript:;" <?php if(isset($vwExmRtn)){ echo $vwExmRtn;}elseif(isset($exmRtn)){ echo $exmRtn;}elseif(isset($addNumber)){ echo $addNumber;} ?>>
+                    <i class="icon-lightbulb"></i>
+                    <span>Result</span>
+                </a>
+                <ul class="sub">
+                    <li <?php if(isset($addNumber)){ echo $addNumber;} ?>><a  href="{{ url('/add-number/') }}">Add Number</a></li>
+                    <li <?php if(isset($exmRtn)){ echo $exmRtn;} ?>><a  href="{{ url('/exam-routine/') }}">View Result</a></li>
+                    <li <?php if(isset($vwExmRtn)){ echo $vwExmRtn;} ?>><a  href="{{ url('/view-exam-routine/') }}">Pass/Fail</a></li>
+                </ul>
+            </li>
+            
+            <li class="sub-menu">
+                <a href="javascript:;" <?php if(isset($vwExmRtn)){ echo $vwExmRtn;}elseif(isset($exmRtn)){ echo $exmRtn;}elseif(isset($addNumber)){ echo $addNumber;} ?>>
+                    <i class="icon-lightbulb"></i>
+                    <span>Salary</span>
+                </a>
+                <ul class="sub">
+                    <li <?php if(isset($addNumber)){ echo $addNumber;} ?>><a  href="{{ url('/add-number/') }}">Add Number</a></li>
+                    <li <?php if(isset($exmRtn)){ echo $exmRtn;} ?>><a  href="{{ url('/exam-routine/') }}">View Result</a></li>
+                    <li <?php if(isset($vwExmRtn)){ echo $vwExmRtn;} ?>><a  href="{{ url('/view-exam-routine/') }}">Pass/Fail</a></li>
+                </ul>
+            </li>
+            
+            <li class="sub-menu">
+                <a href="javascript:;" <?php if(isset($vwExmRtn)){ echo $vwExmRtn;}elseif(isset($exmRtn)){ echo $exmRtn;}elseif(isset($addNumber)){ echo $addNumber;} ?>>
+                    <i class="icon-lightbulb"></i>
+                    <span>Payment</span>
+                </a>
+                <ul class="sub">
+                    <li <?php if(isset($addNumber)){ echo $addNumber;} ?>><a  href="{{ url('/add-number/') }}">Add Number</a></li>
+                    <li <?php if(isset($exmRtn)){ echo $exmRtn;} ?>><a  href="{{ url('/exam-routine/') }}">View Result</a></li>
+                    <li <?php if(isset($vwExmRtn)){ echo $vwExmRtn;} ?>><a  href="{{ url('/view-exam-routine/') }}">Pass/Fail</a></li>
+                </ul>
+            </li>
+            
 <!--            <li>
                 <a href="{{ url('add-subject') }}" <?php // if(isset($addSubject)){ echo $addSubject;} ?>>
                     <i class="icon-book"></i>

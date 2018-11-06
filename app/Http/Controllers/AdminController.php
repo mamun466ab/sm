@@ -236,7 +236,22 @@ class AdminController extends Controller {
         
         if ($usrInfo->usrtyp == 'Teacher' AND $usrInfo->usrpwr == 1) {
             $leftMenu = view('menu.adminmenu')->with('exmRtn', 'class="active"');
-            $changeSubject = view('admin.exam.create-routine')->with('exmtm', $exmtm);
+            $changeSubject = view('admin.exam.create-routine')->with('exmtmQuery', $exmtm);
+        } else {
+            return Redirect::to('/');
+        }
+
+        return view('dboardcontainer')->with('leftmenu', $leftMenu)->with('content', $changeSubject);
+    }
+    
+    public function addNumber() {
+        $usrInfo = Session::get('usrInfo');
+        
+        $exmtm = DB::table('exmtm')->select('*')->where('sclcd', $usrInfo->sclcd)->get();
+        
+        if ($usrInfo->usrtyp == 'Teacher' AND $usrInfo->usrpwr == 1) {
+            $leftMenu = view('menu.adminmenu')->with('addNumber', 'class="active"');
+            $changeSubject = view('admin.result.add-number')->with('exmtm', $exmtm);
         } else {
             return Redirect::to('/');
         }
