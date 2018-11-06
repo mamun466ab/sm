@@ -430,6 +430,12 @@ class AjaxController extends Controller {
         }
 
         if ($num == 6 OR $num == 7 OR $num == 8 OR $num == 9 OR $num == 10) {
+            $cls = 's';
+        } elseif ($num == 11 or $num == 12) {
+            $cls = 'c';
+        }
+
+        if ($num == 6 OR $num == 7 OR $num == 8 OR $num == 9 OR $num == 10) {
             $subject = DB::table('subject')->select('*')->orderBy('sub')->get();
         } elseif ($num == 11 or $num == 12) {
             $subject = DB::table('clgsub')->select('*')->orderBy('clgsub')->get();
@@ -439,6 +445,7 @@ class AjaxController extends Controller {
         $i = 1;
 
         echo '<input type="hidden" name="ttlcls" value="' . count($clstme) . '">';
+        echo '<input type="hidden" name="rtncls" value="' . $cls . '" />';
         echo '<div class="row" style="margin-bottom:15px; color: rgb(121, 121, 121); font-weight: bold; text-align: center;">';
         echo '<div class="col-sm-12">';
         echo '<div class="width14 text-info">Class Time</div>';
@@ -598,6 +605,33 @@ class AjaxController extends Controller {
                 $i++;
             endforeach;
         endif;
+    }
+
+    public function addExmTme($scltyp) {
+        if ($scltyp == 's') {
+            echo '<div class="form-group">';
+            echo '<label for="exmTyp">Exam Type *</label>';
+            echo '<select name="exmTyp" id="exmTyp" class="form-control" required="required">';
+            echo '<option value="">Select Exam Type</option>';
+            echo '<option value="1st Term">1st Term</option>';
+            echo '<option value="2nd Term">2nd Term</option>';
+            echo '<option value="3rd Term">3rd Term</option>';
+            echo '<option value="Final">Final</option>';
+            echo '<option value="Test">Test</option>';
+            echo '</select>';
+            echo '</div>';
+        } else {
+            echo '<div class="form-group">';
+            echo '<label for="exmTyp">Exam Type *</label>';
+            echo '<select name="exmTyp" id="exmTyp" class="form-control" required="required">';
+            echo '<option value="">Select Exam Type</option>';
+            echo '<option value="Half Yearly">Half Yearly</option>';
+            echo '<option value="Yearly">Yearly</option>';
+            echo '<option value="Pre Test">Pre Test</option>';
+            echo '<option value="Test">Test</option>';
+            echo '</select>';
+            echo '</div>';
+        }
     }
 
     public function addNumber($stdid) {

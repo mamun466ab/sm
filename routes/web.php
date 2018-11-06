@@ -86,6 +86,7 @@ Route::middleware('userCheck')->group(function(){
     Route::get('/exm-rtn/{num}', 'AjaxController@exmRtn');
     Route::get('/cls-rtn/{num}', 'AjaxController@clsRtn');
     Route::get('/add-number-ajax/{stdid}', 'AjaxController@addNumber');
+    Route::get('/exm-time-ajax/{scltyp}', 'AjaxController@addExmTme');
     
     /*
      * For delete

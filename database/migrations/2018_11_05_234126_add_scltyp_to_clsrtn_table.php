@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateExamTimeTable extends Migration
+class AddScltypToClsrtnTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CreateExamTimeTable extends Migration
      */
     public function up()
     {
-        Schema::create('exmtm', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('sclcd', 11);
-            $table->string('fsttm', 20);
-            $table->string('sndtm', 20);
+        Schema::table('clsrtn', function (Blueprint $table) {
+            $table->string('scltyp', 1);
         });
     }
 
@@ -28,6 +25,8 @@ class CreateExamTimeTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('exmtm');
+        Schema::table('clsrtn', function (Blueprint $table) {
+            //
+        });
     }
 }

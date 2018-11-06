@@ -15,7 +15,7 @@
                 <section class="panel">
 
                     <header class="panel-heading">
-                        <strong>Add Exam Time</strong>
+                        <strong>Create Exam Time</strong>
                     </header>
                     <div class="panel-body">
                         <div class="alert alert-success print-success-msg text-center" style="display: none;"></div>
@@ -52,7 +52,7 @@
                             $extsub = DB::table('extsub')->select('*')->where('sclcd', $usrInfo->sclcd)->orderBy('exsub')->get();
                             echo '<div class="form-group">
                     <label for="exmTyp">Exam Type *</label>
-                    <input name="exmTyp" id="exmTyp" type="text" class="form-control default-date-picker" onkeydown="return false" value = "' . $exmtm->exmtyp . '">
+                    <input name="exmTyp" id="exmTyp" type="text" class="form-control" onkeydown="return false" value = "' . $exmtm->exmtyp . '">
                  </div>';
                             for ($n = 6; $n <= 10; $n++) {
                                 echo '<div class="form-group col-md-4">
@@ -144,7 +144,7 @@
                             $extsub = DB::table('extsub')->select('*')->where('sclcd', $usrInfo->sclcd)->orderBy('exsub')->get();
                             echo '<div class="form-group">
                     <label for="exmTyp">Exam Type *</label>
-                    <input name="exmTyp" id="exmTyp" type="text" class="form-control default-date-picker" onkeydown="return false" value = "' . $exmtm->exmtyp . '">
+                    <input name="exmTyp" id="exmTyp" type="text" class="form-control" onkeydown="return false" value = "' . $exmtm->exmtyp . '">
                  </div>';
                             for ($n = 11; $n <= 12; $n++) {
                                 echo '<div class="form-group col-md-4">

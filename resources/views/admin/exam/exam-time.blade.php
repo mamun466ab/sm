@@ -32,6 +32,7 @@
                             @csrf
 
                             @if($sclTyp != 'b')
+                            <input type="hidden" name="scltyp" value="{{ $sclTyp }}" />
                             <div class="form-group">
                                 <label for="exmTyp">Exam Type *</label>
                                 <select name="exmTyp" id="exmTyp" class="form-control" required="required">
@@ -105,18 +106,16 @@
                                 </div>
                             </div>
                             @else
-                            <span style="font-size:20px; font-weight: bold;" class="text-primary">For School</span>
                             <div class="form-group">
-                                <label for="exmTyp">Exam Type *</label>
-                                <select name="exmTyp" id="exmTyp" class="form-control" required="required">
-                                    <option value="">Select Exam Type</option>
-                                    <option value="1st Term">1st Term</option>
-                                    <option value="2nd Term">2nd Term</option>
-                                    <option value="3rd Term">3rd Term</option>
-                                    <option value="Final">Final</option>
-                                    <option value="Test">Test</option>
+                                <label for="scltyp">Routine Type *</label>
+                                <select name="scltyp" id="scltyp" class="form-control" required="required" onchange="ajaxGET('examtime','{{ URL::to('/exm-time-ajax/') }}/'+this.value)">
+                                    <option value="">Select Routine Type</option>
+                                    <option value="s">High School</option>
+                                    <option value="c">Collage</option>
                                 </select>
                             </div>
+                            
+                            <div id="examtime"></div>
 
                             <div class="row">
                                 <div class="form-group col-md-4">
@@ -165,71 +164,6 @@
                                     <label for = "sndetmto" class="control-label">End Time</label>
                                     <div class="input-group bootstrap-timepicker">
                                         <input type="text" name = "sndetmto" id = "sndetmto" class="form-control timepicker-default" placeholder="05:00 PM" onkeydown="return false">
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-default" type="button"><i class="icon-time"></i></button>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <span style="font-size:20px; font-weight: bold;" class="text-primary">For Collage</span>
-                            <div class="form-group">
-                                <label for="clgExmTyp">Exam Type *</label>
-                                <select name="clgExmTyp" id="clgExmTyp" class="form-control" required="required">
-                                    <option value="">Select Exam Type</option>
-                                    <option value="Half Yearly">Half Yearly</option>
-                                    <option value="Pre Test">Pre Test</option>
-                                    <option value="Test">Test</option>
-                                </select>
-                            </div>
-
-                            <div class="row">
-                                <div class="form-group col-md-4">
-                                    <label for = "clgFstTm" class="control-label">Exam Time</label>
-                                    <input type="text" name = "clgFstTm" id = "clgFstTm" value = "1st Exam Time" class="form-control" onkeydown="return false;">
-                                </div>
-
-                                <div class="form-group col-md-4">
-                                    <label for = "clgfstetmfrom" class="control-label">Start Time</label>
-                                    <div class="input-group bootstrap-timepicker">
-                                        <input type="text" name = "clgfstetmfrom" id = "clgfstetmfrom" class = "form-control timepicker-default" placeholder="10:00 AM" onkeydown="return false" required="required">
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-default" type="button"><i class="icon-time"></i></button>
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <div class="form-group col-md-4">
-                                    <label for = "clgfstetmto" class="control-label">End Time</label>
-                                    <div class="input-group bootstrap-timepicker">
-                                        <input type="text" name = "clgfstetmto" id = "clgfstetmto" class="form-control timepicker-default" placeholder="01:00 PM" onkeydown="return false" required="required">
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-default" type="button"><i class="icon-time"></i></button>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="form-group col-md-4">
-                                    <label for = "sndetm" class="control-label">Exam Time</label>
-                                    <input type="text" name = "sndetm" id = "sndetm" value = "2nd Exam Time" class="form-control" onkeydown="return false;">
-                                </div>
-
-                                <div class="form-group col-md-4">
-                                    <label for = "clgsndetmfrom" class="control-label">Start Time</label>
-                                    <div class="input-group bootstrap-timepicker">
-                                        <input type="text" name = "clgsndetmfrom" id = "clgsndetmfrom" class = "form-control timepicker-default" placeholder="02:00 PM" onkeydown="return false">
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-default" type="button"><i class="icon-time"></i></button>
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <div class="form-group col-md-4">
-                                    <label for = "clgsndetmto" class="control-label">End Time</label>
-                                    <div class="input-group bootstrap-timepicker">
-                                        <input type="text" name = "clgsndetmto" id = "clgsndetmto" class="form-control timepicker-default" placeholder="05:00 PM" onkeydown="return false">
                                         <span class="input-group-btn">
                                             <button class="btn btn-default" type="button"><i class="icon-time"></i></button>
                                         </span>
