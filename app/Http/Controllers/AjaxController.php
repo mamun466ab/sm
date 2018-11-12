@@ -266,160 +266,6 @@ class AjaxController extends Controller {
         echo '</div>';
     }
 
-    public function exmRtn($num) {
-        $usrInfo = Session::get('usrInfo');
-        $exmtm = DB::table('exmtm')->select('*')->where('sclcd', $usrInfo->sclcd)->first();
-        if ($num == 's') {
-            $exmtm = DB::table('exmtm')->select('*')->where('sclcd', $usrInfo->sclcd)->where('scltyp', 's')->first();
-        } elseif ($num == 'c') {
-            $exmtm = DB::table('exmtm')->select('*')->where('sclcd', $usrInfo->sclcd)->where('scltyp', 'c')->first();
-        }
-        $sclsub = DB::table('subject')->select('*')->orderBy('sub')->get();
-        $clgsub = DB::table('clgsub')->select('*')->orderBy('clgsub')->get();
-        $extsub = DB::table('extsub')->select('*')->where('sclcd', $usrInfo->sclcd)->orderBy('exsub')->get();
-        if ($num == 's') {
-            echo '<div class="form-group">
-                    <label for="exmTyp">Exam Type *</label>
-                    <input name="exmTyp" id="exmTyp" type="text" class="form-control default-date-picker" onkeydown="return false" value = "' . $exmtm->exmtyp . '">
-                 </div>';
-            for ($n = 6; $n <= 10; $n++) {
-                echo '<div class="form-group col-md-4">
-                      <label for = "cls' . $n . '" class="control-label" style = "color:#FF6C60;">Class</label>
-                      <input type="text" name = "cls' . $n . '" id = "cls' . $n . '" value = "';
-                if ($n == 6) {
-                    echo 'Six';
-                } else if ($n == 7) {
-                    echo 'Seven';
-                } else if ($n == 8) {
-                    echo 'Eight';
-                } else if ($n == 9) {
-                    echo 'Nine';
-                } else if ($n == 10) {
-                    echo 'Ten';
-                }
-                echo '" class="form-control" onkeydown="return false;">
-                      </div>
-
-                      <div class="';
-                if ($exmtm->sndtm != 0) {
-                    echo 'form-group col-md-4';
-                } else {
-                    echo 'form-group col-md-8';
-                }
-                echo '">
-                      <label for = "fstexm' . $n . '" style = "color:#FF6C60;">' . $exmtm->fsttm . '</label>
-                      <div class="form-group">
-                      <select name="fstexm' . $n . '" class="form-control" id="fstexm' . $n . '" required="required">
-                        <option value="">Select Subject</option>
-                        <option value="Nill">Nill</option>';
-                echo '<optgroup label="Common Subject">';
-                foreach ($sclsub as $sclsubval) {
-                    echo '<option value="' . $sclsubval->sub . '">' . $sclsubval->sub . '</option>';
-                }
-                echo '</optgroup>';
-
-                echo '<optgroup label="Extra Subject">';
-                foreach ($extsub as $sclexsubval) {
-                    echo '<option value="' . $sclexsubval->exsub . '">' . $sclexsubval->exsub . '</option>';
-                }
-                echo '</optgroup>';
-                echo '</select>
-                      </div>
-                      </div>';
-
-                if ($exmtm->sndtm != 0) {
-                    echo '<div class="form-group col-md-4">
-                      <label for = "sndexm' . $n . '" style = "color:#FF6C60;">' . $exmtm->sndtm . '</label>
-                      <div class="form-group">
-                      <select name="sndexm' . $n . '" id = "sndexm' . $n . '" class="form-control" required="required">
-                        <option value="">Select Subject</option>
-                        <option value="Nill">Nill</option>';
-                    echo '<optgroup label="Common Subject">';
-                    foreach ($sclsub as $sclsubval) {
-                        echo '<option value="' . $sclsubval->sub . '">' . $sclsubval->sub . '</option>';
-                    }
-                    echo '</optgroup>';
-
-                    echo '<optgroup label="Extra Subject">';
-                    foreach ($extsub as $sclexsubval) {
-                        echo '<option value="' . $sclexsubval->exsub . '">' . $sclexsubval->exsub . '</option>';
-                    }
-                    echo '</optgroup>';
-                    echo '</select>
-                      </div>
-                      </div>';
-                }
-            }
-        } else if ($num == 'c') {
-            echo '<div class="form-group">
-                    <label for="exmTyp">Exam Type *</label>
-                    <input name="exmTyp" id="exmTyp" type="text" class="form-control default-date-picker" onkeydown="return false" value = "' . $exmtm->exmtyp . '">
-                 </div>';
-            for ($n = 11; $n <= 12; $n++) {
-                echo '<div class="form-group col-md-4">
-                      <label for = "cls' . $n . '" class="control-label" style = "color:#FF6C60;">Class</label>
-                      <input type="text" name = "cls' . $n . '" id = "cls' . $n . '" value = "';
-                if ($n == 11) {
-                    echo 'Enter 1st Year';
-                } else if ($n == 12) {
-                    echo 'Enter 2nd Year';
-                }
-                echo '" class="form-control" onkeydown="return false;" placeholder="Class Number">
-                      </div>
-
-                      <div class="';
-                if ($exmtm->sndtm != 0) {
-                    echo 'form-group col-md-4';
-                } else {
-                    echo 'form-group col-md-8';
-                }
-                echo '">
-                      <label for = "fstexm' . $n . '" style = "color:#FF6C60;">' . $exmtm->fsttm . '</label>
-                      <div class="form-group">
-                      <select name="fstexm' . $n . '" class="form-control" id="fstexm' . $n . '" required="required">
-                        <option value="">Select Subject</option>
-                        <option value="Nill">Nill</option>';
-                echo '<optgroup label="Common Subject">';
-                foreach ($clgsub as $clgsubval) {
-                    echo '<option value="' . $clgsubval->clgsub . '">' . $clgsubval->clgsub . '</option>';
-                }
-                echo '</optgroup>';
-
-                echo '<optgroup label="Extra Subject">';
-                foreach ($extsub as $sclexsubval) {
-                    echo '<option value="' . $sclexsubval->exsub . '">' . $sclexsubval->exsub . '</option>';
-                }
-                echo '</optgroup>';
-                echo '</select>
-                      </div>
-                      </div>';
-
-                if ($exmtm->sndtm != 0) {
-                    echo '<div class="form-group col-md-4">
-                      <label for = "sndexm' . $n . '" style = "color:#FF6C60;">' . $exmtm->sndtm . '</label>
-                      <div class="form-group">
-                      <select name="sndexm' . $n . '" id = "sndexm' . $n . '" class="form-control" required="required">
-                        <option value="">Select Subject</option>
-                        <option value="Nill">Nill</option>';
-                    echo '<optgroup label="Common Subject">';
-                    foreach ($clgsub as $clgsubval) {
-                        echo '<option value="' . $clgsubval->clgsub . '">' . $clgsubval->clgsub . '</option>';
-                    }
-                    echo '</optgroup>';
-
-                    echo '<optgroup label="Extra Subject">';
-                    foreach ($extsub as $sclexsubval) {
-                        echo '<option value="' . $sclexsubval->exsub . '">' . $sclexsubval->exsub . '</option>';
-                    }
-                    echo '</optgroup>';
-                    echo '</select>
-                      </div>
-                      </div>';
-                }
-            }
-        }
-    }
-
     public function clsRtn($num) {
 
         $sclcd = Session::get('usrInfo')->sclcd;
@@ -461,7 +307,6 @@ class AjaxController extends Controller {
 
         if (count($clstme) > 0):
             foreach ($clstme as $clsTm):
-
                 echo '<div class = "row" style="margin-bottom:15px;">';
                 echo '<div class = "form-group">';
                 echo '<div class = "width14">';
@@ -655,34 +500,36 @@ class AjaxController extends Controller {
             echo '</div>';
             $sn++;
         endforeach;
+        echo '<input type="hidden" name="ttlsub" value="' . $sn . '" />';
 
         if (!empty($stdSub->extsub)):
             echo '<div class = "form-group col-md-12">';
-            echo '<label for = "num' . $sn . '" class = "control-label" style="color:#FCB322;"><u>Extra Subject</u></label>';
+            echo '<label class = "control-label" style="color:#FCB322;"><u>Extra Subject</u></label>';
             echo '</div>';
             echo '</div>';
+            $en = 1;
 
             foreach ($extsubuArray as $extsubVal):
                 $extsub = DB::table('extsub')->select('exsub')->where('exsubcd', $extsubVal)->first();
                 echo '<div class = "row">';
                 echo '<div class = "form-group col-md-6">';
-//            echo '<label for = "sub' . $sn . '" class = "control-label">Subject</label>';
-                echo '<input type = "text" name = "sub' . $sn . '" id = "sub' . $sn . '" class = "form-control" onkeydown = "return false;" value = "' . $extsub->exsub . '">';
+//            echo '<label for = "sub' . $en . '" class = "control-label">Subject</label>';
+                echo '<input type = "text" name = "exsub' . $en . '" id = "exsub' . $en . '" class = "form-control" onkeydown = "return false;" value = "' . $extsub->exsub . '">';
                 echo '</div>';
 
                 echo '<div class = "form-group col-md-6">';
-//            echo '<label for = "num' . $sn . '" class = "control-label">Number</label>';
-                echo '<input type = "text" name = "num' . $sn . '" id = "num' . $sn . '" placeholder = "33" class = "form-control" oninput="this.value = this.value.replace(/[^0-9.]/g, \'\'); this.value = this.value.replace(/(\..*)\./g, \'$1\');" required="required"" maxlength="3">';
+//            echo '<label for = "num' . $en . '" class = "control-label">Number</label>';
+                echo '<input type = "text" name = "exnum' . $en . '" id = "exnum' . $en . '" placeholder = "33" class = "form-control" oninput="this.value = this.value.replace(/[^0-9.]/g, \'\'); this.value = this.value.replace(/(\..*)\./g, \'$1\');" required="required"" maxlength="3">';
                 echo '</div>';
                 echo '</div>';
-                $sn++;
+                $en++;
             endforeach;
+            echo '<input type="hidden" name="ttlexsub" value="' . $en . '" />';
         endif;
-        echo '<input type="hidden" name="ttlsub" value="' . $sn . '" />';
-
+        
         if (!empty($stdSub->frthsub)):
             echo '<div class = "form-group col-md-12">';
-            echo '<label for = "num' . $sn . '" class = "control-label" style="color:#FCB322;"><u>Forth Subject</u></label>';
+            echo '<label for = "frtsub" class = "control-label" style="color:#FCB322;"><u>Forth Subject</u></label>';
             echo '</div>';
             echo '</div>';
 
@@ -699,6 +546,10 @@ class AjaxController extends Controller {
             echo '</div>';
             echo '</div>';
         endif;
+    }
+    
+    public function editClassRoutine($rtnid){
+        echo $rtnid;
     }
 
 }

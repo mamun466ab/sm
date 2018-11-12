@@ -37,7 +37,9 @@
                                         <th>Ser No</th>
                                         <th>Exam Date</th>
                                         <th>{{ $sclexmTme->fsttm }}</th>
+                                        @if($sclexmTme->sndtm != 0)
                                         <th>{{ $sclexmTme->sndtm }}</th>
+                                        @endif
                                     </tr>
                                 </thead>
 
@@ -47,7 +49,9 @@
                                         <td><strong>{{$a}}.</strong></td>
                                         <td>{{$clsrotn6->exmdte}}</td>
                                         <td>{{$clsrotn6->fstsub}}</td>
+                                        @if($sclexmTme->sndtm != 0)
                                         <td>{{$clsrotn6->sndsub}}</td>
+                                        @endif
                                     </tr>
                                     <?php $a++; ?>
                                     @endforeach
@@ -75,7 +79,9 @@
                                         <th>Ser No</th>
                                         <th>Exam Date</th>
                                         <th>{{ $sclexmTme->fsttm }}</th>
+                                        @if($sclexmTme->sndtm != 0)
                                         <th>{{ $sclexmTme->sndtm }}</th>
+                                        @endif
                                     </tr>
                                 </thead>
 
@@ -85,7 +91,9 @@
                                         <td><strong>{{$b}}.</strong></td>
                                         <td>{{$clsrotn7->exmdte}}</td>
                                         <td>{{$clsrotn7->fstsub}}</td>
+                                        @if($sclexmTme->sndtm != 0)
                                         <td>{{$clsrotn7->sndsub}}</td>
+                                        @endif
                                     </tr>
                                     <?php $b++; ?>
                                     @endforeach
@@ -113,7 +121,9 @@
                                         <th>Ser No</th>
                                         <th>Exam Date</th>
                                         <th>{{ $sclexmTme->fsttm }}</th>
+                                        @if($sclexmTme->sndtm != 0)
                                         <th>{{ $sclexmTme->sndtm }}</th>
+                                        @endif
                                     </tr>
                                 </thead>
 
@@ -123,7 +133,9 @@
                                         <td><strong>{{$c}}.</strong></td>
                                         <td>{{$clsrotn8->exmdte}}</td>
                                         <td>{{$clsrotn8->fstsub}}</td>
+                                        @if($sclexmTme->sndtm != 0)
                                         <td>{{$clsrotn8->sndsub}}</td>
+                                        @endif
                                     </tr>
                                     <?php $c++; ?>
                                     @endforeach
@@ -151,7 +163,9 @@
                                         <th>Ser No</th>
                                         <th>Exam Date</th>
                                         <th>{{ $sclexmTme->fsttm }}</th>
+                                        @if($sclexmTme->sndtm != 0)
                                         <th>{{ $sclexmTme->sndtm }}</th>
+                                        @endif
                                     </tr>
                                 </thead>
 
@@ -161,7 +175,9 @@
                                         <td><strong>{{$d}}.</strong></td>
                                         <td>{{$clsrotn9->exmdte}}</td>
                                         <td>{{$clsrotn9->fstsub}}</td>
+                                        @if($sclexmTme->sndtm != 0)
                                         <td>{{$clsrotn9->sndsub}}</td>
+                                        @endif
                                     </tr>
                                     <?php $d++; ?>
                                     @endforeach
@@ -189,7 +205,9 @@
                                         <th>Ser No</th>
                                         <th>Exam Date</th>
                                         <th>{{ $sclexmTme->fsttm }}</th>
+                                        @if($sclexmTme->sndtm != 0)
                                         <th>{{ $sclexmTme->sndtm }}</th>
+                                        @endif
                                     </tr>
                                 </thead>
 
@@ -199,7 +217,9 @@
                                         <td><strong>{{$e}}.</strong></td>
                                         <td>{{$clsrotn10->exmdte}}</td>
                                         <td>{{$clsrotn10->fstsub}}</td>
+                                        @if($sclexmTme->sndtm != 0)
                                         <td>{{$clsrotn10->sndsub}}</td>
+                                        @endif
                                     </tr>
                                     <?php $e++; ?>
                                     @endforeach
@@ -227,7 +247,9 @@
                                         <th>Ser No</th>
                                         <th>Exam Date</th>
                                         <th>{{ $clgexmTme->fsttm }}</th>
+                                        @if($clgexmTme->sndtm != 0)
                                         <th>{{ $clgexmTme->sndtm }}</th>
+                                        @endif
                                     </tr>
                                 </thead>
 
@@ -237,7 +259,9 @@
                                         <td><strong>{{$f}}.</strong></td>
                                         <td>{{$clsrotn11->exmdte}}</td>
                                         <td>{{$clsrotn11->fstsub}}</td>
+                                        @if($clgexmTme->sndtm != 0)
                                         <td>{{$clsrotn11->sndsub}}</td>
+                                        @endif
                                     </tr>
                                     <?php $f++; ?>
                                     @endforeach
@@ -264,7 +288,9 @@
                                         <th>Ser No</th>
                                         <th>Exam Date</th>
                                         <th>{{ $clgexmTme->fsttm }}</th>
+                                        @if($clgexmTme->sndtm != 0)
                                         <th>{{ $clgexmTme->sndtm }}</th>
+                                        @endif
                                     </tr>
                                 </thead>
 
@@ -274,7 +300,9 @@
                                         <td><strong>{{$g}}.</strong></td>
                                         <td>{{$clsrotn12->exmdte}}</td>
                                         <td>{{$clsrotn12->fstsub}}</td>
+                                        @if($clgexmTme->sndtm != 0)
                                         <td>{{$clsrotn12->sndsub}}</td>
+                                        @endif
                                     </tr>
                                     <?php $g++; ?>
                                     @endforeach

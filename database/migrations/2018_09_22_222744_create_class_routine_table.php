@@ -17,12 +17,12 @@ class CreateClassRoutineTable extends Migration
             $table->string('sclcd', 11);
             $table->string('cls', 30);
             $table->string('clstme', 20);
-            $table->string('sat', 30);
-            $table->string('sun', 30);
-            $table->string('mon', 30);
-            $table->string('tue', 30);
-            $table->string('wed', 30);
-            $table->string('thu', 30);
+            $table->string('sat', 150);
+            $table->string('sun', 150);
+            $table->string('mon', 150);
+            $table->string('tue', 150);
+            $table->string('wed', 150);
+            $table->string('thu', 150);
         });
     }
 
