@@ -15,7 +15,7 @@ class CreateCountryTable extends Migration
     {
         Schema::create('usrcnt', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('cnt', 30);
+            $table->string('cnt', 40);
         });
     }
 

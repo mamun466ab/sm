@@ -61,5 +61,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'userCheck' => \App\Http\Middleware\LoginMiddleware::class,
         'superAdmin' => \App\Http\Middleware\SuperAdminMiddleware::class,
+        'ReferrerCheck' => \App\Http\Middleware\ReferrerMiddleware::class,
     ];
 }
