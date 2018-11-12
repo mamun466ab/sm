@@ -3,11 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/F:/xampp/htdocs/OneDrive/sm/resources/views/admin/result/add-number.blade.php</file>
+            <file>file:/F:/xampp/htdocs/OneDrive/sm/resources/views/admin/routine/create-routine.blade.php</file>
             <file>file:/F:/xampp/htdocs/OneDrive/sm/resources/views/menu/adminmenu.blade.php</file>
             <file>file:/F:/xampp/htdocs/OneDrive/sm/resources/views/admin/exam/create-routine.blade.php</file>
             <file>file:/F:/xampp/htdocs/OneDrive/sm/routes/web.php</file>
-            <file>file:/F:/xampp/htdocs/OneDrive/sm/resources/views/admin/exam/exam-time.blade.php</file>
+            <file>file:/F:/xampp/htdocs/OneDrive/sm/resources/views/common/view-exam-routine.blade.php</file>
+            <file>file:/F:/xampp/htdocs/OneDrive/sm/resources/views/admin/routine/create-routine.blade_1.php</file>
             <file>file:/F:/xampp/htdocs/OneDrive/sm/resources/views/dboardcontainer.blade.php</file>
             <file>file:/F:/xampp/htdocs/OneDrive/sm/app/Http/Controllers/AdminController.php</file>
             <file>file:/F:/xampp/htdocs/OneDrive/sm/app/Http/Controllers/AjaxController.php</file>

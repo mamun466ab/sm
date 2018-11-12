@@ -18,8 +18,8 @@ class CreateExmrtnTable extends Migration
             $table->string('sclcd', 11);
             $table->string('cls', 30);
             $table->string('exmdte', 10);
-            $table->string('fstsub', 30);
-            $table->string('sndsub', 30);
+            $table->string('fstsub', 150);
+            $table->string('sndsub', 150);
         });
     }
 

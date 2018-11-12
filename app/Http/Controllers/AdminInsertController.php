@@ -45,6 +45,7 @@ class AdminInsertController extends Controller {
 
         if (count($insrtdTme) > 0):
             DB::table('clstme')->whereRaw("sclcd = '$sclcd' AND scltyp = '$scltyp'")->delete();
+            DB::table('clsrtn')->whereRaw("sclcd = '$sclcd' AND scltyp = '$scltyp'")->delete();
         endif;
 
         for ($i = 1; $i <= $totalNum; $i++) {
@@ -64,6 +65,7 @@ class AdminInsertController extends Controller {
     public function routineCreate(Request $rtnSub) {
         $ttlCls = $rtnSub->ttlcls;
         $class = $rtnSub->cls;
+        $scltyp = $rtnSub->rtncls;
         $sclcd = Session::get('usrInfo')->sclcd;
         $rtnChk = DB::table('clsrtn')->whereRaw("(sclcd = '$sclcd' AND cls = '$class')")->count();
 
@@ -87,6 +89,7 @@ class AdminInsertController extends Controller {
                 $clsRtn['tue'] = $rtnSub->$tue;
                 $clsRtn['wed'] = $rtnSub->$wed;
                 $clsRtn['thu'] = $rtnSub->$thu;
+                $clsRtn['scltyp'] = $scltyp;
 
                 DB::table('clsrtn')->insert($clsRtn);
             }
@@ -100,7 +103,7 @@ class AdminInsertController extends Controller {
 
     public function examTime(Request $time) {
         $sclcd = Session::get('usrInfo')->sclcd;
-        $scltyp = Session::get('usrInfo')->scltyp;
+        $scltyp = $time->scltyp;
 
         if ($scltyp == 's' OR $scltyp == 'c') {
             $exmtim = DB::table('exmtm')->select('*')->where('sclcd', $sclcd)->get();
@@ -122,50 +125,10 @@ class AdminInsertController extends Controller {
             $examtime['scltyp'] = $scltyp;
 
             if (count($exmtim) > 0) {
-                DB::table('exmtm')->where('sclcd', '=', $sclcd)->delete();
+                DB::table('exmtm')->where('sclcd', $sclcd)->where('scltyp', $scltyp)->delete();
+                DB::table('exmrtn')->where('sclcd', $sclcd)->where('scltyp', $scltyp)->delete();
             }
             DB::table('exmtm')->insert($examtime);
-            Session::put('msg', 'Exam time added.');
-            return Redirect::to('/exam-time/');
-        } else {
-            $exmtim = DB::table('exmtm')->select('*')->where('sclcd', $sclcd)->get();
-
-            $fsttime = $time->fstetmfrom . ' - ' . $time->fstetmto;
-
-            $clgfsttime = $time->clgfstetmfrom . ' - ' . $time->clgfstetmto;
-
-
-            if (empty($time->sndetmto)) {
-                $sndtime = 0;
-            } else {
-                $sndtime = $time->sndetmfrom . ' - ' . $time->sndetmto;
-            }
-
-            if (empty($time->clgsndetmto)) {
-                $clgsndtime = 0;
-            } else {
-                $clgsndtime = $time->clgsndetmfrom . ' - ' . $time->clgsndetmto;
-            }
-
-            $examtime = array();
-            $examtime['sclcd'] = $sclcd;
-            $examtime['fsttm'] = $fsttime;
-            $examtime['sndtm'] = $sndtime;
-            $examtime['exmtyp'] = $time->exmTyp;
-            $examtime['scltyp'] = 's';
-
-            $clgexamtime = array();
-            $clgexamtime['sclcd'] = $sclcd;
-            $clgexamtime['fsttm'] = $clgfsttime;
-            $clgexamtime['sndtm'] = $clgsndtime;
-            $clgexamtime['exmtyp'] = $time->clgExmTyp;
-            $clgexamtime['scltyp'] = 'c';
-
-            if (count($exmtim) > 0) {
-                DB::table('exmtm')->where('sclcd', '=', $sclcd)->delete();
-            }
-            DB::table('exmtm')->insert($examtime);
-            DB::table('exmtm')->insert($clgexamtime);
             Session::put('msg', 'Exam time added.');
             return Redirect::to('/exam-time/');
         }
@@ -182,13 +145,20 @@ class AdminInsertController extends Controller {
                 $cls = 'cls' . $i;
                 $fstsub = 'fstexm' . $i;
                 $sndsub = 'sndexm' . $i;
+                
+                if(empty($crtRtn->$sndsub)){
+                    $sndsunm = 0;
+                }else{
+                    $sndsunm = implode('/', $crtRtn->$sndsub);
+                }
 
                 $exmrtn = array();
                 $exmrtn['sclcd'] = $sclcd;
                 $exmrtn['cls'] = $crtRtn->$cls;
                 $exmrtn['exmdte'] = $exmDte;
-                $exmrtn['fstsub'] = $crtRtn->$fstsub;
-                $exmrtn['sndsub'] = $crtRtn->$sndsub;
+                $exmrtn['fstsub'] = implode('/', $crtRtn->$fstsub);
+                $exmrtn['sndsub'] = $sndsunm;
+                $exmrtn['scltyp'] = $rtnTyp;
 
                 DB::table('exmrtn')->insert($exmrtn);
             endfor;
@@ -198,13 +168,20 @@ class AdminInsertController extends Controller {
                 $cls = 'cls' . $n;
                 $fstsub = 'fstexm' . $n;
                 $sndsub = 'sndexm' . $n;
+                
+                if (empty($crtRtn->$sndsub)) {
+                    $sndsubnm = 0;
+                } else {
+                    $sndsubnm = implode('/', $crtRtn->$sndsub);
+                }
 
                 $exmrtn = array();
                 $exmrtn['sclcd'] = $sclcd;
                 $exmrtn['cls'] = $crtRtn->$cls;
                 $exmrtn['exmdte'] = $exmDte;
-                $exmrtn['fstsub'] = $crtRtn->$fstsub;
-                $exmrtn['sndsub'] = $crtRtn->$sndsub;
+                $exmrtn['fstsub'] = implode('/', $crtRtn->$fstsub);
+                $exmrtn['sndsub'] = $sndsubnm;
+                $exmrtn['scltyp'] = $rtnTyp;
 
                 DB::table('exmrtn')->insert($exmrtn);
             endfor;
@@ -262,7 +239,6 @@ class AdminInsertController extends Controller {
             }
 
             $ttlNumArray = array();
-
             $ttlNumArray['sclcd'] = $sclcd;
             $ttlNumArray['stdid'] = $stdid;
             $ttlNumArray['stdcls'] = $stdcls;
@@ -271,6 +247,39 @@ class AdminInsertController extends Controller {
             $ttlNumArray['exmtyp'] = $exmtyp;
 
             DB::table('ttlnum')->insert($ttlNumArray);
+
+            if (!empty($addNumber->ttlexsub)) {
+                $exNumSum = 0;
+                for ($en = 1; $en < $addNumber->ttlexsub; $en++) {
+                    $exsub = 'exsub' . $en;
+                    $exnum = 'exnum' . $en;
+
+                    $exSubNumArray = array();
+                    $exSubNumArray['sclcd'] = $sclcd;
+                    $exSubNumArray['stdid'] = $stdid;
+                    $exSubNumArray['stdcls'] = $stdcls;
+                    $exSubNumArray['sub'] = $addNumber->$exsub;
+                    $exSubNumArray['num'] = $addNumber->$exnum;
+                    $exSubNumArray['ssn'] = $stdssn;
+                    $exSubNumArray['exmtyp'] = $exmtyp;
+                    $exSubNumArray['sts'] = 3;
+
+                    $exNumSum += $addNumber->$exnum;
+
+                    DB::table('subnum')->insert($exSubNumArray);
+                }
+
+                $ttlExNumArray = array();
+                $ttlExNumArray['sclcd'] = $sclcd;
+                $ttlExNumArray['stdid'] = $stdid;
+                $ttlExNumArray['stdcls'] = $stdcls;
+                $ttlExNumArray['ttlnum'] = $exNumSum;
+                $ttlExNumArray['ssn'] = $stdssn;
+                $ttlExNumArray['exmtyp'] = $exmtyp;
+                $ttlExNumArray['sts'] = 3;
+
+                DB::table('ttlnum')->insert($ttlExNumArray);
+            }
 
             Session::put('msg', 'Subject number succesfully added.');
             return Redirect::to('/add-number/');

@@ -125,7 +125,7 @@ class AdminController extends Controller {
         } else {
             $ttlNum = 0;
         }
-        
+
         if (!empty($clsTime->scltyp)) {
             $scltyp = $clsTime->scltyp;
         } else {
@@ -142,12 +142,17 @@ class AdminController extends Controller {
         return view('dboardcontainer')->with('leftmenu', $leftMenu)->with('content', $clasTime);
     }
 
-    public function createRoutine() {
+    public function createRoutine(Request $cls) {
         $usrInfo = Session::get('usrInfo');
+        if (empty($cls->cls)) {
+            $num = 0;
+        } else {
+            $num = $cls->cls;
+        }
 
         if ($usrInfo->usrtyp == 'Teacher' AND $usrInfo->usrpwr == 1) {
             $leftMenu = view('menu.adminmenu')->with('crtRtn', 'class="active"');
-            $changeSubject = view('admin.routine.create-routine');
+            $changeSubject = view('admin.routine.create-routine')->with('num', $num);
         } else {
             return Redirect::to('/');
         }
@@ -188,7 +193,7 @@ class AdminController extends Controller {
         $usrInfo = Session::get('usrInfo');
 
         $sclCde = Session::get('usrInfo')->sclcd;
-        
+
         $sclInfo = DB::table('sclreg')
                 ->join('usrdst', 'sclreg.dstid', '=', 'usrdst.id')
                 ->join('usrthn', 'sclreg.thnid', '=', 'usrthn.id')
@@ -213,12 +218,12 @@ class AdminController extends Controller {
 
         return view('dboardcontainer')->with('leftmenu', $leftMenu)->with('content', $changeSubject);
     }
-    
+
     public function exmTime() {
         $usrInfo = Session::get('usrInfo');
-        
+
         $exmtm = DB::table('exmtm')->select('*')->where('sclcd', $usrInfo->sclcd)->get();
-        
+
         if ($usrInfo->usrtyp == 'Teacher' AND $usrInfo->usrpwr == 1) {
             $leftMenu = view('menu.adminmenu')->with('exmTime', 'class="active"');
             $changeSubject = view('admin.exam.exam-time')->with('exmtm', $exmtm);
@@ -228,27 +233,32 @@ class AdminController extends Controller {
 
         return view('dboardcontainer')->with('leftmenu', $leftMenu)->with('content', $changeSubject);
     }
-    
-    public function exmRoutine() {
+
+    public function exmRoutine(Request $scltp) {
         $usrInfo = Session::get('usrInfo');
-        
+
+        if (empty($scltp->scltp)) {
+            $scltyp = $usrInfo->scltyp;
+        } else {
+            $scltyp = $scltp->scltp;
+        }
         $exmtm = DB::table('exmtm')->select('*')->where('sclcd', $usrInfo->sclcd)->get();
-        
+
         if ($usrInfo->usrtyp == 'Teacher' AND $usrInfo->usrpwr == 1) {
             $leftMenu = view('menu.adminmenu')->with('exmRtn', 'class="active"');
-            $changeSubject = view('admin.exam.create-routine')->with('exmtmQuery', $exmtm);
+            $changeSubject = view('admin.exam.create-routine')->with('exmtmQuery', $exmtm)->with('scltyp', $scltyp);
         } else {
             return Redirect::to('/');
         }
 
         return view('dboardcontainer')->with('leftmenu', $leftMenu)->with('content', $changeSubject);
     }
-    
+
     public function addNumber() {
         $usrInfo = Session::get('usrInfo');
-        
+
         $exmtm = DB::table('exmtm')->select('*')->where('sclcd', $usrInfo->sclcd)->get();
-        
+
         if ($usrInfo->usrtyp == 'Teacher' AND $usrInfo->usrpwr == 1) {
             $leftMenu = view('menu.adminmenu')->with('addNumber', 'class="active"');
             $changeSubject = view('admin.result.add-number')->with('exmtm', $exmtm);

@@ -14,7 +14,7 @@ class CreateExamTimeTable extends Migration
     public function up()
     {
         Schema::create('exmtm', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('sclcd', 11);
             $table->string('fsttm', 20);
             $table->string('sndtm', 20);
