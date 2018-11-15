@@ -25,29 +25,18 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-                        <h4 class="modal-title">Form Tittle</h4>
+                        <h4 class="modal-title"><strong>Edit Class Routine</strong></h4>
                     </div>
-                    <div class="modal-body">
-                        <div class="col-md-12" id="edtrtn"></div>
-                        <form class="form-inline" role="form">
-                            <div class="form-group">
-                                <label class="sr-only" for="exampleInputEmail2">Email address</label>
-                                <input type="email" class="form-control sm-input" id="exampleInputEmail5" placeholder="Enter email">
-                            </div>
-                            <div class="form-group">
-                                <label class="sr-only" for="exampleInputPassword2">Password</label>
-                                <input type="password" class="form-control sm-input" id="exampleInputPassword5" placeholder="Password">
-                            </div>
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox"> Remember me
-                                </label>
-                            </div>
-                            <button type="submit" class="btn btn-default">Sign in</button>
-                        </form>
-
-                    </div>
-
+                    <form action="{{ url('/class-routine-update/') }}" method="POST" role="form">
+                        @csrf
+                        <div class="modal-body">
+                            <div class="col-md-12" id="edtrtn"></div>
+                        </div>
+                        <div class="modal-footer">
+                            <button data-dismiss="modal" class="btn btn-danger" type="button">Close</button>
+                            <button type="submit" class="btn btn-info">Save Change</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

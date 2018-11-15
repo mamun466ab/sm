@@ -83,12 +83,12 @@ class AdminInsertController extends Controller {
                 $clsRtn['sclcd'] = $sclcd;
                 $clsRtn['cls'] = $class;
                 $clsRtn['clstme'] = $rtnSub->$clstme;
-                $clsRtn['sat'] = $rtnSub->$sat;
-                $clsRtn['sun'] = $rtnSub->$sun;
-                $clsRtn['mon'] = $rtnSub->$mon;
-                $clsRtn['tue'] = $rtnSub->$tue;
-                $clsRtn['wed'] = $rtnSub->$wed;
-                $clsRtn['thu'] = $rtnSub->$thu;
+                $clsRtn['sat'] = implode('/', $rtnSub->$sat);
+                $clsRtn['sun'] = implode('/', $rtnSub->$sun);
+                $clsRtn['mon'] = implode('/', $rtnSub->$mon);
+                $clsRtn['tue'] = implode('/', $rtnSub->$tue);
+                $clsRtn['wed'] = implode('/', $rtnSub->$wed);
+                $clsRtn['thu'] = implode('/', $rtnSub->$thu);
                 $clsRtn['scltyp'] = $scltyp;
 
                 DB::table('clsrtn')->insert($clsRtn);

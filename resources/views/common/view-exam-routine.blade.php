@@ -22,6 +22,26 @@
         $a = $b = $c = $d = $e = $f = $g = 1;
         $color = '#099';
         ?>
+        <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal-2" class="modal fade">
+            <div class="modal-dialog" style="width:80%;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                        <h4 class="modal-title"><strong>Edit Class Routine</strong></h4>
+                    </div>
+                    <form action="{{ url('/exam-routine-update/') }}" method="POST" role="form">
+                        @csrf
+                        <div class="modal-body">
+                            <div class="col-md-12" id="edtrtn"></div>
+                        </div>
+                        <div class="modal-footer">
+                            <button data-dismiss="modal" class="btn btn-danger" type="button">Close</button>
+                            <button type="submit" class="btn btn-info">Save Change</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
         @if(count($clsRtn6) > 0)
         <div class="row" style="margin-top: 15px;">
             <div class="col-lg-12">
@@ -40,6 +60,7 @@
                                         @if($sclexmTme->sndtm != 0)
                                         <th>{{ $sclexmTme->sndtm }}</th>
                                         @endif
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
 
@@ -52,6 +73,11 @@
                                         @if($sclexmTme->sndtm != 0)
                                         <td>{{$clsrotn6->sndsub}}</td>
                                         @endif
+                                        <td>
+                                            <button data-target="#myModal-2" data-toggle="modal" class="btn btn-success btn-xs" value="{{ $clsrotn6->id }}" onclick="ajaxGET('edtrtn','{{ URL::to('/edit-exm-rtn/') }}/'+this.value)">
+                                                <span class="icon-pencil"></span>
+                                            </button>
+                                        </td>
                                     </tr>
                                     <?php $a++; ?>
                                     @endforeach
@@ -63,7 +89,7 @@
             </div>
         </div>
         @endif
-        
+
         @if(count($clsRtn7) > 0)
         <div class="row" style="margin-top: 15px;">
             <div class="col-lg-12">
@@ -82,6 +108,7 @@
                                         @if($sclexmTme->sndtm != 0)
                                         <th>{{ $sclexmTme->sndtm }}</th>
                                         @endif
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
 
@@ -94,6 +121,11 @@
                                         @if($sclexmTme->sndtm != 0)
                                         <td>{{$clsrotn7->sndsub}}</td>
                                         @endif
+                                        <td>
+                                            <button data-target="#myModal-2" data-toggle="modal" class="btn btn-success btn-xs" value="{{ $clsrotn7->id }}" onclick="ajaxGET('edtrtn','{{ URL::to('/edit-exm-rtn/') }}/'+this.value)">
+                                                <span class="icon-pencil"></span>
+                                            </button>
+                                        </td>
                                     </tr>
                                     <?php $b++; ?>
                                     @endforeach
@@ -105,7 +137,7 @@
             </div>
         </div>
         @endif
-        
+
         @if(count($clsRtn8) > 0)
         <div class="row" style="margin-top: 15px;">
             <div class="col-lg-12">
@@ -124,6 +156,7 @@
                                         @if($sclexmTme->sndtm != 0)
                                         <th>{{ $sclexmTme->sndtm }}</th>
                                         @endif
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
 
@@ -136,6 +169,11 @@
                                         @if($sclexmTme->sndtm != 0)
                                         <td>{{$clsrotn8->sndsub}}</td>
                                         @endif
+                                        <td>
+                                            <button data-target="#myModal-2" data-toggle="modal" class="btn btn-success btn-xs" value="{{ $clsrotn8->id }}" onclick="ajaxGET('edtrtn','{{ URL::to('/edit-exm-rtn/') }}/'+this.value)">
+                                                <span class="icon-pencil"></span>
+                                            </button>
+                                        </td>
                                     </tr>
                                     <?php $c++; ?>
                                     @endforeach
@@ -147,7 +185,7 @@
             </div>
         </div>
         @endif
-        
+
         @if(count($clsRtn9) > 0)
         <div class="row" style="margin-top: 15px;">
             <div class="col-lg-12">
@@ -166,6 +204,7 @@
                                         @if($sclexmTme->sndtm != 0)
                                         <th>{{ $sclexmTme->sndtm }}</th>
                                         @endif
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
 
@@ -177,7 +216,11 @@
                                         <td>{{$clsrotn9->fstsub}}</td>
                                         @if($sclexmTme->sndtm != 0)
                                         <td>{{$clsrotn9->sndsub}}</td>
-                                        @endif
+                                        @endif<td>
+                                            <button data-target="#myModal-2" data-toggle="modal" class="btn btn-success btn-xs" value="{{ $clsrotn9->id }}" onclick="ajaxGET('edtrtn','{{ URL::to('/edit-exm-rtn/') }}/'+this.value)">
+                                                <span class="icon-pencil"></span>
+                                            </button>
+                                        </td>
                                     </tr>
                                     <?php $d++; ?>
                                     @endforeach
@@ -189,7 +232,7 @@
             </div>
         </div>
         @endif
-        
+
         @if(count($clsRtn10) > 0)
         <div class="row" style="margin-top: 15px;">
             <div class="col-lg-12">
@@ -208,6 +251,7 @@
                                         @if($sclexmTme->sndtm != 0)
                                         <th>{{ $sclexmTme->sndtm }}</th>
                                         @endif
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
 
@@ -220,6 +264,11 @@
                                         @if($sclexmTme->sndtm != 0)
                                         <td>{{$clsrotn10->sndsub}}</td>
                                         @endif
+                                        <td>
+                                            <button data-target="#myModal-2" data-toggle="modal" class="btn btn-success btn-xs" value="{{ $clsrotn10->id }}" onclick="ajaxGET('edtrtn','{{ URL::to('/edit-exm-rtn/') }}/'+this.value)">
+                                                <span class="icon-pencil"></span>
+                                            </button>
+                                        </td>
                                     </tr>
                                     <?php $e++; ?>
                                     @endforeach
@@ -231,7 +280,7 @@
             </div>
         </div>
         @endif
-        
+
         @if(count($clsRtn11) > 0)
         <div class="row" style="margin-top: 15px;">
             <div class="col-lg-12">
@@ -250,6 +299,7 @@
                                         @if($clgexmTme->sndtm != 0)
                                         <th>{{ $clgexmTme->sndtm }}</th>
                                         @endif
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
 
@@ -262,6 +312,11 @@
                                         @if($clgexmTme->sndtm != 0)
                                         <td>{{$clsrotn11->sndsub}}</td>
                                         @endif
+                                        <td>
+                                            <button data-target="#myModal-2" data-toggle="modal" class="btn btn-success btn-xs" value="{{ $clsrotn11->id }}" onclick="ajaxGET('edtrtn','{{ URL::to('/edit-exm-rtn/') }}/'+this.value)">
+                                                <span class="icon-pencil"></span>
+                                            </button>
+                                        </td>
                                     </tr>
                                     <?php $f++; ?>
                                     @endforeach
@@ -291,6 +346,7 @@
                                         @if($clgexmTme->sndtm != 0)
                                         <th>{{ $clgexmTme->sndtm }}</th>
                                         @endif
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
 
@@ -298,11 +354,16 @@
                                     @foreach ($clsRtn12 as $clsrotn12)
                                     <tr>
                                         <td><strong>{{$g}}.</strong></td>
-                                        <td>{{$clsrotn12->exmdte}}</td>
-                                        <td>{{$clsrotn12->fstsub}}</td>
+                                        <td>{{ $clsrotn12->exmdte }}</td>
+                                        <td>{{ $clsrotn12->fstsub }}</td>
                                         @if($clgexmTme->sndtm != 0)
-                                        <td>{{$clsrotn12->sndsub}}</td>
+                                        <td>{{ $clsrotn12->sndsub }}</td>
                                         @endif
+                                        <td>
+                                            <button data-target="#myModal-2" data-toggle="modal" class="btn btn-success btn-xs" value="{{ $clsrotn12->id }}" onclick="ajaxGET('edtrtn','{{ URL::to('/edit-exm-rtn/') }}/'+this.value)">
+                                                <span class="icon-pencil"></span>
+                                            </button>
+                                        </td>
                                     </tr>
                                     <?php $g++; ?>
                                     @endforeach
