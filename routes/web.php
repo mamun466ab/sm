@@ -43,6 +43,7 @@ Route::middleware('userCheck')->group(function(){
     Route::get('/teacher-list/', 'CommonController@teacherList');
     Route::get('/view-routine/', 'CommonController@viewRoutine');
     Route::get('/view-exam-routine/', 'CommonController@viewExmRoutine');
+    Route::get('/view-result/', 'CommonController@viewResult');
     
     /*
      * Route match

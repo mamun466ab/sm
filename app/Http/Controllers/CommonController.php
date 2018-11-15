@@ -32,7 +32,7 @@ class CommonController extends Controller {
 
         if ($usrInfo->usrtyp == 'Teacher' AND $usrInfo->usrpwr == 1) {
             $leftMenu = view('menu.adminmenu')->with('stdLst', 'class="active"');
-            $addTeacher = view('common.student-list')
+            $addTeacher = view('common.list.student-list')
                     ->with('stdInfo', $stdInfo)
                     ->with('sclInfo', $sclInfo);
         } else {
@@ -63,7 +63,7 @@ class CommonController extends Controller {
 
         if ($usrInfo->usrtyp == 'Teacher' AND $usrInfo->usrpwr == 1) {
             $leftMenu = view('menu.adminmenu')->with('tcrLst', 'class="active"');
-            $addTeacher = view('common.teacher-list')
+            $addTeacher = view('common.list.teacher-list')
                     ->with('tcrInfo', $tcrInfo)
                     ->with('sclInfo', $sclInfo);
         } else {
@@ -78,7 +78,7 @@ class CommonController extends Controller {
         
         if ($usrInfo->usrtyp == 'Teacher' AND $usrInfo->usrpwr == 1) {
             $leftMenu = view('menu.adminmenu')->with('slctSubject', 'class="active"');
-            $selectSubject = view('common.select-subject');
+            $selectSubject = view('common.subject.select-subject');
         } else {
             return Redirect::to('/');
         }
@@ -91,7 +91,7 @@ class CommonController extends Controller {
         
         if ($usrInfo->usrtyp == 'Teacher' AND $usrInfo->usrpwr == 1) {
             $leftMenu = view('menu.adminmenu')->with('viewRtn', 'class="active"');
-            $selectSubject = view('common.view-routine');
+            $selectSubject = view('common.routine.view-routine');
         } else {
             return Redirect::to('/');
         }
@@ -104,7 +104,20 @@ class CommonController extends Controller {
         
         if ($usrInfo->usrtyp == 'Teacher' AND $usrInfo->usrpwr == 1) {
             $leftMenu = view('menu.adminmenu')->with('vwExmRtn', 'class="active"');
-            $selectSubject = view('common.view-exam-routine');
+            $selectSubject = view('common.exam.view-exam-routine');
+        } else {
+            return Redirect::to('/');
+        }
+
+        return view('dboardcontainer')->with('leftmenu', $leftMenu)->with('content', $selectSubject);
+    }
+    
+    public function viewResult(){
+        $usrInfo = Session::get('usrInfo');
+        
+        if ($usrInfo->usrtyp == 'Teacher' AND $usrInfo->usrpwr == 1) {
+            $leftMenu = view('menu.adminmenu')->with('vwrslt', 'class="active"');
+            $selectSubject = view('common.result.view-result');
         } else {
             return Redirect::to('/');
         }

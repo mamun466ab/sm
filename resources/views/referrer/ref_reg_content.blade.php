@@ -26,7 +26,7 @@
                     <input type="text" name="ref_nme" class="form-control" placeholder="Referrer Name" id="ref_nme" />
                 </div>
             </div>            
-            
+
             <div class="form-group">
                 <label for="ref_usrname" class="col-sm-3 control-label">Referrer Username *</label>
                 <div class="col-sm-9">
@@ -40,52 +40,52 @@
                     <input type="text" name="ref_eml" class="form-control" placeholder="Referrer Email" id="ref_eml" />
                 </div>
             </div>
-            
+
             <div class="form-group">
-                    <label for="ref_cnt" class="col-sm-3 control-label">Referrer Country *</label>
-                    <div class="col-sm-9">
-	                    <?php
-	                    $countries = DB::table('usrcnt')->get();
-	                    ?>
-	                    <select class="form-control" name="ref_cnt" id="ref_cnt" onchange="ajaxGET('ref_dvn','{{URL::to('/division/')}}/'+this.value)">
-	                        <option value="">Select Country</option>
-	                        @foreach ($countries as $country)
-    	                        @if ($country->cnt == 'Bangladesh')
-    	                           <option value="{{ $country->id }}">{{ $country->cnt }}</option>
-    	                        @else
-    	                           <option value="{{ $country->id }}" disabled="disabled">{{ $country->cnt }}</option>
-    	                        @endif
-	                        @endforeach
-	                    </select>
-                    </div>
-                </div> <!-- /.form-group -->
+                <label for="ref_cnt" class="col-sm-3 control-label">Referrer Country *</label>
+                <div class="col-sm-9">
+                    <?php
+                    $countries = DB::table('usrcnt')->get();
+                    ?>
+                    <select class="form-control" name="ref_cnt" id="ref_cnt" onchange="ajaxGET('ref_dvn','{{URL::to('/division/')}}/'+this.value)">
+                        <option value="">Select Country</option>
+                        @foreach ($countries as $country)
+                        @if ($country->cnt == 'Bangladesh')
+                        <option value="{{ $country->id }}">{{ $country->cnt }}</option>
+                        @else
+                        <option value="{{ $country->id }}" disabled="disabled">{{ $country->cnt }}</option>
+                        @endif
+                        @endforeach
+                    </select>
+                </div>
+            </div> <!-- /.form-group -->
 
-                <div class="form-group">
-                    <label for="ref_dvn" class="col-sm-3 control-label">Referrer Division *</label>
-                    <div class="col-sm-9">
-	                    <select class="form-control" name="ref_dvn" id="ref_dvn" onchange="ajaxGET('ref_dst','{{URL::to('/district/')}}/'+this.value)">
-	                        <option value="">Select Country First</option>
-	                    </select>
-                    </div>
-                </div> <!-- /.form-group -->
+            <div class="form-group">
+                <label for="ref_dvn" class="col-sm-3 control-label">Referrer Division *</label>
+                <div class="col-sm-9">
+                    <select class="form-control" name="ref_dvn" id="ref_dvn" onchange="ajaxGET('ref_dst','{{URL::to('/district/')}}/'+this.value)">
+                        <option value="">Select Country First</option>
+                    </select>
+                </div>
+            </div> <!-- /.form-group -->
 
-                <div class="form-group">
-                    <label for="ref_dst" class="col-sm-3 control-label">Referrer District *</label>
-                    <div class="col-sm-9">
-	                    <select class="form-control" name="ref_dst" id="ref_dst" onchange="ajaxGET('ref_thn','{{URL::to('/thana/')}}/'+this.value)">
-	                        <option value="">Select Division First</option>
-	                    </select>
-                    </div>
-                </div> <!-- /.form-group -->
+            <div class="form-group">
+                <label for="ref_dst" class="col-sm-3 control-label">Referrer District *</label>
+                <div class="col-sm-9">
+                    <select class="form-control" name="ref_dst" id="ref_dst" onchange="ajaxGET('ref_thn','{{URL::to('/thana/')}}/'+this.value)">
+                        <option value="">Select Division First</option>
+                    </select>
+                </div>
+            </div> <!-- /.form-group -->
 
-                <div class="form-group">
-                    <label for="ref_thn" class="col-sm-3 control-label">Referrer Thana *</label>
-                    <div class="col-sm-9">
-	                    <select class="form-control" name="ref_thn" id="ref_thn">
-	                        <option value="">Select District First</option>
-	                    </select>
-                    </div>
-                </div> <!-- /.form-group -->
+            <div class="form-group">
+                <label for="ref_thn" class="col-sm-3 control-label">Referrer Thana *</label>
+                <div class="col-sm-9">
+                    <select class="form-control" name="ref_thn" id="ref_thn">
+                        <option value="">Select District First</option>
+                    </select>
+                </div>
+            </div> <!-- /.form-group -->
 
             <div class="form-group">
                 <label for="ref_adr" class="col-sm-3 control-label">Referrer Address *</label>
@@ -104,7 +104,7 @@
                     </div>
                 </div>
             </div>
-                        
+
             <div class="form-group">
                 <label for="ref_mbl" class="col-sm-3 control-label">Referrer Mobile *</label>
                 <div class="col-sm-9">
@@ -128,8 +128,10 @@
 
 
             <div class="form-group">
-                <div class="col-sm-9">
-                    <input type="checkbox" name="check_policy" value="agree this condition" id="check_policy"> I agree to the <a href="">Terms of Service</a> and <a href="">Privacy Policy</a>
+                <div class="col-sm-9 col-sm-offset-3">
+                    <div id="check_policy">
+                        <input type="checkbox" name="check_policy" value="agree this condition" id="check_policy"> I agree to the <a href="">Terms of Service</a> and <a href="">Privacy Policy</a>
+                    </div>
                 </div>
             </div>
 
