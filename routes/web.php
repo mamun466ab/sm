@@ -43,6 +43,7 @@ Route::middleware('userCheck')->group(function(){
     Route::get('/teacher-list/', 'CommonController@teacherList');
     Route::get('/view-routine/', 'CommonController@viewRoutine');
     Route::get('/view-exam-routine/', 'CommonController@viewExmRoutine');
+    Route::get('/view-result/', 'CommonController@viewResult');
     
     /*
      * Route match
@@ -58,6 +59,8 @@ Route::middleware('userCheck')->group(function(){
     Route::get('/user-activate/{usrid}', 'AdminUpdateController@userActivate');
     Route::get('/block/{usrid}', 'AdminUpdateController@userBlock');
     Route::get('/unblock/{usrid}', 'AdminUpdateController@userUnblock');
+    Route::post('/class-routine-update/', 'AdminUpdateController@clsRtnEdt');
+    Route::post('/exam-routine-update/', 'AdminUpdateController@exmRtnEdt');
     
     /*
      * Post method
@@ -88,6 +91,7 @@ Route::middleware('userCheck')->group(function(){
     Route::get('/add-number-ajax/{stdid}', 'AjaxController@addNumber');
     Route::get('/exm-time-ajax/{scltyp}', 'AjaxController@addExmTme');
     Route::get('/edit-cls-rtn/{rtnid}', 'AjaxController@editClassRoutine');
+    Route::get('/edit-exm-rtn/{exmid}', 'AjaxController@editExamRoutine');
     
     /*
      * For delete

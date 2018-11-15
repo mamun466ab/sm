@@ -7,16 +7,17 @@
     .panel input, .panel select{
         color: #000;
     }
-    
+
     .panel .btn-default{
         color: #000;
         background-color: #fff;
     }
-    
+
     .panel .btn{
         text-align: left;
         padding-left: 12px;
         padding-right: 12px;
+        overflow: hidden;
     }
 </style>
 <section id="main-content" style="padding-top: 15px; padding-bottom: 400px;">
@@ -87,45 +88,41 @@
                                 }
                                 ?>">
                                     <label for = "fstexm{{ $n }}" style = "color:#FF6C60;">{{ $exmtm->fsttm }}</label>
-                                    <!--<div class="form-group">-->
-                                        <select name="fstexm{{ $n }}[]" class="multiselect-ui form-control" id="fstexm{{ $n }}" required="required" multiple="multiple">
-                                            <option value="">Select Subject</option>
-                                            <option value="Nill">Nill</option>
-                                            <optgroup label="Common Subject">
-                                                @foreach ($sclsub as $sclsubval) 
-                                                <option value="{{ $sclsubval->sub }}">{{ $sclsubval->sub }}</option>
-                                                @endforeach
-                                            </optgroup>
+                                    <select name="fstexm{{ $n }}[]" class="multiselect-ui form-control" id="fstexm{{ $n }}" required="required" multiple="multiple">
+                                        <option value="">Select Subject</option>
+                                        <option value="Nill">Nill</option>
+                                        <optgroup label="Common Subject">
+                                            @foreach ($sclsub as $sclsubval) 
+                                            <option value="{{ $sclsubval->sub }}">{{ $sclsubval->sub }}</option>
+                                            @endforeach
+                                        </optgroup>
 
-                                            <optgroup label="Extra Subject">
-                                                @foreach ($extsub as $sclexsubval) 
-                                                <option value="{{ $sclexsubval->exsub }}">{{ $sclexsubval->exsub }}</option>
-                                                @endforeach
-                                            </optgroup>
-                                        </select>
-                                    <!--</div>-->
+                                        <optgroup label="Extra Subject">
+                                            @foreach ($extsub as $sclexsubval) 
+                                            <option value="{{ $sclexsubval->exsub }}">{{ $sclexsubval->exsub }}</option>
+                                            @endforeach
+                                        </optgroup>
+                                    </select>
                                 </div>
 
                                 @if ($exmtm->sndtm != 0) 
                                 <div class="form-group col-md-4">
                                     <label for = "sndexm{{ $n }}" style = "color:#FF6C60;">{{ $exmtm->sndtm }}</label>
-                                    <!--<div class="form-group">-->
-                                        <select name="sndexm{{ $n }}[]" id = "sndexm{{ $n }}" class="multiselect-ui form-control" required="required" multiple="multiple">
-                                            <option value="">Select Subject</option>
-                                            <option value="Nill">Nill</option>
-                                            <optgroup label="Common Subject">
-                                                @foreach ($sclsub as $sclsubval) 
-                                                <option value="{{ $sclsubval->sub }}">{{ $sclsubval->sub }}</option>
-                                                @endforeach
-                                            </optgroup>
+                                    <select name="sndexm{{ $n }}[]" id = "sndexm{{ $n }}" class="multiselect-ui form-control" required="required" multiple="multiple">
+                                        <option value="">Select Subject</option>
+                                        <option value="Nill">Nill</option>
+                                        <optgroup label="Common Subject">
+                                            @foreach ($sclsub as $sclsubval) 
+                                            <option value="{{ $sclsubval->sub }}">{{ $sclsubval->sub }}</option>
+                                            @endforeach
+                                        </optgroup>
 
-                                            <optgroup label="Extra Subject">
-                                                @foreach ($extsub as $sclexsubval) 
-                                                <option value="{{ $sclexsubval->exsub }}">{{ $sclexsubval->exsub }}</option>
-                                                @endforeach
-                                            </optgroup>
-                                        </select>
-                                    <!--</div>-->
+                                        <optgroup label="Extra Subject">
+                                            @foreach ($extsub as $sclexsubval) 
+                                            <option value="{{ $sclexsubval->exsub }}">{{ $sclexsubval->exsub }}</option>
+                                            @endforeach
+                                        </optgroup>
+                                    </select>
                                 </div>                                                
                                 @endif
 
@@ -175,21 +172,21 @@
                                 ?>">
                                     <label for = "fstexm{{ $n }}" style = "color:#FF6C60;">{{ $exmtm->fsttm }}</label>
                                     <!--<div class="form-group">-->
-                                        <select name="fstexm{{ $n }}[]" class="multiselect-ui form-control" id="fstexm{{ $n }}" required="required" multiple="multiple">
-                                            <option value="">Select Subject</option>
-                                            <option value="Nill">Nill</option>';
-                                            <optgroup label="Common Subject">
-                                                @foreach ($clgsub as $clgsubval) 
-                                                <option value="{{ $clgsubval->clgsub }}">{{ $clgsubval->clgsub }}</option>
-                                                @endforeach
-                                            </optgroup>
+                                    <select name="fstexm{{ $n }}[]" class="multiselect-ui form-control" id="fstexm{{ $n }}" required="required" multiple="multiple">
+                                        <option value="">Select Subject</option>
+                                        <option value="Nill">Nill</option>';
+                                        <optgroup label="Common Subject">
+                                            @foreach ($clgsub as $clgsubval) 
+                                            <option value="{{ $clgsubval->clgsub }}">{{ $clgsubval->clgsub }}</option>
+                                            @endforeach
+                                        </optgroup>
 
-                                            <optgroup label="Extra Subject">
-                                                @foreach ($extsub as $sclexsubval) 
-                                                <option value="{{ $sclexsubval->exsub }}">{{ $sclexsubval->exsub }}</option>
-                                                @endforeach
-                                            </optgroup>
-                                        </select>
+                                        <optgroup label="Extra Subject">
+                                            @foreach ($extsub as $sclexsubval) 
+                                            <option value="{{ $sclexsubval->exsub }}">{{ $sclexsubval->exsub }}</option>
+                                            @endforeach
+                                        </optgroup>
+                                    </select>
                                     <!--</div>-->
                                 </div>
 
@@ -197,21 +194,21 @@
                                 <div class="form-group col-md-4">
                                     <label for = "sndexm{{ $n }}" style = "color:#FF6C60;">{{ $exmtm->sndtm }}</label>
                                     <!--<div class="form-group">-->
-                                        <select name="sndexm{{ $n }}[]" id = "sndexm{{ $n }}" class="multiselect-ui form-control" required="required" multiple="multiple">
-                                            <option value="">Select Subject</option>
-                                            <option value="Nill">Nill</option>
-                                            <optgroup label="Common Subject">
-                                                @foreach ($clgsub as $clgsubval)
-                                                <option value="{{ $clgsubval->clgsub }}">{{ $clgsubval->clgsub }}</option>
-                                                @endforeach
-                                            </optgroup>
+                                    <select name="sndexm{{ $n }}[]" id = "sndexm{{ $n }}" class="multiselect-ui form-control" required="required" multiple="multiple">
+                                        <option value="">Select Subject</option>
+                                        <option value="Nill">Nill</option>
+                                        <optgroup label="Common Subject">
+                                            @foreach ($clgsub as $clgsubval)
+                                            <option value="{{ $clgsubval->clgsub }}">{{ $clgsubval->clgsub }}</option>
+                                            @endforeach
+                                        </optgroup>
 
-                                            <optgroup label="Extra Subject">
-                                                @foreach ($extsub as $sclexsubval)
-                                                <option value="{{ $sclexsubval->exsub }}">{{ $sclexsubval->exsub }}</option>
-                                                @endforeach
-                                            </optgroup>
-                                        </select>
+                                        <optgroup label="Extra Subject">
+                                            @foreach ($extsub as $sclexsubval)
+                                            <option value="{{ $sclexsubval->exsub }}">{{ $sclexsubval->exsub }}</option>
+                                            @endforeach
+                                        </optgroup>
+                                    </select>
                                     <!--</div>-->
                                 </div>
                                 @endif

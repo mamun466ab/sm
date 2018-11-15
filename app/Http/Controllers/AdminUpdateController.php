@@ -62,5 +62,27 @@ class AdminUpdateController extends Controller {
         DB::table('usrreg')->where('id', $usrid)->update($slctSub);
         return Redirect::to('/block-unblock/');
     }
+    
+    public function clsRtnEdt(Request $rtnSub){
+        $rtnid = $rtnSub->rtnid;
+        $edtedrtn = array();
+        $edtedrtn['sat'] = $rtnSub->sat;
+        $edtedrtn['sun'] = $rtnSub->sun;
+        $edtedrtn['mon'] = $rtnSub->mon;
+        $edtedrtn['tue'] = $rtnSub->tue;
+        $edtedrtn['wed'] = $rtnSub->wed;
+        $edtedrtn['thu'] = $rtnSub->thu;
+        DB::table('clsrtn')->where('id', $rtnid)->update($edtedrtn);
+        return Redirect::to('/view-routine/');
+    }
+    
+    public function exmRtnEdt(Request $exmsub){
+        $rtnid = $exmsub->exmid;
+        $edtedrtn = array();
+        $edtedrtn['fstsub'] = $exmsub->fstsub;
+        $edtedrtn['sndsub'] = $exmsub->sndsub;
+        DB::table('exmrtn')->where('id', $rtnid)->update($edtedrtn);
+        return Redirect::to('/view-exam-routine/');
+    }
 
 }
