@@ -595,25 +595,25 @@ class AjaxController extends Controller {
     public function editExamRoutine($exmid) {
         $edtexmrtn = DB::table('exmrtn')->select('*')->where('id', $exmid)->first();
         echo '<div class = "row" style = "margin-bottom:15px; color: rgb(121, 121, 121); font-weight: bold; text-align: center;">';
-        echo '<div class = "col-lg-2 text-info">';
+        echo '<div class = "col-lg-3 text-info">';
         echo 'Exam Date';
         echo '</div>';
-        echo '<div class = "col-lg-10">';
-        echo '<div class = "col-lg-2 text-info">First Exam</div>';
-        echo '<div class = "col-lg-2 text-info">Seccond Exam</div>';
+        echo '<div class = "col-lg-9">';
+        echo '<div class = "col-lg-6 text-info">First Exam</div>';
+        echo '<div class = "col-lg-6 text-info">Seccond Exam</div>';
         echo '</div>';
         echo '</div>';
 
         echo '<div class = "row" style="margin-bottom:15px;">';
-        echo '<div class="col-lg-2">';
+        echo '<div class="col-lg-3">';
         echo '<input type="hidden" name="exmid" value = "' . $exmid . '" />';
         echo '<input type="text" name="clstme" class="form-control" id="clstme" readonly="readonly" value = "' . $edtexmrtn->exmdte . '" style="color:#000;" />';
         echo '</div>';
-        echo '<div class="col-md-10">';
-        echo '<div class="col-lg-2">';
+        echo '<div class="col-md-9">';
+        echo '<div class="col-lg-6">';
         echo '<input type="text" class="form-control" name="fstsub" value="' . $edtexmrtn->fstsub . '"" style="color:#000;" />';
         echo '</div>';
-        echo '<div class="col-lg-2">';
+        echo '<div class="col-lg-6">';
         echo '<input type="text" class="form-control" name="sndsub" value="' . $edtexmrtn->sndsub . '"" style="color:#000;" />';
         echo '</div>';
         echo '</div>';

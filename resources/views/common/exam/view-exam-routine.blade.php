@@ -23,7 +23,7 @@
         $color = '#099';
         ?>
         <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal-2" class="modal fade">
-            <div class="modal-dialog" style="width:80%;">
+            <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
@@ -31,8 +31,7 @@
                     </div>
                     <form action="{{ url('/exam-routine-update/') }}" method="POST" role="form">
                         @csrf
-                        <div class="modal-body">
-                            <div class="col-md-12" id="edtrtn"></div>
+                        <div class="modal-body" id="edtrtn">
                         </div>
                         <div class="modal-footer">
                             <button data-dismiss="modal" class="btn btn-danger" type="button">Close</button>
