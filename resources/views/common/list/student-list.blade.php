@@ -6,10 +6,23 @@
 <!--main content start-->
 <section id="main-content" style="padding-top: 15px;">
     <section class="wrapper">
+        <?php
+        $scltyp = Session::get('usrInfo')->scltyp;
+        ?>
         <div class="row">
             <div class="col-lg-3 col-md-6 col-sm-12">
                 <select name="std_cls" id="std_cls" class="form-control" style="color: #000; padding: 6px;" onchange="ajaxGET('stdInfo','{{ URL::to('/list-student/') }}/'+this.value)">
-                    <option value="">Select Your Class</option>
+                    <option value="">Select Class</option>
+                    @if($scltyp == 's')
+                    <option value="6">Class Six</option>
+                    <option value="7">Class Seven</option>
+                    <option value="8">Class Eight</option>
+                    <option value="9">Class Nine</option>
+                    <option value="10">Class Ten</option>
+                    @elseif($scltyp == 'c')
+                    <option value="11">Enter 1st Year</option>
+                    <option value="12">Enter 2nd Year</option>
+                    @else
                     <option value="6">Class Six</option>
                     <option value="7">Class Seven</option>
                     <option value="8">Class Eight</option>
@@ -17,6 +30,7 @@
                     <option value="10">Class Ten</option>
                     <option value="11">Enter 1st Year</option>
                     <option value="12">Enter 2nd Year</option>
+                    @endif
                 </select>
             </div>
         </div>
@@ -33,7 +47,7 @@
                         <strong>Student List</strong>
                     </header>
                     <div class="panel-body">
-                        <section id="unseen">
+                        <section>
                             <table class="table table-bordered table-striped table-condensed">
                                 <thead>
                                     <tr>

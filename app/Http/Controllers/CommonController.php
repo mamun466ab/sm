@@ -115,9 +115,44 @@ class CommonController extends Controller {
     public function viewResult(){
         $usrInfo = Session::get('usrInfo');
         
+        $stdid = 16;
+        $ssn = 2018;
+        $exmtyp = '3rd Term';
+        
+        $stdInfo = DB::table('clsrol')
+                ->join('usrreg', 'clsrol.stdid', '=', 'usrreg.id')
+                ->join('usrpro', 'clsrol.stdid', '=', 'usrpro.usrid')
+                ->select('clsrol.stdcls', 'clsrol.stdrol', 'usrreg.usrnme', 'usrpro.fthr', 'usrpro.mthr', 'usrpro.dob')
+                ->where('clsrol.stdid', $stdid)
+                ->first();
+        
+        $rsltInfo = DB::table('subnum')
+                ->select('*')
+                ->where('stdid', $stdid)
+                ->where('ssn', $ssn)
+                ->where('exmtyp', $exmtyp)
+                ->where('sts', NULL)
+                ->get();
+        
+        $rsltFrthInfo = DB::table('subnum')
+                ->select('*')
+                ->where('stdid', $stdid)
+                ->where('ssn', $ssn)
+                ->where('exmtyp', $exmtyp)
+                ->where('sts', 4)
+                ->first();
+        
+        $rsltExtInfo = DB::table('subnum')
+                ->select('*')
+                ->where('stdid', $stdid)
+                ->where('ssn', $ssn)
+                ->where('exmtyp', $exmtyp)
+                ->where('sts', 3)
+                ->get();
+        
         if ($usrInfo->usrtyp == 'Teacher' AND $usrInfo->usrpwr == 1) {
             $leftMenu = view('menu.adminmenu')->with('vwrslt', 'class="active"');
-            $selectSubject = view('common.result.view-result');
+            $selectSubject = view('common.result.view-result')->with('stdInfo', $stdInfo)->with('rstInfo', $rsltInfo)->with('rsltFrthInfo', $rsltFrthInfo)->with('rsltExtInfo', $rsltExtInfo);
         } else {
             return Redirect::to('/');
         }

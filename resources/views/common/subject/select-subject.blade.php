@@ -79,7 +79,7 @@
                             @endif
 
                             <div class="form-group">
-                                <label for="frtsub">Forth Subject</label>
+                                <label for="frtsub">Additional Subject</label>
                                 <div id="frtsub" style="color:#D35400;">
                                     @foreach($forthsub as $frsub)
                                     <label class="checkbox-inline">
