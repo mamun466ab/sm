@@ -49,9 +49,9 @@
                             ->select('usrpro.*', 'usrcnt.cnt', 'usrdvn.dvn', 'usrdst.dst', 'usrthn.thn')
                             ->where('usrid', $usrId)
                             ->first();
-                    if($proInfo){
+                    if ($proInfo) {
                         $disable = 'readonly="readonly"';
-                    }else{
+                    } else {
                         $disable = "";
                     }
                     ?> 
@@ -62,20 +62,26 @@
                             <div class="form-group">
                                 <label for="abt"  class="col-lg-2 control-label">About Me *</label>
                                 <div class="col-lg-10">
-                                    <textarea name="abt" id="abt" class="form-control" cols="30" rows="10" placeholder="About Yourself"><?php if($proInfo){echo $proInfo->abt;} ?></textarea>
+                                    <textarea name="abt" id="abt" class="form-control" cols="30" rows="10" placeholder="About Yourself"><?php if ($proInfo) {
+                        echo $proInfo->abt;
+                    } ?></textarea>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="fthr" class="col-lg-2 control-label">Father&#8217;s Name *</label>
                                 <div class="col-lg-6">
-                                    <input type="text" name="fthr" class="form-control" id="fthr" value="<?php if($proInfo){echo $proInfo->fthr;} ?>" placeholder="Father&#8217;s Name" {{ $disable }}>
+                                    <input type="text" name="fthr" class="form-control" id="fthr" value="<?php if ($proInfo) {
+                        echo $proInfo->fthr;
+                    } ?>" placeholder="Father&#8217;s Name" {{ $disable }}>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label for="mthr" class="col-lg-2 control-label">Mother&#8217;s Name *</label>
                                 <div class="col-lg-6">
-                                    <input type="text" name="mthr" class="form-control" id="mthr" value="<?php if($proInfo){echo $proInfo->mthr;} ?>" placeholder="Mother&#8217;s Name" {{ $disable }}>
+                                    <input type="text" name="mthr" class="form-control" id="mthr" value="<?php if ($proInfo) {
+                        echo $proInfo->mthr;
+                    } ?>" placeholder="Mother&#8217;s Name" {{ $disable }}>
                                 </div>
                             </div>
 
@@ -84,12 +90,17 @@
                                 <div class="col-sm-6">
                                     <?php
                                     $countries = DB::table('usrcnt')->get();
+                                    if (!empty($proInfo->cntid)) {
+                                        $cntid = $proInfo->cntid;
+                                    } else {
+                                        $cntid = NULL;
+                                    }
                                     ?>
                                     <select class="form-control" name="cnt" id="cnt" onchange="ajaxGET('dvn','{{URL::to('/division/')}}/'+this.value)">
                                         <option value="">Select Country</option>
                                         @foreach ($countries as $country)
                                         @if ($country->cnt == 'Bangladesh')
-                                        @if($country->id == $proInfo->cntid)
+                                        @if($country->id == $cntid)
                                         <option selected="selected" value="{{ $country->id }}">{{ $country->cnt }}</option>
                                         @else
                                         <option value="{{ $country->id }}">{{ $country->cnt }}</option>
@@ -106,7 +117,15 @@
                                 <label for="dvn" class="col-sm-2 control-label"> Division *</label>
                                 <div class="col-sm-6">
                                     <select class="form-control" name="dvn" id="dvn" onchange="ajaxGET('dst','{{URL::to('/district/')}}/'+this.value)">
-                                        <option value="<?php if($proInfo){echo $proInfo->dvnid;}else{echo "";} ?>"><?php if($proInfo){echo $proInfo->dvn;}else{echo "Select Country First";} ?></option>
+                                        <option value="<?php if ($proInfo) {
+                                        echo $proInfo->dvnid;
+                                    } else {
+                                        echo "";
+                                    } ?>"><?php if ($proInfo) {
+                                        echo $proInfo->dvn;
+                                    } else {
+                                        echo "Select Country First";
+                                    } ?></option>
                                     </select>
                                 </div>
                             </div> <!-- /.form-group -->
@@ -115,7 +134,15 @@
                                 <label for="dst" class="col-sm-2 control-label"> District *</label>
                                 <div class="col-sm-6">
                                     <select class="form-control" name="dst" id="dst" onchange="ajaxGET('thn','{{URL::to('/thana/')}}/'+this.value)">
-                                        <option value="<?php if($proInfo){echo $proInfo->dstid;}else{echo "";} ?>"><?php if($proInfo){echo $proInfo->dst;}else{echo "Select Division First";} ?></option>
+                                        <option value="<?php if ($proInfo) {
+                                        echo $proInfo->dstid;
+                                    } else {
+                                        echo "";
+                                    } ?>"><?php if ($proInfo) {
+                                        echo $proInfo->dst;
+                                    } else {
+                                        echo "Select Division First";
+                                    } ?></option>
                                     </select>
                                 </div>
                             </div> <!-- /.form-group -->
@@ -124,7 +151,15 @@
                                 <label for="thn" class="col-sm-2 control-label"> Thana *</label>
                                 <div class="col-sm-6">
                                     <select class="form-control" name="thn" id="thn">
-                                        <option value="<?php if($proInfo){echo $proInfo->thnid;}else{echo "";} ?>"><?php if($proInfo){echo $proInfo->thn;}else{echo "Select District First";} ?></option>
+                                        <option value="<?php if ($proInfo) {
+                                        echo $proInfo->thnid;
+                                    } else {
+                                        echo "";
+                                    } ?>"><?php if ($proInfo) {
+                                        echo $proInfo->thn;
+                                    } else {
+                                        echo "Select District First";
+                                    } ?></option>
                                     </select>
                                 </div>
                             </div> <!-- /.form-group -->
@@ -132,7 +167,9 @@
                             <div class="form-group">
                                 <label for="adrs" class="col-sm-2 control-label"> Address *</label>
                                 <div class="col-sm-6">
-                                    <input type="text" name="adrs" class="form-control" placeholder="PO,Village etc" id="adrs" value="<?php if($proInfo){echo $proInfo->adr;} ?>" {{ $disable }} />
+                                    <input type="text" name="adrs" class="form-control" placeholder="PO,Village etc" id="adrs" value="<?php if ($proInfo) {
+                                        echo $proInfo->adr;
+                                    } ?>" {{ $disable }} />
                                 </div>
                             </div>
 
@@ -140,7 +177,15 @@
                                 <label for="rlgn" class="col-sm-2 control-label"> Religion *</label>
                                 <div class="col-sm-6">
                                     <select class="form-control" name="rlgn" id="rlgn">
-                                        <option value="<?php if($proInfo){echo $proInfo->rlgn;}else{echo "";} ?>"><?php if($proInfo){echo $proInfo->rlgn;}else{echo "Select Religion";} ?></option>
+                                        <option value="<?php if ($proInfo) {
+                                        echo $proInfo->rlgn;
+                                    } else {
+                                        echo "";
+                                    } ?>"><?php if ($proInfo) {
+                                        echo $proInfo->rlgn;
+                                    } else {
+                                        echo "Select Religion";
+                                    } ?></option>
                                         <option value="Islam">Islam</option>
                                         <option value="Hindu">Hindu</option>
                                         <option value="Cristian">Christianity</option>
@@ -152,21 +197,27 @@
                             <div class="form-group">
                                 <label for="dob" class="col-lg-2 control-label">Date of Birth *</label>
                                 <div class="col-lg-6">
-                                    <input name="dob" type="text" class="form-control default-date-picker" onkeydown="return false" placeholder="Date of Birth" value="<?php if($proInfo){echo $proInfo->dob;} ?>">
+                                    <input name="dob" type="text" class="form-control default-date-picker" onkeydown="return false" placeholder="Date of Birth" value="<?php if ($proInfo) {
+                                        echo $proInfo->dob;
+                                    } ?>">
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label for="mbl" class="col-lg-2 control-label">Mobile</label>
                                 <div class="col-lg-6">
-                                    <input name="mbl" type="text" class="form-control" id="mbl" placeholder="Mobile Number" value="<?php if($proInfo){echo $proInfo->mbl;} ?>">
+                                    <input name="mbl" type="text" class="form-control" id="mbl" placeholder="Mobile Number" value="<?php if ($proInfo) {
+                                        echo $proInfo->mbl;
+                                    } ?>">
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label for="skl" class="col-lg-2 control-label">Other Skill</label>
                                 <div class="col-lg-6">
-                                    <input name="skl" type="text" class="form-control" id="skl" placeholder="Other's Skill" value="<?php if($proInfo){echo $proInfo->skl;} ?>">
+                                    <input name="skl" type="text" class="form-control" id="skl" placeholder="Other's Skill" value="<?php if ($proInfo) {
+                                        echo $proInfo->skl;
+                                    } ?>">
                                 </div>
                             </div>
 

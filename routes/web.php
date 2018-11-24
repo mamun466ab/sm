@@ -43,7 +43,6 @@ Route::middleware('userCheck')->group(function(){
     Route::get('/teacher-list/', 'CommonController@teacherList');
     Route::get('/view-routine/', 'CommonController@viewRoutine');
     Route::get('/view-exam-routine/', 'CommonController@viewExmRoutine');
-    Route::get('/view-result/', 'CommonController@viewResult');
     
     /*
      * Route match
@@ -51,6 +50,7 @@ Route::middleware('userCheck')->group(function(){
     Route::match(['get', 'post'], '/class-time/', 'AdminController@classTime');
     Route::match(['get', 'post'], '/exam-routine/', 'AdminController@exmRoutine');
     Route::match(['get', 'post'], '/create-routine/', 'AdminController@createRoutine');
+    Route::match(['get', 'post'], '/view-result/', 'CommonController@viewResult');
     
     /*
      * For all update
@@ -82,6 +82,7 @@ Route::middleware('userCheck')->group(function(){
     Route::get('/list-student/{id}', 'AjaxController@listStudent');
     Route::get('/unbolock-block/{usrid}', 'AjaxController@unblockBlock');
     Route::get('/student-list-option/{id}', 'AjaxController@listStudentOption');
+    Route::get('/student-list-option-rol/{cls}', 'AjaxController@listStudentOptionRol');
     Route::get('/subject-view/{id}', 'AjaxController@subjectView');
     Route::get('/selected-subject/{id}', 'AjaxController@selectedSubject');
     Route::get('/class-numbr/{num}', 'AjaxController@classNumber');

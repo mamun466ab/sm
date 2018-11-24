@@ -32,31 +32,121 @@
     <section class="wrapper">
         <?php
         $scltyp = Session::get('usrInfo')->scltyp;
+        $sclcd = Session::get('usrInfo')->sclcd;
         ?>
         <div class="row">
-            <div class="col-lg-3 col-md-6 col-sm-12">
-                <select name="std_cls" id="std_cls" class="form-control" style="color: #000; padding: 6px;" onchange="ajaxGET('stdInfo','{{ URL::to('/list-student/') }}/'+this.value)">
-                    <option value="">Select Class</option>
-                    @if($scltyp == 's')
-                    <option value="6">Class Six</option>
-                    <option value="7">Class Seven</option>
-                    <option value="8">Class Eight</option>
-                    <option value="9">Class Nine</option>
-                    <option value="10">Class Ten</option>
-                    @elseif($scltyp == 'c')
-                    <option value="11">Enter 1st Year</option>
-                    <option value="12">Enter 2nd Year</option>
-                    @else
-                    <option value="6">Class Six</option>
-                    <option value="7">Class Seven</option>
-                    <option value="8">Class Eight</option>
-                    <option value="9">Class Nine</option>
-                    <option value="10">Class Ten</option>
-                    <option value="11">Enter 1st Year</option>
-                    <option value="12">Enter 2nd Year</option>
-                    @endif
-                </select>
-            </div>
+            <form action="{{ url('/view-result/') }}" method="POST">
+                @csrf
+                <div class="col-md-2 col-sm-12">
+                    <select name="std_cls" id="std_cls" class="form-control" style="color: #000; padding: 6px;" onchange="ajaxGET('stdrol','{{ URL::to('/student-list-option-rol/') }}/'+this.value)">
+                        <option value="">Select Class</option>
+                        @if($scltyp == 's')
+                        <option value="6">Class Six</option>
+                        <option value="7">Class Seven</option>
+                        <option value="8">Class Eight</option>
+                        <option value="9">Class Nine</option>
+                        <option value="10">Class Ten</option>
+                        @elseif($scltyp == 'c')
+                        <option value="11">Enter 1st Year</option>
+                        <option value="12">Enter 2nd Year</option>
+                        @else
+                        <option value="6">Class Six</option>
+                        <option value="7">Class Seven</option>
+                        <option value="8">Class Eight</option>
+                        <option value="9">Class Nine</option>
+                        <option value="10">Class Ten</option>
+                        <option value="11">Enter 1st Year</option>
+                        <option value="12">Enter 2nd Year</option>
+                        @endif
+                    </select>
+                </div>
+
+                <div class="col-md-2 col-sm-12">
+                    <select name="stdrol" id="stdrol" class="form-control" style="color: #000; padding: 6px;">
+                        <option value="">Select Class First</option>
+                    </select>
+                </div>
+
+                <div class="col-md-2 col-sm-12">
+                    <?php
+                    $exmtyp = DB::table('exmtm')->select('exmtyp')->where('sclcd', $sclcd)->where('scltyp', $scltyp)->first();
+                    ?>
+                    <select name="exm_typ" id="exm_typ" class="form-control" style="color: #000; padding: 6px;">
+                        <option value="">Select Exam Type</option>
+                        @if($scltyp == 's')
+                        <option <?php
+                        if ($exmtyp->exmtyp == '1st Term') {
+                            echo 'selected="selected"';
+                        }
+                        ?> value="1st Term">1st Term</option>
+                        <option <?php
+                        if ($exmtyp->exmtyp == '2nd Term') {
+                            echo 'selected="selected"';
+                        }
+                        ?> value="2nd Term">2nd Term</option>
+                        <option <?php
+                        if ($exmtyp->exmtyp == '3rd Term') {
+                            echo 'selected="selected"';
+                        }
+                        ?> value="3rd Term">3rd Term</option>
+                        <option <?php
+                        if ($exmtyp->exmtyp == 'Final') {
+                            echo 'selected="selected"';
+                        }
+                        ?> value="Final">Final</option>
+                        <option <?php
+                        if ($exmtyp->exmtyp == 'Test') {
+                            echo 'selected="selected"';
+                        }
+                        ?> value="Test">Test</option>
+                        @elseif($scltyp == 'c')
+                        <option <?php
+                        if ($exmtyp->exmtyp == 'Half Yearly') {
+                            echo 'selected="selected"';
+                        }
+                        ?> value="Half Yearly">Half Yearly</option>
+                        <option <?php
+                        if ($exmtyp->exmtyp == 'Yearly') {
+                            echo 'selected="selected"';
+                        }
+                        ?> value="Yearly">Yearly</option>
+                        <option <?php
+                        if ($exmtyp->exmtyp == 'Pre Test') {
+                            echo 'selected="selected"';
+                        }
+                        ?> value="Pre Test">Pre Test</option>
+                        <option <?php
+                        if ($exmtyp->exmtyp == 'Test') {
+                            echo 'selected="selected"';
+                        }
+                        ?> value="Test">Test</option>
+                        @else
+                        <option value="1st Term">1st Term</option>
+                        <option value="2nd Term">2nd Term</option>
+                        <option value="3rd Term">3rd Term</option>
+                        <option value="Final">Final</option>
+                        <option value="Half Yearly">Half Yearly</option>
+                        <option value="Yearly">Yearly</option>
+                        <option value="Pre Test">Pre Test</option>
+                        <option value="Test">Test</option>
+                        @endif
+                    </select>
+                </div>
+
+                <div class="col-lg-2 col-sm-12">
+                    <select name="std_ssn" id="std_ssn" class="form-control" style="color: #000; padding: 6px;">
+                        <option value="">Select Session</option>
+                        @for($ssn = 2010; $ssn <= (date('Y')); $ssn++){
+                        <option <?php
+                        if ($ssn == date('Y')) {
+                            echo 'selected="selected"';
+                        }
+                        ?> value="{{ $ssn }}">{{ $ssn }}</option>
+                        @endfor;
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-info">Submit</button>
+            </form>
         </div>
         <!-- page start-->
         <div class="row" style="margin-top: 15px;">
@@ -64,7 +154,6 @@
                 <section class="panel">
                     <header class="panel-heading">
                         <?php
-                        $sclcd = Session::get('usrInfo')->sclcd;
                         $sclInfo = DB::table('sclreg')
                                 ->join('usrdst', 'sclreg.dstid', '=', 'usrdst.id')
                                 ->join('usrthn', 'sclreg.thnid', '=', 'usrthn.id')
@@ -75,12 +164,10 @@
                         $ttlGPA = 0;
                         $ttlNumWExt = 0;
                         $ttlGPAWExt = 0;
+                        $goldenPlus = 0;
+                        $exgoldenPlus = 0;
                         ?>
-                        <p style="text-align: center;">
-                            <span style="font-size: 33px; font-weight: bold;">{{ $sclInfo->sclnme }}</span><br />
-                            <span style="font-size: 18px; font-weight: bold;">{{ $sclInfo->scladr }}</span><br />
-                            <span style="font-size: 18px; font-weight: bold;">{{ $sclInfo->thn }}, {{ $sclInfo->dst }}</span><br />
-                        </p>
+                        <!--@include("../../headers/schoolheading")-->
                         <strong>Academic Transcript</strong>
                     </header>
                     <div class="panel-body">
@@ -91,7 +178,7 @@
                                     <span style="font-size: 30px; font-weight: bold;">{{ $sclInfo->sclnme }}</span><br />
                                     <span style="font-size: 18px; font-weight: bold;">{{ $sclInfo->scladr }}</span><br />
                                     <span style="font-size: 18px; font-weight: bold;">{{ $sclInfo->thn }}, {{ $sclInfo->dst }}</span><br />
-                                    <span style="font-size: 20px; font-weight: bold;">1st Terms Examination 2018</span><br />
+                                    <span style="font-size: 20px; font-weight: bold;">{{ $exmtyph }} Examination @if(isset($stdInfo)) {{ $stdInfo->yr }} @endif</span><br />
                                 </p>
 
                                 <hr>
@@ -99,7 +186,7 @@
                                 <p style="text-align: center;">
                                     <span style="font-size: 20px; color: #666; font-weight: bold;"><u>Academic Transcript</u></span><br />
                                 </p>
-                                <table border="0" style="line-height: 28px; margin-bottom: 15px; float: left;">
+                                <table border="0" style="line-height: 25px; margin-bottom: 15px; float: left;">
                                     <tr>
                                         <td class="txtbold">Name of Student</td> <td class="txtbold"> &nbsp;:&nbsp; </td>
                                         <td class="font">
@@ -155,10 +242,20 @@
                                         </td>
                                     </tr>
                                     <tr>
+                                        <td class="txtbold">Session </td> <td class="txtbold"> &nbsp;:&nbsp; </td>
+                                        <td>
+                                            @if(isset($stdInfo))
+                                            {{ $stdInfo->yr }}
+                                            @endif
+                                        </td>
+                                    </tr>
+                                    <tr>
                                         <td class="txtbold">Date of Birth </td> <td class="txtbold"> &nbsp;:&nbsp; </td>
                                         <td>
                                             @if(isset($stdInfo))
                                             {{ $stdInfo->dob }}
+                                            @else
+                                            <span class="text-danger">Please update profile of this student.</span>
                                             @endif
                                         </td>
                                     </tr>
@@ -210,6 +307,10 @@
                                         <?php
                                         $ttlNum += $rstval->num;
                                         $ttlNumWExt += $rstval->num;
+                                        if ($rstval->num >= 80) {
+                                            $goldenPlus += 1;
+                                            $exgoldenPlus += 1;
+                                        }
                                         ?>
                                         <tr>
                                             <td align='center'>{{ $i }}.</td>
@@ -236,17 +337,35 @@
                                                 @if($rstval->num <= 32)
                                                 0.00
                                                 @elseif($rstval->num >= 33 AND $rstval->num <= 39)
-                                                1.00 <?php $ttlGPA += 1; $ttlGPAWExt += 1; ?>
+                                                1.00 <?php
+                                                $ttlGPA += 1;
+                                                $ttlGPAWExt += 1;
+                                                ?>
                                                 @elseif($rstval->num >= 40 AND $rstval->num <= 49)
-                                                2.00 <?php $ttlGPA += 2; $ttlGPAWExt += 2; ?>
+                                                2.00 <?php
+                                                $ttlGPA += 2;
+                                                $ttlGPAWExt += 2;
+                                                ?>
                                                 @elseif($rstval->num >= 50 AND $rstval->num <= 59)
-                                                3.00 <?php $ttlGPA += 3; $ttlGPAWExt += 3; ?>
+                                                3.00 <?php
+                                                $ttlGPA += 3;
+                                                $ttlGPAWExt += 3;
+                                                ?>
                                                 @elseif($rstval->num >= 60 AND $rstval->num <= 69)
-                                                3.50 <?php $ttlGPA += 3.50; $ttlGPAWExt += 3.50; ?>
+                                                3.50 <?php
+                                                $ttlGPA += 3.50;
+                                                $ttlGPAWExt += 3.50;
+                                                ?>
                                                 @elseif($rstval->num >= 70 AND $rstval->num <= 79)
-                                                4.00 <?php $ttlGPA += 4; $ttlGPAWExt += 4; ?>
+                                                4.00 <?php
+                                                $ttlGPA += 4;
+                                                $ttlGPAWExt += 4;
+                                                ?>
                                                 @elseif($rstval->num >= 80 AND $rstval->num <= 100)
-                                                5.00 <?php $ttlGPA += 5; $ttlGPAWExt += 5; ?>
+                                                5.00 <?php
+                                                $ttlGPA += 5;
+                                                $ttlGPAWExt += 5;
+                                                ?>
                                                 @endif
                                             </td>
                                             <td align='center'>
@@ -261,11 +380,14 @@
                                         @$i++
                                         ?>
                                         @endforeach
-                                        
+
                                         @if(count($rsltExtInfo) > 0)
                                         @foreach($rsltExtInfo as $rstExtval)
                                         <?php
                                         $ttlNumWExt += $rstExtval->num;
+                                        if ($rstExtval->num >= 80) {
+                                            $exgoldenPlus += 1;
+                                        }
                                         ?>
                                         <tr>
                                             <td align='center'>{{ $i }}.</td>
@@ -318,7 +440,7 @@
                                         ?>
                                         @endforeach
                                         @endif
-                                        
+
                                         @if(!empty($rsltFrthInfo))
                                         <?php
                                         $ttlNum += $rsltFrthInfo->num;
@@ -353,13 +475,25 @@
                                                 @elseif($rsltFrthInfo->num >= 40 AND $rsltFrthInfo->num <= 49)
                                                 2.00
                                                 @elseif($rsltFrthInfo->num >= 50 AND $rsltFrthInfo->num <= 59)
-                                                3.00 <?php $ttlGPA += 1; $ttlGPAWExt += 1; ?>
+                                                3.00 <?php
+                                                $ttlGPA += 1;
+                                                $ttlGPAWExt += 1;
+                                                ?>
                                                 @elseif($rsltFrthInfo->num >= 60 AND $rsltFrthInfo->num <= 69)
-                                                3.50 <?php $ttlGPA += 1.5; $ttlGPAWExt += 1.5; ?>
+                                                3.50 <?php
+                                                $ttlGPA += 1.5;
+                                                $ttlGPAWExt += 1.5;
+                                                ?>
                                                 @elseif($rsltFrthInfo->num >= 70 AND $rsltFrthInfo->num <= 79)
-                                                4.00 <?php $ttlGPA += 2; $ttlGPAWExt += 2; ?>
+                                                4.00 <?php
+                                                $ttlGPA += 2;
+                                                $ttlGPAWExt += 2;
+                                                ?>
                                                 @elseif($rsltFrthInfo->num >= 80 AND $rsltFrthInfo->num <= 100)
-                                                5.00 <?php $ttlGPA += 3; $ttlGPAWExt += 3; ?>
+                                                5.00 <?php
+                                                $ttlGPA += 3;
+                                                $ttlGPAWExt += 3;
+                                                ?>
                                                 @endif
                                             </td>
                                             <td align='center'>
@@ -374,7 +508,7 @@
                                         @endif
                                     </tbody>
                                 </table>
-                                
+
                                 <table border="0" style="line-height: 23px; margin-bottom: 15px; float: left; font-size: 14px;">
                                     <tr>
                                         <td class="txtbold">Total Number <span style="font-size:12px;">(Without Extra Subject)</span></td> <td class="txtbold"> &nbsp;:&nbsp; </td>
@@ -392,8 +526,18 @@
                                     @endif
                                     <tr>
                                         <td class="txtbold">GPA <span style="font-size:12px;">(Without Extra Subject)</span></td> <td class="txtbold"> &nbsp;:&nbsp; </td>
-                                        <td><?php $rsltgpa = number_format($ttlGPA/count($rstInfo), 2); ?>
+                                        <td><?php
+                                            if (count($rstInfo) > 0) {
+                                                $rsltgpa = number_format($ttlGPA / count($rstInfo), 2);
+                                            } else {
+                                                $rsltgpa = 0;
+                                            }
+                                            ?>
+                                            @if($rsltgpa > 5)
+                                            5
+                                            @else
                                             {{ $rsltgpa }}
+                                            @endif
                                             @if($rsltgpa >= 1 And $rsltgpa < 2)
                                             (D)
                                             @elseif($rsltgpa >= 2 And $rsltgpa < 3)
@@ -407,13 +551,24 @@
                                             @elseif($rsltgpa >= 5)
                                             (A+)
                                             @endif
+                                            @if($goldenPlus == count($rstInfo))
+                                            <span style="color:#c19815;">(Golden)</span>
+                                            @endif
                                         </td>
                                     </tr>
                                     @if(count($rsltExtInfo) > 0)
                                     <tr>
                                         <td class="txtbold">GPA <span style="font-size:12px;">(With Extra Subject)</span></td> <td class="txtbold"> &nbsp;:&nbsp; </td>
-                                        <td> <?php $ttlsub = (count($rsltExtInfo) + count($rstInfo)); $extrslt = number_format(($ttlGPAWExt/$ttlsub), 2); ?>
+                                        <td>
+                                            <?php
+                                            $ttlsub = (count($rsltExtInfo) + count($rstInfo));
+                                            $extrslt = number_format(($ttlGPAWExt / $ttlsub), 2);
+                                            ?>
+                                            @if($extrslt > 5)
+                                            5
+                                            @else
                                             {{ $extrslt }}
+                                            @endif
                                             @if($extrslt >= 1 And $extrslt < 2)
                                             (D)
                                             @elseif($extrslt >= 2 And $extrslt < 3)
@@ -427,13 +582,59 @@
                                             @elseif($extrslt >= 5)
                                             (A+)
                                             @endif
+                                            @if($exgoldenPlus == $ttlsub)
+                                            <span style="color:#c19815;">(Golden)</span>
+                                            @endif
                                         </td>
                                     </tr>
                                     @endif
                                 </table>
-                                    <span  style="position: absolute; bottom: 60px; right: 15px; font-size: 14px;">School/Collage Authority</span>
+                                <span  style="position: absolute; bottom: 60px; right: 15px; font-size: 14px;">School/Collage Authority</span>
                                 <span style="font-family: cursive; position: absolute; bottom: 0px; left: 15px; font-size: 13px;">Date of publication of result : 2018-11-21</span>
                             </div>
+                            @if(count($rstInfo) > 0)
+                            <?php
+                            $stdrolpre = ($stdInfo->stdrol - 1);
+                            $stdrolnxt = ($stdInfo->stdrol + 1);
+                            
+                            $maxrol = DB::table('clsrol')->where('sclcd', $sclcd)->where('stdcls', $stdInfo->stdcls)->where('yr', $stdInfo->yr)->max('stdrol');
+                            
+                            if($stdrolnxt > $maxrol):
+                                $nxtbtndsbl = 'disabled="disabled"';
+                            else:
+                                $nxtbtndsbl = NULL;
+                            endif;
+                            
+                            if($stdrolpre == 0):
+                                $prebtndsbl = 'disabled="disabled"';
+                            else:
+                                $prebtndsbl = NULL;
+                            endif;
+                            ?>
+                            <div class="row" style="margin-top:15px;">
+                                <div class="col-md-5 text-right">
+                                    <form action="{{ url('/view-result/') }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="std_cls" value="{{ $stdInfo->stdcls }}" />
+                                        <input type="hidden" name="stdrol" value="{{ $stdrolpre }}" />
+                                        <input type="hidden" name="std_ssn" value="{{ $stdInfo->yr }}" />
+                                        <input type="hidden" name="exm_typ" value="{{ $exmtyph }}" />
+                                        <button type="submit" class="btn btn-info" {{ $prebtndsbl }}>Previous</button>
+                                    </form>
+                                </div>
+                                <div class="col-md-2 text-center text-danger" style="font-size:22px;"><span class="icon-arrow-left"></span><span class="icon-arrow-right"></span></div>
+                                <div class="col-md-5">
+                                    <form action="{{ url('/view-result/') }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="std_cls" value="{{ $stdInfo->stdcls }}" />
+                                        <input type="hidden" name="stdrol" value="{{ $stdrolnxt }}" />
+                                        <input type="hidden" name="std_ssn" value="{{ $stdInfo->yr }}" />
+                                        <input type="hidden" name="exm_typ" value="{{ $exmtyph }}" />
+                                        <button type="submit" class="btn btn-info" {{ $nxtbtndsbl }}>Next</button>
+                                    </form>
+                                </div>
+                            </div>
+                            @endif
                         </section>
                     </div>
                 </section>
