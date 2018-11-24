@@ -109,7 +109,7 @@ class AjaxController extends Controller {
         $stdCls = $id;
         $stdInfo = DB::table('clsrol')
                 ->join('usrreg', 'clsrol.stdid', '=', 'usrreg.id')
-                ->select('clsrol.*', 'usrreg.id', 'usrreg.usrnme', 'usrreg.usreml', 'usrreg.usrid', 'usrreg.usrmbl', 'usrreg.jondte')
+                ->select('clsrol.stdrol', 'usrreg.id', 'usrreg.usrnme', 'usrreg.usreml', 'usrreg.usrid', 'usrreg.usrmbl', 'usrreg.jondte')
                 ->whereRaw("(clsrol.sclcd = '$sclCde' AND clsrol.stdcls = '$stdCls')")
                 ->orderBy('usrreg.usrnme')
                 ->orderBy('clsrol.stdrol')
@@ -118,6 +118,24 @@ class AjaxController extends Controller {
             echo '<option value="">Select Student</option>';
             foreach ($stdInfo as $lst):
                 echo '<option value="' . $lst->id . '">' . $lst->usrnme . ' (Roll - ' . $lst->stdrol . ')</option>';
+            endforeach;
+        }
+    }
+    
+    public function listStudentOptionRol($cls) {
+        $sclCde = Session::get('usrInfo')->sclcd;
+        $stdCls = $cls;
+        $stdInfo = DB::table('clsrol')
+                ->join('usrreg', 'clsrol.stdid', '=', 'usrreg.id')
+                ->select('clsrol.stdrol', 'usrreg.id', 'usrreg.usrnme', 'usrreg.usreml', 'usrreg.usrid', 'usrreg.usrmbl', 'usrreg.jondte')
+                ->whereRaw("(clsrol.sclcd = '$sclCde' AND clsrol.stdcls = '$stdCls')")
+                ->orderBy('usrreg.usrnme')
+                ->orderBy('clsrol.stdrol')
+                ->get();
+        if (!empty($stdInfo)) {
+            echo '<option value="">Select Student</option>';
+            foreach ($stdInfo as $lst):
+                echo '<option value="' . $lst->stdrol . '">' . $lst->usrnme . ' (Roll - ' . $lst->stdrol . ')</option>';
             endforeach;
         }
     }
@@ -265,192 +283,6 @@ class AjaxController extends Controller {
         echo '</div>';
         echo '</div>';
     }
-
-//    public function clsRtn($num) {
-//
-//        $sclcd = Session::get('usrInfo')->sclcd;
-//        if ($num == 6 OR $num == 7 OR $num == 8 OR $num == 9 OR $num == 10) {
-//            $clstme = DB::table('clstme')->select('*')->whereRaw("sclcd = '$sclcd' AND scltyp = 's'")->get();
-//        } elseif ($num == 11 or $num == 12) {
-//            $clstme = DB::table('clstme')->select('*')->whereRaw("sclcd = '$sclcd' AND scltyp = 'c'")->get();
-//        }
-//
-//        if ($num == 6 OR $num == 7 OR $num == 8 OR $num == 9 OR $num == 10) {
-//            $cls = 's';
-//        } elseif ($num == 11 or $num == 12) {
-//            $cls = 'c';
-//        }
-//
-//        if ($num == 6 OR $num == 7 OR $num == 8 OR $num == 9 OR $num == 10) {
-//            $subject = DB::table('subject')->select('*')->orderBy('sub')->get();
-//        } elseif ($num == 11 or $num == 12) {
-//            $subject = DB::table('clgsub')->select('*')->orderBy('clgsub')->get();
-//        }
-//
-//        $extSub = DB::table('extsub')->select('*')->where('sclcd', $sclcd)->orderBy('exsub')->get();
-//        $i = 1;
-//
-//        echo '<input type="hidden" name="ttlcls" value="' . count($clstme) . '">';
-//        echo '<input type="hidden" name="rtncls" value="' . $cls . '" />';
-//        echo '<div class="row" style="margin-bottom:15px; color: rgb(121, 121, 121); font-weight: bold; text-align: center;">';
-//        echo '<div class="col-sm-12">';
-//        echo '<div class="width14 text-info">Class Time</div>';
-//        echo '<div class="width14 text-info">Saturday</div>';
-//        echo '<div class="width14 text-info">Sunday</div>';
-//        echo '<div class="width14 text-info">Monday</div>';
-//        echo '<div class="width14 text-info">Tuesday</div>';
-//        echo '<div class="width14 text-info">Wednesday</div>';
-//        echo '<div class="width14 text-info">Thursday</div>';
-//        echo '</div>';
-//        echo '</div>';
-//
-//
-//        if (count($clstme) > 0):
-//            foreach ($clstme as $clsTm):
-//                echo '<div class = "row" style="margin-bottom:15px;">';
-//                echo '<div class = "form-group">';
-//                echo '<div class = "width14">';
-//                echo '<input type = "text" name = "clstme' . $i . '" class = "form-control" id = "clstme' . $i . '" readonly="readonly" value = "' . $clsTm->clstme . '">';
-//                echo '</div>';
-//                echo '<div class = "width14">';
-//                echo '<select name="sat' . $i . '" class="form-control" id="sat' . $i . '" required="required" style="color:#000;">';
-//                echo '<option value="">Subject</option>';
-//                echo '<option value="Tiffin Time">Tiffin Time</option>';
-//                echo '<optgroup label="Common Subject">';
-//                foreach ($subject as $cmnSub):
-//                    if (empty($cmnSub->sub)) {
-//                        $allsub = $cmnSub->clgsub;
-//                    } else {
-//                        $allsub = $cmnSub->sub;
-//                    }
-//                    echo '<option value="' . $allsub . '">' . $allsub . '</option>';
-//                endforeach;
-//                echo '</optgroup>';
-//
-//                echo '<optgroup label="Extra Subject">';
-//                foreach ($extSub as $exSub):
-//                    echo '<option value="' . $exSub->exsub . '">' . $exSub->exsub . '</option>';
-//                endforeach;
-//                echo '</optgroup>';
-//                echo '</select>';
-//                echo '</div>';
-//                echo '<div class = "width14">';
-//                echo '<select name="sun' . $i . '" class="form-control" id="sun' . $i . '" required="required" style="color:#000;">';
-//                echo '<option value="">Subject</option>';
-//                echo '<option value="Tiffin Time">Tiffin Time</option>';
-//                echo '<optgroup label="Common Subject">';
-//                foreach ($subject as $cmnSub):
-//                    if (empty($cmnSub->sub)) {
-//                        $allsub = $cmnSub->clgsub;
-//                    } else {
-//                        $allsub = $cmnSub->sub;
-//                    }
-//                    echo '<option value="' . $allsub . '">' . $allsub . '</option>';
-//                endforeach;
-//                echo '</optgroup>';
-//
-//                echo '<optgroup label="Extra Subject">';
-//                foreach ($extSub as $exSub):
-//                    echo '<option value="' . $exSub->exsub . '">' . $exSub->exsub . '</option>';
-//                endforeach;
-//                echo '</optgroup>';
-//                echo '</select>';
-//                echo '</div>';
-//                echo '<div class = "width14">';
-//                echo '<select name="mon' . $i . '" class="form-control" id="mon' . $i . '" required="required" style="color:#000;">';
-//                echo '<option value="">Subject</option>';
-//                echo '<option value="Tiffin Time">Tiffin Time</option>';
-//                echo '<optgroup label="Common Subject">';
-//                foreach ($subject as $cmnSub):
-//                    if (empty($cmnSub->sub)) {
-//                        $allsub = $cmnSub->clgsub;
-//                    } else {
-//                        $allsub = $cmnSub->sub;
-//                    }
-//                    echo '<option value="' . $allsub . '">' . $allsub . '</option>';
-//                endforeach;
-//                echo '</optgroup>';
-//
-//                echo '<optgroup label="Extra Subject">';
-//                foreach ($extSub as $exSub):
-//                    echo '<option value="' . $exSub->exsub . '">' . $exSub->exsub . '</option>';
-//                endforeach;
-//                echo '</optgroup>';
-//                echo '</select>';
-//                echo '</div>';
-//                echo '<div class = "width14">';
-//                echo '<select name="tue' . $i . '" class="form-control" id="tue' . $i . '" required="required" style="color:#000;">';
-//                echo '<option value="">Subject</option>';
-//                echo '<option value="Tiffin Time">Tiffin Time</option>';
-//                echo '<optgroup label="Common Subject">';
-//                foreach ($subject as $cmnSub):
-//                    if (empty($cmnSub->sub)) {
-//                        $allsub = $cmnSub->clgsub;
-//                    } else {
-//                        $allsub = $cmnSub->sub;
-//                    }
-//                    echo '<option value="' . $allsub . '">' . $allsub . '</option>';
-//                endforeach;
-//                echo '</optgroup>';
-//
-//                echo '<optgroup label="Extra Subject">';
-//                foreach ($extSub as $exSub):
-//                    echo '<option value="' . $exSub->exsub . '">' . $exSub->exsub . '</option>';
-//                endforeach;
-//                echo '</optgroup>';
-//                echo '</select>';
-//                echo '</div>';
-//                echo '<div class = "width14">';
-//                echo '<select name="wed' . $i . '" class="form-control" id="wed' . $i . '" required="required" style="color:#000;">';
-//                echo '<option value="">Subject</option>';
-//                echo '<option value="Tiffin Time">Tiffin Time</option>';
-//                echo '<optgroup label="Common Subject">';
-//                foreach ($subject as $cmnSub):
-//                    if (empty($cmnSub->sub)) {
-//                        $allsub = $cmnSub->clgsub;
-//                    } else {
-//                        $allsub = $cmnSub->sub;
-//                    }
-//                    echo '<option value="' . $allsub . '">' . $allsub . '</option>';
-//                endforeach;
-//                echo '</optgroup>';
-//
-//                echo '<optgroup label="Extra Subject">';
-//                foreach ($extSub as $exSub):
-//                    echo '<option value="' . $exSub->exsub . '">' . $exSub->exsub . '</option>';
-//                endforeach;
-//                echo '</optgroup>';
-//                echo '</select>';
-//                echo '</div>';
-//                echo '<div class = "width14">';
-//                echo '<select name="thu' . $i . '" class="form-control" id="thu' . $i . '" required="required" style="color:#000;">';
-//                echo '<option value="">Subject</option>';
-//                echo '<option value="Tiffin Time">Tiffin Time</option>';
-//                echo '<optgroup label="Common Subject">';
-//                foreach ($subject as $cmnSub):
-//                    if (empty($cmnSub->sub)) {
-//                        $allsub = $cmnSub->clgsub;
-//                    } else {
-//                        $allsub = $cmnSub->sub;
-//                    }
-//                    echo '<option value="' . $allsub . '">' . $allsub . '</option>';
-//                endforeach;
-//                echo '</optgroup>';
-//
-//                echo '<optgroup label="Extra Subject">';
-//                foreach ($extSub as $exSub):
-//                    echo '<option value="' . $exSub->exsub . '">' . $exSub->exsub . '</option>';
-//                endforeach;
-//                echo '</optgroup>';
-//                echo '</select>';
-//                echo '</div>';
-//                echo '</div>';
-//                echo '</div>';
-//
-//                $i++;
-//            endforeach;
-//        endif;
-//    }
 
     public function addExmTme($scltyp) {
         if ($scltyp == 's') {

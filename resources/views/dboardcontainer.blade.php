@@ -289,7 +289,7 @@
             <!--footer start-->
             <footer class="site-footer">
                 <div class="text-center">
-                    2018 &copy; WBDSchool-Abdullah Al Mamun.
+                    2018 &copy; WBDSchool-Abdullah Al Mamun And Ruhul Amin.
                     <a href="#" class="go-top">
                         <i class="icon-angle-up"></i>
                     </a>
