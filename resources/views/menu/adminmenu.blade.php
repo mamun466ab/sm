@@ -81,7 +81,7 @@
                 <ul class="sub">
                     <li <?php if(isset($addNumber)){ echo $addNumber;} ?>><a  href="{{ url('/add-number/') }}">Add Number</a></li>
                     <li <?php if(isset($vwrslt)){ echo $vwrslt;} ?>><a  href="{{ url('/view-result/') }}">View Result</a></li>
-                    <li <?php if(isset($vwExmRtn)){ echo $vwExmRtn;} ?>><a  href="{{ url('/view-exam-routine/') }}">Pass/Fail</a></li>
+                    <li <?php if(isset($vwExmRtn)){ echo $vwExmRtn;} ?>><a  href="{{ url('/view-exam-routine/') }}">Passed/Failed</a></li>
                 </ul>
             </li>
             

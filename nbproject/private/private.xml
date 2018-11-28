@@ -5,12 +5,13 @@
         <group>
             <file>file:/F:/xampp/htdocs/OneDrive/sm/resources/views/common/result/view-result.blade.php</file>
             <file>file:/F:/xampp/htdocs/OneDrive/sm/resources/views/menu/adminmenu.blade.php</file>
-            <file>file:/F:/xampp/htdocs/OneDrive/sm/resources/views/headers/schoolheading.blade.php</file>
             <file>file:/F:/xampp/htdocs/OneDrive/sm/app/Http/Controllers/CommonController.php</file>
             <file>file:/F:/xampp/htdocs/OneDrive/sm/routes/web.php</file>
             <file>file:/F:/xampp/htdocs/OneDrive/sm/resources/views/dboardcontainer.blade.php</file>
             <file>file:/F:/xampp/htdocs/OneDrive/sm/app/Http/Controllers/AdminController.php</file>
+            <file>file:/F:/xampp/htdocs/OneDrive/sm/resources/views/profile/profile-edit.blade.php</file>
             <file>file:/F:/xampp/htdocs/OneDrive/sm/app/Http/Controllers/AdminUpdateController.php</file>
+            <file>file:/F:/xampp/htdocs/OneDrive/sm/app/Http/Controllers/AjaxController.php</file>
         </group>
     </open-files>
 </project-private>

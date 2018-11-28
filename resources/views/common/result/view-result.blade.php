@@ -18,13 +18,18 @@
 
     .rslttbl td, .rslttbl th {
         vertical-align: middle !important;
-        padding: 6px !important;
+        padding: 5px !important;
     }
 
     .grdpnt tr td, .grdpnt tr th{
         padding: 0 3px;
         line-height: 12px;
         text-align: center;
+    }
+
+    hr{
+        margin-top: 0px !important;
+        margin-bottom: 0px !important;
     }
 </style>
 <!--main content start-->
@@ -186,6 +191,7 @@
                                 <p style="text-align: center;">
                                     <span style="font-size: 20px; color: #666; font-weight: bold;"><u>Academic Transcript</u></span><br />
                                 </p>
+                                @if(count($rstInfo) > 0)
                                 <table border="0" style="line-height: 25px; margin-bottom: 15px; float: left;">
                                     <tr>
                                         <td class="txtbold">Name of Student</td> <td class="txtbold"> &nbsp;:&nbsp; </td>
@@ -295,14 +301,13 @@
                                             <th class="txtcntr">Number</th>
                                             <th class="txtcntr">Letter Grade</th>
                                             <th class="txtcntr">Grade Point</th>
-                                            <th class="txtcntr">Status</th>
+                                            <th class="txtcntr">Remarks</th>
                                         </tr>
                                     </thead>
                                     <tbody id="stdInfo">
                                         <?php
                                         $i = 1;
                                         ?>
-                                        @if(count($rstInfo) > 0)
                                         @foreach($rstInfo as $rstval)
                                         <?php
                                         $ttlNum += $rstval->num;
@@ -371,8 +376,6 @@
                                             <td align='center'>
                                                 @if($rstval->num <= 32)
                                                 <span class="text-danger">Fail</span>
-                                                @else
-                                                Pass
                                                 @endif
                                             </td>
                                         </tr>
@@ -430,8 +433,6 @@
                                             <td align='center'>
                                                 @if($rstval->num <= 32)
                                                 <span class="text-danger">Fail</span>
-                                                @else
-                                                Pass
                                                 @endif
                                             </td>
                                         </tr>
@@ -439,7 +440,6 @@
                                         @$i++
                                         ?>
                                         @endforeach
-                                        @endif
 
                                         @if(!empty($rsltFrthInfo))
                                         <?php
@@ -499,8 +499,6 @@
                                             <td align='center'>
                                                 @if($rstval->num <= 32)
                                                 <span class="text-danger">Fail</span>
-                                                @else
-                                                Pass
                                                 @endif
                                             </td>
                                         </tr>
@@ -511,7 +509,7 @@
 
                                 <table border="0" style="line-height: 23px; margin-bottom: 15px; float: left; font-size: 14px;">
                                     <tr>
-                                        <td class="txtbold">Total Number <span style="font-size:12px;">(Without Extra Subject)</span></td> <td class="txtbold"> &nbsp;:&nbsp; </td>
+                                        <td class="txtbold">Total Number</td> <td class="txtbold"> &nbsp;:&nbsp; </td>
                                         <td>
                                             {{ $ttlNum }}
                                         </td>
@@ -525,7 +523,7 @@
                                     </tr>
                                     @endif
                                     <tr>
-                                        <td class="txtbold">GPA <span style="font-size:12px;">(Without Extra Subject)</span></td> <td class="txtbold"> &nbsp;:&nbsp; </td>
+                                        <td class="txtbold">GPA</td> <td class="txtbold"> &nbsp;:&nbsp; </td>
                                         <td><?php
                                             if (count($rstInfo) > 0) {
                                                 $rsltgpa = number_format($ttlGPA / count($rstInfo), 2);
@@ -588,24 +586,45 @@
                                         </td>
                                     </tr>
                                     @endif
+                                    <tr>
+                                        <td class="txtbold">Position</td> <td class="txtbold"> &nbsp;:&nbsp; </td>
+                                        <td>
+                                            <?php
+                                            if ($ttlNum):
+                                                $positionarray = array();
+                                                foreach ($ttlnumquery as $val):
+                                                    array_push($positionarray, $val->ttlnum);
+                                                endforeach;
+                                                $positionarray = array_flip($positionarray);
+                                                echo ($positionarray[$ttlNum] + 1);
+                                            endif;
+                                            ?>
+                                        </td>
+                                    </tr>
+
                                 </table>
                                 <span  style="position: absolute; bottom: 60px; right: 15px; font-size: 14px;">School/Collage Authority</span>
                                 <span style="font-family: cursive; position: absolute; bottom: 0px; left: 15px; font-size: 13px;">Date of publication of result : 2018-11-21</span>
+                                @else
+                                <p class="text-warning" style="font-size:20px; text-align: justify; font-weight: bold; line-height: 18px;">
+                                    <span class="icon-warning-sign text-danger"></span> Please select student class & student & exam type & session and check profile of the student is up to date.
+                                </p>
+                                @endif
                             </div>
                             @if(count($rstInfo) > 0)
                             <?php
                             $stdrolpre = ($stdInfo->stdrol - 1);
                             $stdrolnxt = ($stdInfo->stdrol + 1);
-                            
+
                             $maxrol = DB::table('clsrol')->where('sclcd', $sclcd)->where('stdcls', $stdInfo->stdcls)->where('yr', $stdInfo->yr)->max('stdrol');
-                            
-                            if($stdrolnxt > $maxrol):
+
+                            if ($stdrolnxt > $maxrol):
                                 $nxtbtndsbl = 'disabled="disabled"';
                             else:
                                 $nxtbtndsbl = NULL;
                             endif;
-                            
-                            if($stdrolpre == 0):
+
+                            if ($stdrolpre == 0):
                                 $prebtndsbl = 'disabled="disabled"';
                             else:
                                 $prebtndsbl = NULL;
