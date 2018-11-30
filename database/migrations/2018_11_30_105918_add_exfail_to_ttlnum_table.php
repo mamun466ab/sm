@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddStsToTtlnumTable extends Migration
+class AddExfailToTtlnumTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AddStsToTtlnumTable extends Migration
     public function up()
     {
         Schema::table('ttlnum', function (Blueprint $table) {
-            $table->tinyInteger('fail')->nullable();
+            $table->tinyInteger('exfail')->nullable();
         });
     }
 

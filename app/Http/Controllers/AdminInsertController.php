@@ -203,6 +203,8 @@ class AdminInsertController extends Controller {
 
         $numSum = 0;
         $exNumSum = 0;
+        $fail = 0;
+        $exfail = 0;
 
         if (count($chkSubNum) == 0):
             for ($n = 1; $n < $ttlsub; $n++) {
@@ -217,6 +219,11 @@ class AdminInsertController extends Controller {
                 $subNumArray['num'] = $addNumber->$num;
                 $subNumArray['ssn'] = $stdssn;
                 $subNumArray['exmtyp'] = $exmtyp;
+
+                if ($addNumber->$num <= 32):
+                    $fail += 1;
+                    $exfail += 1;
+                endif;
 
                 $numSum += $addNumber->$num;
                 $exNumSum += $addNumber->$num;
@@ -241,16 +248,6 @@ class AdminInsertController extends Controller {
                 DB::table('subnum')->insert($frtSubNumArray);
             }
 
-//            $ttlNumArray = array();
-//            $ttlNumArray['sclcd'] = $sclcd;
-//            $ttlNumArray['stdid'] = $stdid;
-//            $ttlNumArray['stdcls'] = $stdcls;
-//            $ttlNumArray['ttlnum'] = $numSum;
-//            $ttlNumArray['ssn'] = $stdssn;
-//            $ttlNumArray['exmtyp'] = $exmtyp;
-//
-//            DB::table('ttlnum')->insert($ttlNumArray);
-
             if (!empty($addNumber->ttlexsub)) {
                 for ($en = 1; $en < $addNumber->ttlexsub; $en++) {
                     $exsub = 'exsub' . $en;
@@ -266,17 +263,29 @@ class AdminInsertController extends Controller {
                     $exSubNumArray['exmtyp'] = $exmtyp;
                     $exSubNumArray['sts'] = 3;
 
+                    if ($addNumber->$exnum <= 32):
+                        $exfail += 1;
+                    endif;
+
                     $exNumSum += $addNumber->$exnum;
 
                     DB::table('subnum')->insert($exSubNumArray);
                 }
             }
-            
-            if($numSum == $exNumSum){
+
+            if ($numSum == $exNumSum):
                 $exNumSum = 0;
-            } else {
+            else:
                 $exNumSum = $exNumSum;
-            }
+            endif;
+
+            if ($fail == 0):
+                $fail = NULL;
+            endif;
+
+            if ($exfail == 0 or $fail == $exfail):
+                $exfail = NULL;
+            endif;
 
             $ttlNumArray = array();
             $ttlNumArray['sclcd'] = $sclcd;
@@ -286,6 +295,8 @@ class AdminInsertController extends Controller {
             $ttlNumArray['ttlexnum'] = $exNumSum;
             $ttlNumArray['ssn'] = $stdssn;
             $ttlNumArray['exmtyp'] = $exmtyp;
+            $ttlNumArray['fail'] = $fail;
+            $ttlNumArray['exfail'] = $exfail;
 
             DB::table('ttlnum')->insert($ttlNumArray);
 

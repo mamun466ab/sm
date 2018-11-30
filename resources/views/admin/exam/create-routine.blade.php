@@ -55,10 +55,22 @@
                             $exmtm = DB::table('exmtm')->select('*')->where('sclcd', $usrInfo->sclcd)->where('scltyp', 's')->first();
                             $sclsub = DB::table('subject')->select('*')->orderBy('sub')->get();
                             $extsub = DB::table('extsub')->select('*')->where('sclcd', $usrInfo->sclcd)->orderBy('exsub')->get();
+                            
+                            if(!empty($exmtm->exmtyp)):
+                                $exmtype = $exmtm->exmtyp;
+                            else:
+                                $exmtype = NULL;
+                            endif;
+                            
+                            if(!empty($exmtm->sndtm)):
+                                $sndtm = $exmtm->sndtm;
+                            else:
+                                $sndtm = 'Set exm time';
+                            endif;
                             ?>
                             <div class="form-group">
                                 <label for="exmTyp">Exam Type *</label>
-                                <input name="exmTyp" id="exmTyp" type="text" class="form-control" onkeydown="return false" value = "{{ $exmtm->exmtyp }}">
+                                <input name="exmTyp" id="exmTyp" type="text" class="form-control" onkeydown="return false" value = "{{ $exmtype }}">
                             </div>
                             <?php
                             for ($n = 6; $n <= 10; $n++) {
@@ -81,14 +93,20 @@
                                 </div>
 
                                 <div class="<?php
-                                if ($exmtm->sndtm != 0) {
+                                if ($sndtm != 0):
                                     echo 'form-group col-md-4';
-                                } else {
+                                else:
                                     echo 'form-group col-md-8';
-                                }
+                                endif;
                                 ?>">
-                                    <label for = "fstexm{{ $n }}" style = "color:#FF6C60;">{{ $exmtm->fsttm }}</label>
-                                    <select name="fstexm{{ $n }}[]" class="multiselect-ui form-control" id="fstexm{{ $n }}" required="required" multiple="multiple">
+                                    <label for = "fstexm{{ $n }}" style = "color:#FF6C60;">
+                                        @if(!empty($exmtm->fsttm))
+                                        {{ $exmtm->fsttm }}
+                                        @else
+                                        Set exam time
+                                        @endif
+                                    </label>
+                                    <select name="fstexm{{ $n }}[]" class="multiselect-ui form-control" id="fstexm{{ $n }}" required="required" multiple="multiple" <?php if(empty($exmtm->fsttm)){ echo 'disabled = "disabled"'; } ?>>
                                         <option value="">Select Subject</option>
                                         <option value="Nill">Nill</option>
                                         <optgroup label="Common Subject">
@@ -105,7 +123,7 @@
                                     </select>
                                 </div>
 
-                                @if ($exmtm->sndtm != 0) 
+                                @if ($sndtm != 0) 
                                 <div class="form-group col-md-4">
                                     <label for = "sndexm{{ $n }}" style = "color:#FF6C60;">{{ $exmtm->sndtm }}</label>
                                     <select name="sndexm{{ $n }}[]" id = "sndexm{{ $n }}" class="multiselect-ui form-control" required="required" multiple="multiple">

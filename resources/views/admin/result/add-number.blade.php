@@ -93,7 +93,7 @@
                                 <?php
                                 $exmtms = DB::table('exmtm')->select('*')->where('sclcd', $sclcd)->where('scltyp', 's')->first();
                                 ?>
-                                <input type="text" name="exmTyp" id="exmTyp" class="form-control" value="{{ $exmtms->exmtyp }}" required="required" onkeydown="return false;" />
+                                <input type="text" name="exmTyp" id="exmTyp" class="form-control" value="<?php if(!empty($exmtms->exmtyp)){ echo $exmtms->exmtyp; } ?>" required="required" onkeydown="return false;" />
                                 @elseif($sclTyp == 'c')
                                 <?php
                                 $exmtmc = DB::table('exmtm')->select('*')->where('sclcd', $sclcd)->where('scltyp', 'c')->first();

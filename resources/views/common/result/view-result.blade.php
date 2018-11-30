@@ -75,53 +75,58 @@
                 <div class="col-md-2 col-sm-12">
                     <?php
                     $exmtyp = DB::table('exmtm')->select('exmtyp')->where('sclcd', $sclcd)->where('scltyp', $scltyp)->first();
+                    if(!empty($exmtyp->exmtyp)):
+                        $exmtypslected = $exmtyp->exmtyp;
+                    else:
+                        $exmtypslected = NULL;
+                    endif;
                     ?>
                     <select name="exm_typ" id="exm_typ" class="form-control" style="color: #000; padding: 6px;">
                         <option value="">Select Exam Type</option>
                         @if($scltyp == 's')
                         <option <?php
-                        if ($exmtyp->exmtyp == '1st Term') {
+                        if ($exmtypslected == '1st Term') {
                             echo 'selected="selected"';
                         }
                         ?> value="1st Term">1st Term</option>
                         <option <?php
-                        if ($exmtyp->exmtyp == '2nd Term') {
+                        if ($exmtypslected == '2nd Term') {
                             echo 'selected="selected"';
                         }
                         ?> value="2nd Term">2nd Term</option>
                         <option <?php
-                        if ($exmtyp->exmtyp == '3rd Term') {
+                        if ($exmtypslected == '3rd Term') {
                             echo 'selected="selected"';
                         }
                         ?> value="3rd Term">3rd Term</option>
                         <option <?php
-                        if ($exmtyp->exmtyp == 'Final') {
+                        if ($exmtypslected == 'Final') {
                             echo 'selected="selected"';
                         }
                         ?> value="Final">Final</option>
                         <option <?php
-                        if ($exmtyp->exmtyp == 'Test') {
+                        if ($exmtypslected == 'Test') {
                             echo 'selected="selected"';
                         }
                         ?> value="Test">Test</option>
                         @elseif($scltyp == 'c')
                         <option <?php
-                        if ($exmtyp->exmtyp == 'Half Yearly') {
+                        if ($exmtypslected == 'Half Yearly') {
                             echo 'selected="selected"';
                         }
                         ?> value="Half Yearly">Half Yearly</option>
                         <option <?php
-                        if ($exmtyp->exmtyp == 'Yearly') {
+                        if ($exmtypslected == 'Yearly') {
                             echo 'selected="selected"';
                         }
                         ?> value="Yearly">Yearly</option>
                         <option <?php
-                        if ($exmtyp->exmtyp == 'Pre Test') {
+                        if ($exmtypslected == 'Pre Test') {
                             echo 'selected="selected"';
                         }
                         ?> value="Pre Test">Pre Test</option>
                         <option <?php
-                        if ($exmtyp->exmtyp == 'Test') {
+                        if ($exmtypslected == 'Test') {
                             echo 'selected="selected"';
                         }
                         ?> value="Test">Test</option>
@@ -431,7 +436,7 @@
                                                 @endif
                                             </td>
                                             <td align='center'>
-                                                @if($rstval->num <= 32)
+                                                @if($rstExtval->num <= 32)
                                                 <span class="text-danger">Fail</span>
                                                 @endif
                                             </td>
@@ -497,7 +502,7 @@
                                                 @endif
                                             </td>
                                             <td align='center'>
-                                                @if($rstval->num <= 32)
+                                                @if($rsltFrthInfo->num <= 32)
                                                 <span class="text-danger">Fail</span>
                                                 @endif
                                             </td>
@@ -607,7 +612,7 @@
                                 <span style="font-family: cursive; position: absolute; bottom: 0px; left: 15px; font-size: 13px;">Date of publication of result : 2018-11-21</span>
                                 @else
                                 <p class="text-warning" style="font-size:20px; text-align: justify; font-weight: bold; line-height: 18px;">
-                                    <span class="icon-warning-sign text-danger"></span> Please select student class & student & exam type & session and check profile of the student is up to date.
+                                    <span class="icon-warning-sign text-danger"></span> Please select student class & student & exam type & session and check profile of the student is up to date or insert subject number.
                                 </p>
                                 @endif
                             </div>
