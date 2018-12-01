@@ -16,6 +16,7 @@ class SigninController extends Controller {
      */
     public function index() {
         $usrInfo = Session::get('usrInfo');
+            $activeClass = 'class="active"';
         /* Signin check */
         if($usrInfo == NULL){
             return Redirect::to('/login/');
@@ -25,7 +26,7 @@ class SigninController extends Controller {
         $leftMenu = "";
         
         if ($usrInfo->usrtyp == 'Teacher' AND $usrInfo->usrpwr == 1) {
-            $leftMenu = view('menu.adminmenu');
+            $leftMenu = view('menu.adminmenu')->with('dBrdActv', $activeClass);
             $adminContent = view('dashboard.admin');
         } elseif ($usrInfo->usrtyp == 'Teacher' AND $usrInfo->usrpwr == 0) {
             $leftMenu = view('menu.teachermenu');
@@ -55,8 +56,8 @@ class SigninController extends Controller {
         $usrPsd = md5($request->usr_psd);
 
         $usrInfo = DB::table('usrreg')
-                ->join('sclreg', 'usrreg.sclcd', '=', 'sclreg.sclcde')
-                ->select('usrreg.*', 'sclreg.sclnme', 'sclreg.scleml', 'sclreg.sclcde', 'sclreg.sclrfr', 'sclreg.jondt', 'sclreg.expdte')
+                ->join('sclreg', 'usrreg.sclcd', '=', 'sclreg.sclcd')
+                ->select('usrreg.*', 'sclreg.sclnme', 'sclreg.scleml', 'sclreg.sclrfr', 'sclreg.jondt', 'sclreg.expdte')
                 ->whereRaw("(usrreg.usrid = '$usrName' AND usrreg.usrpsd = '$usrPsd') OR (usrreg.usreml = '$usrName' AND usrreg.usrpsd = '$usrPsd')")
                 ->first();
 
@@ -71,7 +72,7 @@ class SigninController extends Controller {
                         return Redirect::to('/login/');
                     }else{
                         if($usrInfo->usrsts == 2){
-                            Session::put('errors', 'Your account is blocked. Please contact to school admin.');
+                            Session::put('errors', 'Your account is blocked. Please contact to school admin or sevice provider.');
                             return Redirect::to('/login/');
                         }else{
                             if ($usrInfo->usrsts == 1) {

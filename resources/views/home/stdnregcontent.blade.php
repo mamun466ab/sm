@@ -43,7 +43,7 @@
             <div class="form-group">
                 <label for="std_cls" class="col-sm-3 control-label">Student Class *</label>
                 <div class="col-sm-9">
-                    <select name="std_cls" id="std_cls" class="form-control" style="color: #000; padding: 6px; margin-top: 10px;">
+                    <select name="std_cls" id="std_cls" class="form-control" style="color: #000; padding: 6px; margin-top: 15px;">
                         <option value="">Select Your Class</option>
                         <option value="6">Class Six</option>
                         <option value="7">Class Seven</option>
@@ -60,6 +60,19 @@
                 <label for="std_rol" class="col-sm-3 control-label">Student Roll *</label>
                 <div class="col-sm-9">
                     <input type="text" name="std_rol" class="form-control" placeholder="Student Roll" id="std_rol" />
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="ssn_yr" class="col-sm-3 control-label">Session *</label>
+                <div class="col-sm-9">
+                    <select name="ssn_yr" id="ssn_yr" class="form-control" style="color: #000; padding: 6px; margin-top: 15px;">
+                        <option value="">Select Year</option>
+                        
+                            @for($i = 2010; $i <= (date('Y') + 1); $i++){
+                            <option value="{{ $i }}">{{ $i }}</option>
+                            @endfor;
+                    </select>
                 </div>
             </div>
             

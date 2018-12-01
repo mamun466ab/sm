@@ -21,12 +21,12 @@ class CreateUsrregTable extends Migration
             $table->string('usrtyp', 7);
             $table->string('usrid', 30)->unique();
             $table->string('usrpsd', 32);
-            $table->string('sclcd', 8);
+            $table->string('sclcd', 11);
             $table->string('usrrnk', 30);
             $table->boolean('usrpwr');
             $table->tinyInteger('usrsts');
             $table->string('jondte', 10);
-            $table->foreign('sclcd')->references('sclcde')->on('sclreg');
+            $table->foreign('sclcd')->references('sclcd')->on('sclreg');
         });
     }
 

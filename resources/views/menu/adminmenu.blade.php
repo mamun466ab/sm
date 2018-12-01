@@ -6,36 +6,68 @@
         <!-- sidebar menu start-->
         <ul class="sidebar-menu" id="nav-accordion">
             <li>
-                <a href="{{ url('/') }}">
+                <a href="{{ url('/') }}" <?php if(isset($dBrdActv)){ echo $dBrdActv;} ?>>
                     <i class="icon-dashboard"></i>
                     <span>Dashboard</span>
                 </a>
             </li>
             
-            <li>
-                <a href="index.html">
+            <li class="sub-menu">
+                <a href="javascript:;" <?php if(isset($stdLst)){ echo $stdLst;}elseif(isset($tcrLst)){ echo $tcrLst;} ?>>
                     <i class="icon-user"></i>
                     <span>Nominal Roll</span>
                 </a>
+                <ul class="sub">
+                    <li <?php if(isset($stdLst)){ echo $stdLst;} ?>><a  href="{{ url('/student-list/') }}">Student List</a></li>
+                    <li <?php if(isset($tcrLst)){ echo $tcrLst;} ?>><a  href="{{ url('/teacher-list/') }}">Teacher List</a></li>
+                </ul>
             </li>
 
             <li class="sub-menu">
-                <a href="javascript:;" <?php if(isset($addTcrActive)){ echo $addTcrActive;}elseif(isset($addStdActive)){ echo $addStdActive;} ?>>
+                <a href="javascript:;" <?php if(isset($addTcrActive)){ echo $addTcrActive;}elseif(isset($addStdActive)){ echo $addStdActive;}elseif(isset($actiovation)){ echo $actiovation;}elseif(isset($bldUblk)){ echo $bldUblk;} ?>>
                     <i class="icon-user"></i>
-                    <span>Add Member</span>
+                    <span>Student/Teacher</span>
                 </a>
                 <ul class="sub">
                     <li <?php if(isset($addTcrActive)){ echo $addTcrActive;} ?>><a  href="{{ url('/add-teacher/') }}">Add Teacher</a></li>
                     <li <?php if(isset($addStdActive)){ echo $addStdActive;} ?>><a  href="{{ url('/add-student/') }}">Add Student</a></li>
+                    <li <?php if(isset($actiovation)){ echo $actiovation;} ?>><a  href="{{ url('/user-activation/') }}">User Activation</a></li>
+                    <li <?php if(isset($bldUblk)){ echo $bldUblk;} ?>><a  href="{{ url('/block-unblock/') }}">Block/Unblock</a></li>
                 </ul>
             </li>
             
-            <li>
-                <a href="add-subject">
+            <li class="sub-menu">
+                <a href="javascript:;" <?php if(isset($addSubject)){ echo $addSubject;}elseif(isset($slctSubject)){ echo $slctSubject;}elseif(isset($viewSubject)){ echo $viewSubject;}elseif(isset($chngSubject)){ echo $chngSubject;} ?>>
+                    <i class="icon-book"></i>
+                    <span>Subject</span>
+                </a>
+                <ul class="sub">
+                    <li <?php if(isset($viewSubject)){ echo $viewSubject;} ?>><a  href="{{ url('/view-subject/') }}">View Subject</a></li>
+                    <li <?php if(isset($addSubject)){ echo $addSubject;} ?>><a  href="{{ url('/add-subject/') }}">Add Subject</a></li>
+                    <li <?php if(isset($slctSubject)){ echo $slctSubject;} ?>><a  href="{{ url('/select-subject/') }}">Select Subject</a></li>
+                    <li <?php if(isset($chngSubject)){ echo $chngSubject;} ?>><a  href="{{ url('/change-subject/') }}">Change Subject</a></li>
+                </ul>
+            </li>
+            
+            <li class="sub-menu">
+                <a href="javascript:;" <?php if(isset($viewRtn)){ echo $viewRtn;}elseif(isset($updtRtn)){ echo $updtRtn;}elseif(isset($crtRtn)){ echo $crtRtn;}elseif(isset($classTime)){ echo $classTime;} ?>>
+                    <i class="icon-calendar"></i>
+                    <span>Class Routine</span>
+                </a>
+                <ul class="sub">
+                    <li <?php if(isset($classTime)){ echo $classTime;} ?>><a  href="{{ url('/class-time/') }}">Class Time</a></li>
+                    <li <?php if(isset($crtRtn)){ echo $crtRtn;} ?>><a  href="{{ url('/create-routine/') }}">Create Routine</a></li>
+                    <li <?php if(isset($viewRtn)){ echo $viewRtn;} ?>><a  href="{{ url('/view-routine/') }}">View Routine</a></li>
+                    <li <?php if(isset($updtRtn)){ echo $updtRtn;} ?>><a  href="{{ url('/#/') }}">Update Routine</a></li>
+                </ul>
+            </li>
+            
+<!--            <li>
+                <a href="{{ url('add-subject') }}" <?php // if(isset($addSubject)){ echo $addSubject;} ?>>
                     <i class="icon-book"></i>
                     <span>Add Subject</span>
                 </a>
-            </li>
+            </li>-->
 
             <li class="sub-menu">
                 <a href="javascript:;" >

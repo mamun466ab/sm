@@ -16,7 +16,7 @@ class CeateUserProfileTable extends Migration
         Schema::create('usrpro', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('usrid');
-            $table->string('sclcd', 8);
+            $table->string('sclcd', 11);
             $table->string('abt', 255);
             $table->string('fthr', 30);
             $table->string('mthr', 30);
@@ -31,7 +31,7 @@ class CeateUserProfileTable extends Migration
             $table->string('skl', 255)->nullable();
             $table->string('pic', 30)->nullable();
             $table->foreign('usrid')->references('id')->on('usrreg');
-            $table->foreign('sclcd')->references('sclcde')->on('sclreg');
+            $table->foreign('sclcd')->references('sclcd')->on('sclreg');
             $table->foreign('cntid')->references('id')->on('usrcnt');
             $table->foreign('dvnid')->references('id')->on('usrdvn');
             $table->foreign('dstid')->references('id')->on('usrdst');

@@ -4,94 +4,103 @@
 
 @section('content')
 <!--main content start-->
-<section id="main-content">
+<section id="main-content" style="padding-top: 15px;">
     <section class="wrapper">
         <!--state overview start-->
         <div class="row state-overview">
-            <div class="col-lg-3 col-sm-6">
-                <section class="panel">
-                    <div class="symbol terques">
-                        <i class="icon-user" style="color: #E28964;"></i>
-                    </div>
-                    <div class="value">
-                        <div id="cont" class="hidden">
-                            <?php
-                            $schoolCode = Session::get('usrInfo')->sclcd;
-                            echo $totalNewUsr = DB::table('usrreg')
-                            ->whereRaw("(sclcd = '$schoolCode' AND usrsts = 0)")
-                            ->count();
-                            ?>
+            <a href="{{ url('/user-activation/') }}">
+                <div class="col-lg-3 col-sm-6">
+                    <section class="panel">
+                        <div class="symbol terques">
+                            <i class="icon-user" style="color: #E28964;"></i>
                         </div>
-                        <h1 class="count">
-                            0
-                        </h1>
-                        <p>Inactive Users</p>
-                    </div>
-                </section>
-            </div>
-            <div class="col-lg-3 col-sm-6">
-                <section class="panel">
-                    <div class="symbol red">
-                        <i class="icon-user"></i>
-                    </div>
-                    <div class="value">
-                        <div id="cont2" class="hidden">
-                            <?php
-                            $schoolCode = Session::get('usrInfo')->sclcd;
-                            echo $totalNewUsr = DB::table('usrreg')
-                            ->whereRaw("(sclcd = '$schoolCode' AND usrsts = 1)")
-                            ->count();
-                            ?>
+                        <div class="value">
+                            <div id="cont" class="hidden">
+                                <?php
+                                $schoolCode = Session::get('usrInfo')->sclcd;
+                                echo $totalNewUsr = DB::table('usrreg')
+                                ->whereRaw("(sclcd = '$schoolCode' AND usrsts = 0)")
+                                ->count();
+                                ?>
+                            </div>
+                            <h1 class="count">
+                                0
+                            </h1>
+                            <p>Inactive Users</p>
                         </div>
-                        <h1 class=" count2">
-                            0
-                        </h1>
-                        <p>Active Users</p>
-                    </div>
-                </section>
-            </div>
-            <div class="col-lg-3 col-sm-6">
-                <section class="panel">
-                    <div class="symbol yellow">
-                        <i class="icon-plus-sign-alt"></i>
-                    </div>
-                    <div class="value">
-                        <div id="cont3" class="hidden">
-                            <?php
-                            $schoolCode = Session::get('usrInfo')->sclcd;
-                            echo $totalNewUsr = DB::table('usrreg')
-                            ->whereRaw("(sclcd = '$schoolCode' AND usrtyp = 'Teacher')")
-                            ->count();
-                            ?>
+                    </section>
+                </div>
+            </a>
+
+            <a href="{{ url('/block-unblock/') }}">
+                <div class="col-lg-3 col-sm-6">
+                    <section class="panel">
+                        <div class="symbol red">
+                            <i class="icon-user"></i>
                         </div>
-                        <h1 class=" count3">
-                            0
-                        </h1>
-                        <p>Total Teacher</p>
-                    </div>
-                </section>
-            </div>
-            <div class="col-lg-3 col-sm-6">
-                <section class="panel">
-                    <div class="symbol blue">
-                        <i class="icon-plus-sign-alt"></i>
-                    </div>
-                    <div class="value">
-                        <div id="cont4" class="hidden">
-                            <?php
-                            $schoolCode = Session::get('usrInfo')->sclcd;
-                            echo $totalNewUsr = DB::table('usrreg')
-                            ->whereRaw("(sclcd = '$schoolCode' AND usrtyp = 'Student')")
-                            ->count();
-                            ?>
+                        <div class="value">
+                            <div id="cont2" class="hidden">
+                                <?php
+                                $schoolCode = Session::get('usrInfo')->sclcd;
+                                echo $totalNewUsr = DB::table('usrreg')
+                                ->whereRaw("(sclcd = '$schoolCode' AND usrsts = 2)")
+                                ->count();
+                                ?>
+                            </div>
+                            <h1 class=" count2">
+                                0
+                            </h1>
+                            <p>Blocked Users</p>
                         </div>
-                        <h1 class=" count4">
-                            0
-                        </h1>
-                        <p>Total Student</p>
-                    </div>
-                </section>
-            </div>
+                    </section>
+                </div>
+            </a>
+
+            <a href="{{ url('/teacher-list/') }}">
+                <div class="col-lg-3 col-sm-6">
+                    <section class="panel">
+                        <div class="symbol yellow">
+                            <i class="icon-plus-sign-alt"></i>
+                        </div>
+                        <div class="value">
+                            <div id="cont3" class="hidden">
+                                <?php
+                                $schoolCode = Session::get('usrInfo')->sclcd;
+                                echo $totalNewUsr = DB::table('usrreg')->whereRaw("(sclcd = '$schoolCode' AND usrtyp = 'Teacher')")->count();
+                                ?>
+                            </div>
+                            <h1 class=" count3">
+                                0
+                            </h1>
+                            <p>Total Teacher</p>
+                        </div>
+                    </section>
+                </div>
+            </a>
+            
+            <a href="{{ url('/student-list/') }}">
+                <div class="col-lg-3 col-sm-6">
+                    <section class="panel">
+                        <div class="symbol blue">
+                            <i class="icon-plus-sign-alt"></i>
+                        </div>
+                        <div class="value">
+                            <div id="cont4" class="hidden">
+                                <?php
+                                $schoolCode = Session::get('usrInfo')->sclcd;
+                                echo $totalNewUsr = DB::table('usrreg')
+                                ->whereRaw("(sclcd = '$schoolCode' AND usrtyp = 'Student')")
+                                ->count();
+                                ?>
+                            </div>
+                            <h1 class=" count4">
+                                0
+                            </h1>
+                            <p>Total Student</p>
+                        </div>
+                    </section>
+                </div>
+            </a>
         </div>
         <!--state overview end-->
         <?php
