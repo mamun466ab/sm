@@ -13,7 +13,7 @@
     }
 
     .font{
-        font-family: 'Brush Script MT';
+        font-family: 'Lucida Calligraphy' /*'Brush Script MT'*/;
     }
 
     .rslttbl td, .rslttbl th {
@@ -176,6 +176,8 @@
                         $ttlGPAWExt = 0;
                         $goldenPlus = 0;
                         $exgoldenPlus = 0;
+                        $failcount = 0;
+                        $exfailcount = 0;
                         ?>
                         <!--@include("../../headers/schoolheading")-->
                         <strong>Academic Transcript</strong>
@@ -197,7 +199,7 @@
                                     <span style="font-size: 20px; color: #666; font-weight: bold;"><u>Academic Transcript</u></span><br />
                                 </p>
                                 @if(count($rstInfo) > 0)
-                                <table border="0" style="line-height: 25px; margin-bottom: 15px; float: left;">
+                                <table border="0" style="margin-bottom: 15px; float: left;">
                                     <tr>
                                         <td class="txtbold">Name of Student</td> <td class="txtbold"> &nbsp;:&nbsp; </td>
                                         <td class="font">
@@ -224,7 +226,7 @@
                                     </tr>
                                     <tr>
                                         <td class="txtbold">Class </td> <td class="txtbold"> &nbsp;:&nbsp; </td>
-                                        <td>
+                                        <td class="font">
                                             @if(isset($stdInfo))
                                             @if($stdInfo->stdcls == 6)
                                             Six
@@ -317,10 +319,14 @@
                                         <?php
                                         $ttlNum += $rstval->num;
                                         $ttlNumWExt += $rstval->num;
-                                        if ($rstval->num >= 80) {
+                                        if ($rstval->num >= 80):
                                             $goldenPlus += 1;
                                             $exgoldenPlus += 1;
-                                        }
+                                        endif;
+                                        
+                                        if($rstval->num <= 32):
+                                            $failcount += 1;
+                                        endif;
                                         ?>
                                         <tr>
                                             <td align='center'>{{ $i }}.</td>
@@ -393,9 +399,13 @@
                                         @foreach($rsltExtInfo as $rstExtval)
                                         <?php
                                         $ttlNumWExt += $rstExtval->num;
-                                        if ($rstExtval->num >= 80) {
+                                        if ($rstExtval->num >= 80):
                                             $exgoldenPlus += 1;
-                                        }
+                                        endif;
+                                        
+                                        if($rstExtval->num <= 32):
+                                            $exfailcount += 1;
+                                        endif;
                                         ?>
                                         <tr>
                                             <td align='center'>{{ $i }}.</td>
@@ -512,7 +522,7 @@
                                     </tbody>
                                 </table>
 
-                                <table border="0" style="line-height: 23px; margin-bottom: 15px; float: left; font-size: 14px;">
+                                <table border="0" style="margin-bottom: 15px; float: left; font-size: 14px;">
                                     <tr>
                                         <td class="txtbold">Total Number</td> <td class="txtbold"> &nbsp;:&nbsp; </td>
                                         <td>
@@ -557,6 +567,9 @@
                                             @if($goldenPlus == count($rstInfo))
                                             <span style="color:#c19815;">(Golden)</span>
                                             @endif
+                                            @if($failcount > 0)
+                                            <span class="text-danger">(Fail)</span>
+                                            @endif
                                         </td>
                                     </tr>
                                     @if(count($rsltExtInfo) > 0)
@@ -588,6 +601,10 @@
                                             @if($exgoldenPlus == $ttlsub)
                                             <span style="color:#c19815;">(Golden)</span>
                                             @endif
+                                            
+                                            @if($exfailcount > 0)
+                                            <span class="text-danger">(Fail)</span>
+                                            @endif
                                         </td>
                                     </tr>
                                     @endif
@@ -606,6 +623,24 @@
                                             ?>
                                         </td>
                                     </tr>
+                                    
+                                    @if(count($rsltExtInfo) > 0)
+                                    <tr>
+                                        <td class="txtbold">Position <span style="font-size:12px;">(With Extra Subject)</span></td> <td class="txtbold"> &nbsp;:&nbsp; </td>
+                                        <td>
+                                            <?php
+                                            if ($ttlNumWExt):
+                                                $expositionarray = array();
+                                                foreach ($ttlexnumquery as $exval):
+                                                    array_push($expositionarray, $exval->ttlexnum);
+                                                endforeach;
+                                                $expositionarray = array_flip($expositionarray);
+                                                echo ($expositionarray[$ttlNumWExt] + 1);
+                                            endif;
+                                            ?>
+                                        </td>
+                                    </tr>
+                                    @endif
 
                                 </table>
                                 <span  style="position: absolute; bottom: 60px; right: 15px; font-size: 14px;">School/Collage Authority</span>

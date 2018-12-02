@@ -37,6 +37,7 @@ Route::middleware('userCheck')->group(function(){
     Route::get('/block-unblock/', 'AdminController@blockUnblock');
     Route::get('/exam-time/', 'AdminController@exmTime');
     Route::get('/add-number/', 'AdminController@addNumber');
+    Route::get('/passed-out/', 'AdminController@passedOut');
     
     Route::get('/select-subject/', 'CommonController@selectSubject');
     Route::get('/student-list/', 'CommonController@studentList');

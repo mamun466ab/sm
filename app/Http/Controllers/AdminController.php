@@ -268,5 +268,18 @@ class AdminController extends Controller {
 
         return view('dboardcontainer')->with('leftmenu', $leftMenu)->with('content', $changeSubject);
     }
+    
+    public function passedOut() {
+        $usrInfo = Session::get('usrInfo');
+
+        if ($usrInfo->usrtyp == 'Teacher' AND $usrInfo->usrpwr == 1) {
+            $leftMenu = view('menu.adminmenu')->with('passFail', 'class="active"');
+            $changeSubject = view('admin.result.passed-out');
+        } else {
+            return Redirect::to('/');
+        }
+
+        return view('dboardcontainer')->with('leftmenu', $leftMenu)->with('content', $changeSubject);
+    }
 
 }

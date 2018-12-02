@@ -140,12 +140,21 @@ class CommonController extends Controller {
         endif;
         
         $ttlnumquery = DB::table('ttlnum')
-                ->select('*')
+                ->select('ttlnum')
                 ->where('sclcd', $usrInfo->sclcd)
                 ->where('stdcls', $stdcls)
                 ->where('ssn', $ssn)
                 ->where('exmtyp', $exmtyp)
                 ->orderBy('ttlnum', 'DESC')
+                ->get();
+        
+        $ttlexnumquery = DB::table('ttlnum')
+                ->select('ttlexnum')
+                ->where('sclcd', $usrInfo->sclcd)
+                ->where('stdcls', $stdcls)
+                ->where('ssn', $ssn)
+                ->where('exmtyp', $exmtyp)
+                ->orderBy('ttlexnum', 'DESC')
                 ->get();
 
         $stdInfo = DB::table('clsrol')
@@ -199,7 +208,8 @@ class CommonController extends Controller {
                     ->with('rsltFrthInfo', $rsltFrthInfo)
                     ->with('rsltExtInfo', $rsltExtInfo)
                     ->with('exmtyph', $exmtyp)
-                    ->with('ttlnumquery', $ttlnumquery);
+                    ->with('ttlnumquery', $ttlnumquery)
+                    ->with('ttlexnumquery', $ttlexnumquery);
         } else {
             return Redirect::to('/');
         }
