@@ -14,7 +14,7 @@ class AddStsToTtlnumTable extends Migration
     public function up()
     {
         Schema::table('ttlnum', function (Blueprint $table) {
-            $table->tinyInteger('sts')->nullable();
+            $table->tinyInteger('fail')->nullable();
         });
     }
 

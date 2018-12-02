@@ -13,18 +13,23 @@
     }
 
     .font{
-        font-family: 'Brush Script MT';
+        font-family: 'Lucida Calligraphy' /*'Brush Script MT'*/;
     }
 
     .rslttbl td, .rslttbl th {
         vertical-align: middle !important;
-        padding: 6px !important;
+        padding: 5px !important;
     }
 
     .grdpnt tr td, .grdpnt tr th{
         padding: 0 3px;
         line-height: 12px;
         text-align: center;
+    }
+
+    hr{
+        margin-top: 0px !important;
+        margin-bottom: 0px !important;
     }
 </style>
 <!--main content start-->
@@ -70,53 +75,58 @@
                 <div class="col-md-2 col-sm-12">
                     <?php
                     $exmtyp = DB::table('exmtm')->select('exmtyp')->where('sclcd', $sclcd)->where('scltyp', $scltyp)->first();
+                    if(!empty($exmtyp->exmtyp)):
+                        $exmtypslected = $exmtyp->exmtyp;
+                    else:
+                        $exmtypslected = NULL;
+                    endif;
                     ?>
                     <select name="exm_typ" id="exm_typ" class="form-control" style="color: #000; padding: 6px;">
                         <option value="">Select Exam Type</option>
                         @if($scltyp == 's')
                         <option <?php
-                        if ($exmtyp->exmtyp == '1st Term') {
+                        if ($exmtypslected == '1st Term') {
                             echo 'selected="selected"';
                         }
                         ?> value="1st Term">1st Term</option>
                         <option <?php
-                        if ($exmtyp->exmtyp == '2nd Term') {
+                        if ($exmtypslected == '2nd Term') {
                             echo 'selected="selected"';
                         }
                         ?> value="2nd Term">2nd Term</option>
                         <option <?php
-                        if ($exmtyp->exmtyp == '3rd Term') {
+                        if ($exmtypslected == '3rd Term') {
                             echo 'selected="selected"';
                         }
                         ?> value="3rd Term">3rd Term</option>
                         <option <?php
-                        if ($exmtyp->exmtyp == 'Final') {
+                        if ($exmtypslected == 'Final') {
                             echo 'selected="selected"';
                         }
                         ?> value="Final">Final</option>
                         <option <?php
-                        if ($exmtyp->exmtyp == 'Test') {
+                        if ($exmtypslected == 'Test') {
                             echo 'selected="selected"';
                         }
                         ?> value="Test">Test</option>
                         @elseif($scltyp == 'c')
                         <option <?php
-                        if ($exmtyp->exmtyp == 'Half Yearly') {
+                        if ($exmtypslected == 'Half Yearly') {
                             echo 'selected="selected"';
                         }
                         ?> value="Half Yearly">Half Yearly</option>
                         <option <?php
-                        if ($exmtyp->exmtyp == 'Yearly') {
+                        if ($exmtypslected == 'Yearly') {
                             echo 'selected="selected"';
                         }
                         ?> value="Yearly">Yearly</option>
                         <option <?php
-                        if ($exmtyp->exmtyp == 'Pre Test') {
+                        if ($exmtypslected == 'Pre Test') {
                             echo 'selected="selected"';
                         }
                         ?> value="Pre Test">Pre Test</option>
                         <option <?php
-                        if ($exmtyp->exmtyp == 'Test') {
+                        if ($exmtypslected == 'Test') {
                             echo 'selected="selected"';
                         }
                         ?> value="Test">Test</option>
@@ -166,6 +176,8 @@
                         $ttlGPAWExt = 0;
                         $goldenPlus = 0;
                         $exgoldenPlus = 0;
+                        $failcount = 0;
+                        $exfailcount = 0;
                         ?>
                         <!--@include("../../headers/schoolheading")-->
                         <strong>Academic Transcript</strong>
@@ -186,7 +198,8 @@
                                 <p style="text-align: center;">
                                     <span style="font-size: 20px; color: #666; font-weight: bold;"><u>Academic Transcript</u></span><br />
                                 </p>
-                                <table border="0" style="line-height: 25px; margin-bottom: 15px; float: left;">
+                                @if(count($rstInfo) > 0)
+                                <table border="0" style="margin-bottom: 15px; float: left;">
                                     <tr>
                                         <td class="txtbold">Name of Student</td> <td class="txtbold"> &nbsp;:&nbsp; </td>
                                         <td class="font">
@@ -213,7 +226,7 @@
                                     </tr>
                                     <tr>
                                         <td class="txtbold">Class </td> <td class="txtbold"> &nbsp;:&nbsp; </td>
-                                        <td>
+                                        <td class="font">
                                             @if(isset($stdInfo))
                                             @if($stdInfo->stdcls == 6)
                                             Six
@@ -295,22 +308,25 @@
                                             <th class="txtcntr">Number</th>
                                             <th class="txtcntr">Letter Grade</th>
                                             <th class="txtcntr">Grade Point</th>
-                                            <th class="txtcntr">Status</th>
+                                            <th class="txtcntr">Remarks</th>
                                         </tr>
                                     </thead>
                                     <tbody id="stdInfo">
                                         <?php
                                         $i = 1;
                                         ?>
-                                        @if(count($rstInfo) > 0)
                                         @foreach($rstInfo as $rstval)
                                         <?php
                                         $ttlNum += $rstval->num;
                                         $ttlNumWExt += $rstval->num;
-                                        if ($rstval->num >= 80) {
+                                        if ($rstval->num >= 80):
                                             $goldenPlus += 1;
                                             $exgoldenPlus += 1;
-                                        }
+                                        endif;
+                                        
+                                        if($rstval->num <= 32):
+                                            $failcount += 1;
+                                        endif;
                                         ?>
                                         <tr>
                                             <td align='center'>{{ $i }}.</td>
@@ -371,8 +387,6 @@
                                             <td align='center'>
                                                 @if($rstval->num <= 32)
                                                 <span class="text-danger">Fail</span>
-                                                @else
-                                                Pass
                                                 @endif
                                             </td>
                                         </tr>
@@ -385,9 +399,13 @@
                                         @foreach($rsltExtInfo as $rstExtval)
                                         <?php
                                         $ttlNumWExt += $rstExtval->num;
-                                        if ($rstExtval->num >= 80) {
+                                        if ($rstExtval->num >= 80):
                                             $exgoldenPlus += 1;
-                                        }
+                                        endif;
+                                        
+                                        if($rstExtval->num <= 32):
+                                            $exfailcount += 1;
+                                        endif;
                                         ?>
                                         <tr>
                                             <td align='center'>{{ $i }}.</td>
@@ -428,10 +446,8 @@
                                                 @endif
                                             </td>
                                             <td align='center'>
-                                                @if($rstval->num <= 32)
+                                                @if($rstExtval->num <= 32)
                                                 <span class="text-danger">Fail</span>
-                                                @else
-                                                Pass
                                                 @endif
                                             </td>
                                         </tr>
@@ -439,7 +455,6 @@
                                         @$i++
                                         ?>
                                         @endforeach
-                                        @endif
 
                                         @if(!empty($rsltFrthInfo))
                                         <?php
@@ -497,10 +512,8 @@
                                                 @endif
                                             </td>
                                             <td align='center'>
-                                                @if($rstval->num <= 32)
+                                                @if($rsltFrthInfo->num <= 32)
                                                 <span class="text-danger">Fail</span>
-                                                @else
-                                                Pass
                                                 @endif
                                             </td>
                                         </tr>
@@ -509,9 +522,9 @@
                                     </tbody>
                                 </table>
 
-                                <table border="0" style="line-height: 23px; margin-bottom: 15px; float: left; font-size: 14px;">
+                                <table border="0" style="margin-bottom: 15px; float: left; font-size: 14px;">
                                     <tr>
-                                        <td class="txtbold">Total Number <span style="font-size:12px;">(Without Extra Subject)</span></td> <td class="txtbold"> &nbsp;:&nbsp; </td>
+                                        <td class="txtbold">Total Number</td> <td class="txtbold"> &nbsp;:&nbsp; </td>
                                         <td>
                                             {{ $ttlNum }}
                                         </td>
@@ -525,7 +538,7 @@
                                     </tr>
                                     @endif
                                     <tr>
-                                        <td class="txtbold">GPA <span style="font-size:12px;">(Without Extra Subject)</span></td> <td class="txtbold"> &nbsp;:&nbsp; </td>
+                                        <td class="txtbold">GPA</td> <td class="txtbold"> &nbsp;:&nbsp; </td>
                                         <td><?php
                                             if (count($rstInfo) > 0) {
                                                 $rsltgpa = number_format($ttlGPA / count($rstInfo), 2);
@@ -553,6 +566,9 @@
                                             @endif
                                             @if($goldenPlus == count($rstInfo))
                                             <span style="color:#c19815;">(Golden)</span>
+                                            @endif
+                                            @if($failcount > 0)
+                                            <span class="text-danger">(Fail)</span>
                                             @endif
                                         </td>
                                     </tr>
@@ -585,27 +601,70 @@
                                             @if($exgoldenPlus == $ttlsub)
                                             <span style="color:#c19815;">(Golden)</span>
                                             @endif
+                                            
+                                            @if($exfailcount > 0)
+                                            <span class="text-danger">(Fail)</span>
+                                            @endif
                                         </td>
                                     </tr>
                                     @endif
+                                    <tr>
+                                        <td class="txtbold">Position</td> <td class="txtbold"> &nbsp;:&nbsp; </td>
+                                        <td>
+                                            <?php
+                                            if ($ttlNum):
+                                                $positionarray = array();
+                                                foreach ($ttlnumquery as $val):
+                                                    array_push($positionarray, $val->ttlnum);
+                                                endforeach;
+                                                $positionarray = array_flip($positionarray);
+                                                echo ($positionarray[$ttlNum] + 1);
+                                            endif;
+                                            ?>
+                                        </td>
+                                    </tr>
+                                    
+                                    @if(count($rsltExtInfo) > 0)
+                                    <tr>
+                                        <td class="txtbold">Position <span style="font-size:12px;">(With Extra Subject)</span></td> <td class="txtbold"> &nbsp;:&nbsp; </td>
+                                        <td>
+                                            <?php
+                                            if ($ttlNumWExt):
+                                                $expositionarray = array();
+                                                foreach ($ttlexnumquery as $exval):
+                                                    array_push($expositionarray, $exval->ttlexnum);
+                                                endforeach;
+                                                $expositionarray = array_flip($expositionarray);
+                                                echo ($expositionarray[$ttlNumWExt] + 1);
+                                            endif;
+                                            ?>
+                                        </td>
+                                    </tr>
+                                    @endif
+
                                 </table>
                                 <span  style="position: absolute; bottom: 60px; right: 15px; font-size: 14px;">School/Collage Authority</span>
                                 <span style="font-family: cursive; position: absolute; bottom: 0px; left: 15px; font-size: 13px;">Date of publication of result : 2018-11-21</span>
+                                @else
+                                <p class="text-warning" style="font-size:20px; text-align: justify; font-weight: bold; line-height: 18px;">
+                                    <span class="icon-warning-sign text-danger"></span> Please select student class & student & exam type & session and check profile of the student is up to date or insert subject number.
+                                </p>
+                                @endif
                             </div>
                             @if(count($rstInfo) > 0)
                             <?php
                             $stdrolpre = ($stdInfo->stdrol - 1);
                             $stdrolnxt = ($stdInfo->stdrol + 1);
-                            
+
                             $maxrol = DB::table('clsrol')->where('sclcd', $sclcd)->where('stdcls', $stdInfo->stdcls)->where('yr', $stdInfo->yr)->max('stdrol');
-                            
-                            if($stdrolnxt > $maxrol):
+
+                            if ($stdrolnxt > $maxrol):
                                 $nxtbtndsbl = 'disabled="disabled"';
                             else:
                                 $nxtbtndsbl = NULL;
                             endif;
-                            
-                            if($stdrolpre == 0):
+
+                            if ($stdrolpre == 0):
                                 $prebtndsbl = 'disabled="disabled"';
                             else:
                                 $prebtndsbl = NULL;

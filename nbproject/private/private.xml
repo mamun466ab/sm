@@ -4,13 +4,13 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/F:/xampp/htdocs/OneDrive/sm/resources/views/common/result/view-result.blade.php</file>
+            <file>file:/F:/xampp/htdocs/OneDrive/sm/resources/views/common/list/student-list.blade.php</file>
             <file>file:/F:/xampp/htdocs/OneDrive/sm/resources/views/menu/adminmenu.blade.php</file>
-            <file>file:/F:/xampp/htdocs/OneDrive/sm/resources/views/headers/schoolheading.blade.php</file>
+            <file>file:/F:/xampp/htdocs/OneDrive/sm/resources/views/admin/result/passed-out.blade.php</file>
             <file>file:/F:/xampp/htdocs/OneDrive/sm/app/Http/Controllers/CommonController.php</file>
             <file>file:/F:/xampp/htdocs/OneDrive/sm/routes/web.php</file>
             <file>file:/F:/xampp/htdocs/OneDrive/sm/resources/views/dboardcontainer.blade.php</file>
             <file>file:/F:/xampp/htdocs/OneDrive/sm/app/Http/Controllers/AdminController.php</file>
-            <file>file:/F:/xampp/htdocs/OneDrive/sm/app/Http/Controllers/AdminUpdateController.php</file>
         </group>
     </open-files>
 </project-private>

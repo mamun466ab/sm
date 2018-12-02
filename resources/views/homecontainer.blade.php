@@ -90,7 +90,7 @@
         </section>
         <footer class="site-footer" style=" margin-top: 15px; background:none; color: #000; ">
             <div class="text-center">
-                2018 &copy; WBDSchools-Abdullah Al Mamun.
+                2018 &copy; WBDSchool-Abdullah Al Mamun And Ruhul Amin.
                 <!--              <a href="#" class="go-top">
                                   <i class="icon-angle-up"></i>
                               </a>-->

@@ -74,14 +74,14 @@
             </li>
             
             <li class="sub-menu">
-                <a href="javascript:;" <?php if(isset($vwExmRtn)){ echo $vwExmRtn;}elseif(isset($vwrslt)){ echo $vwrslt;}elseif(isset($addNumber)){ echo $addNumber;} ?>>
+                <a href="javascript:;" <?php if(isset($passFail)){ echo $passFail;}elseif(isset($vwrslt)){ echo $vwrslt;}elseif(isset($addNumber)){ echo $addNumber;} ?>>
                     <i class="icon-lightbulb"></i>
                     <span>Result</span>
                 </a>
                 <ul class="sub">
                     <li <?php if(isset($addNumber)){ echo $addNumber;} ?>><a  href="{{ url('/add-number/') }}">Add Number</a></li>
                     <li <?php if(isset($vwrslt)){ echo $vwrslt;} ?>><a  href="{{ url('/view-result/') }}">View Result</a></li>
-                    <li <?php if(isset($vwExmRtn)){ echo $vwExmRtn;} ?>><a  href="{{ url('/view-exam-routine/') }}">Pass/Fail</a></li>
+                    <li <?php if(isset($passFail)){ echo $passFail;} ?>><a  href="{{ url('/passed-out/') }}">Passed/Failed</a></li>
                 </ul>
             </li>
             

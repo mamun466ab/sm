@@ -145,10 +145,10 @@ class AdminInsertController extends Controller {
                 $cls = 'cls' . $i;
                 $fstsub = 'fstexm' . $i;
                 $sndsub = 'sndexm' . $i;
-                
-                if(empty($crtRtn->$sndsub)){
+
+                if (empty($crtRtn->$sndsub)) {
                     $sndsunm = 0;
-                }else{
+                } else {
                     $sndsunm = implode('/', $crtRtn->$sndsub);
                 }
 
@@ -163,12 +163,12 @@ class AdminInsertController extends Controller {
                 DB::table('exmrtn')->insert($exmrtn);
             endfor;
             Session::put('msg', 'Routine created.');
-        }elseif ($rtnTyp == 'c') {
+        } elseif ($rtnTyp == 'c') {
             for ($n = 11; $n <= 12; $n++):
                 $cls = 'cls' . $n;
                 $fstsub = 'fstexm' . $n;
                 $sndsub = 'sndexm' . $n;
-                
+
                 if (empty($crtRtn->$sndsub)) {
                     $sndsubnm = 0;
                 } else {
@@ -202,6 +202,9 @@ class AdminInsertController extends Controller {
         $chkSubNum = DB::table('subnum')->select('*')->where('sclcd', $sclcd)->where('stdid', $stdid)->where('stdcls', $stdcls)->where('ssn', $stdssn)->where('exmtyp', $exmtyp)->get();
 
         $numSum = 0;
+        $exNumSum = 0;
+        $fail = 0;
+        $exfail = 0;
 
         if (count($chkSubNum) == 0):
             for ($n = 1; $n < $ttlsub; $n++) {
@@ -217,7 +220,13 @@ class AdminInsertController extends Controller {
                 $subNumArray['ssn'] = $stdssn;
                 $subNumArray['exmtyp'] = $exmtyp;
 
+                if ($addNumber->$num <= 32):
+                    $fail += 1;
+                    $exfail += 1;
+                endif;
+
                 $numSum += $addNumber->$num;
+                $exNumSum += $addNumber->$num;
 
                 DB::table('subnum')->insert($subNumArray);
             }
@@ -234,22 +243,12 @@ class AdminInsertController extends Controller {
                 $frtSubNumArray['sts'] = 4;
 
                 $numSum += $addNumber->frtnum;
+                $exNumSum += $addNumber->frtnum;
 
                 DB::table('subnum')->insert($frtSubNumArray);
             }
 
-            $ttlNumArray = array();
-            $ttlNumArray['sclcd'] = $sclcd;
-            $ttlNumArray['stdid'] = $stdid;
-            $ttlNumArray['stdcls'] = $stdcls;
-            $ttlNumArray['ttlnum'] = $numSum;
-            $ttlNumArray['ssn'] = $stdssn;
-            $ttlNumArray['exmtyp'] = $exmtyp;
-
-            DB::table('ttlnum')->insert($ttlNumArray);
-
             if (!empty($addNumber->ttlexsub)) {
-                $exNumSum = 0;
                 for ($en = 1; $en < $addNumber->ttlexsub; $en++) {
                     $exsub = 'exsub' . $en;
                     $exnum = 'exnum' . $en;
@@ -264,22 +263,42 @@ class AdminInsertController extends Controller {
                     $exSubNumArray['exmtyp'] = $exmtyp;
                     $exSubNumArray['sts'] = 3;
 
+                    if ($addNumber->$exnum <= 32):
+                        $exfail += 1;
+                    endif;
+
                     $exNumSum += $addNumber->$exnum;
 
                     DB::table('subnum')->insert($exSubNumArray);
                 }
-
-                $ttlExNumArray = array();
-                $ttlExNumArray['sclcd'] = $sclcd;
-                $ttlExNumArray['stdid'] = $stdid;
-                $ttlExNumArray['stdcls'] = $stdcls;
-                $ttlExNumArray['ttlnum'] = $exNumSum;
-                $ttlExNumArray['ssn'] = $stdssn;
-                $ttlExNumArray['exmtyp'] = $exmtyp;
-                $ttlExNumArray['sts'] = 3;
-
-                DB::table('ttlnum')->insert($ttlExNumArray);
             }
+
+            if ($numSum == $exNumSum):
+                $exNumSum = 0;
+            else:
+                $exNumSum = $exNumSum;
+            endif;
+
+            if ($fail == 0):
+                $fail = NULL;
+            endif;
+
+            if ($exfail == 0 or $fail == $exfail):
+                $exfail = NULL;
+            endif;
+
+            $ttlNumArray = array();
+            $ttlNumArray['sclcd'] = $sclcd;
+            $ttlNumArray['stdid'] = $stdid;
+            $ttlNumArray['stdcls'] = $stdcls;
+            $ttlNumArray['ttlnum'] = $numSum;
+            $ttlNumArray['ttlexnum'] = $exNumSum;
+            $ttlNumArray['ssn'] = $stdssn;
+            $ttlNumArray['exmtyp'] = $exmtyp;
+            $ttlNumArray['fail'] = $fail;
+            $ttlNumArray['exfail'] = $exfail;
+
+            DB::table('ttlnum')->insert($ttlNumArray);
 
             Session::put('msg', 'Subject number succesfully added.');
             return Redirect::to('/add-number/');
