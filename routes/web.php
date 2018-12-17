@@ -1,10 +1,10 @@
 <?php
 
 Route::get('/', 'SigninController@index');
-Route::get('/login/', 'SigninController@login');
-Route::get('/school-registration/', 'RegController@index');
-Route::get('/student-registration/', 'RegController@student');
-Route::get('/teacher-registration/', 'RegController@teacher');
+Route::get('/login', 'SigninController@login');
+Route::get('/school-registration', 'RegController@index');
+Route::get('/student-registration', 'RegController@student');
+Route::get('/teacher-registration', 'RegController@teacher');
 
 //for create location
 Route::get('/division/{id}', 'LocationController@division');
@@ -12,71 +12,76 @@ Route::get('/district/{id}', 'LocationController@district');
 Route::get('/thana/{id}', 'LocationController@thana');
 
 
-Route::get('/logout/', 'SigninController@signOut');
+Route::get('/logout', 'SigninController@signOut');
 
 
-Route::post('/school-data/', 'RegController@schoolData');
-Route::post('/teacher-data/', 'RegController@teacherData');
-Route::post('/student-data/', 'RegController@studentData');
-Route::post('/user-login/', 'SigninController@usrLogin');
+Route::post('/school-data', 'RegController@schoolData');
+Route::post('/teacher-data', 'RegController@teacherData');
+Route::post('/student-data', 'RegController@studentData');
+Route::post('/user-login', 'SigninController@usrLogin');
 
 Route::middleware('userCheck')->group(function(){
     /*
      * Get method
      */
-    Route::get('/profile/', 'ProfileController@index');
-    Route::get('/edit-profile/', 'ProfileController@editProfile');
-    Route::get('/change-password/', 'ProfileController@passworChange');
     
-    Route::get('/add-teacher/', 'AdminController@addTeacher');
-    Route::get('/add-student/', 'AdminController@addStudent');
-    Route::get('/user-activation/', 'AdminController@activeUser');
-    Route::get('/add-subject/', 'AdminController@addSubject');
-    Route::get('/view-subject/', 'AdminController@viewSubject');
-    Route::get('/change-subject/', 'AdminController@changeSubject');
-    Route::get('/block-unblock/', 'AdminController@blockUnblock');
-    Route::get('/exam-time/', 'AdminController@exmTime');
-    Route::get('/add-number/', 'AdminController@addNumber');
-    Route::get('/passed-out/', 'AdminController@passedOut');
+    /*Settings*/
+    Route::get('/profile', 'ProfileController@index');
+    Route::get('/edit-profile', 'ProfileController@editProfile');
+    Route::get('/change-password', 'ProfileController@passworChange');
+    Route::get('/settings', 'ProfileController@passworChange');
     
-    Route::get('/select-subject/', 'CommonController@selectSubject');
-    Route::get('/student-list/', 'CommonController@studentList');
-    Route::get('/teacher-list/', 'CommonController@teacherList');
-    Route::get('/view-routine/', 'CommonController@viewRoutine');
-    Route::get('/view-exam-routine/', 'CommonController@viewExmRoutine');
+    Route::get('/settings', 'SettingsController@settings');
+    
+    Route::get('/add-teacher', 'AdminController@addTeacher');
+    Route::get('/add-student', 'AdminController@addStudent');
+    Route::get('/user-activation', 'AdminController@activeUser');
+    Route::get('/add-subject', 'AdminController@addSubject');
+    Route::get('/view-subject', 'AdminController@viewSubject');
+    Route::get('/change-subject', 'AdminController@changeSubject');
+    Route::get('/block-unblock', 'AdminController@blockUnblock');
+    Route::get('/exam-time', 'AdminController@exmTime');
+    Route::get('/add-number', 'AdminController@addNumber');
+    Route::get('/passed-out', 'AdminController@passedOut');
+    
+    Route::get('/select-subject', 'CommonController@selectSubject');
+    Route::get('/student-list', 'CommonController@studentList');
+    Route::get('/teacher-list', 'CommonController@teacherList');
+    Route::get('/view-routine', 'CommonController@viewRoutine');
+    Route::get('/view-exam-routine', 'CommonController@viewExmRoutine');
     
     /*
      * Route match
      */
-    Route::match(['get', 'post'], '/class-time/', 'AdminController@classTime');
-    Route::match(['get', 'post'], '/exam-routine/', 'AdminController@exmRoutine');
-    Route::match(['get', 'post'], '/create-routine/', 'AdminController@createRoutine');
-    Route::match(['get', 'post'], '/view-result/', 'CommonController@viewResult');
+    Route::match(['get', 'post'], '/class-time', 'AdminController@classTime');
+    Route::match(['get', 'post'], '/exam-routine', 'AdminController@exmRoutine');
+    Route::match(['get', 'post'], '/create-routine', 'AdminController@createRoutine');
+    Route::match(['get', 'post'], '/view-result', 'CommonController@viewResult');
     
     /*
      * For all update
      */
-    Route::post('/subject-change/', 'AdminUpdateController@subjectChange');
+    Route::post('/subject-change', 'AdminUpdateController@subjectChange');
     Route::get('/user-activate/{usrid}', 'AdminUpdateController@userActivate');
     Route::get('/block/{usrid}', 'AdminUpdateController@userBlock');
     Route::get('/unblock/{usrid}', 'AdminUpdateController@userUnblock');
-    Route::post('/class-routine-update/', 'AdminUpdateController@clsRtnEdt');
-    Route::post('/exam-routine-update/', 'AdminUpdateController@exmRtnEdt');
+    Route::post('/class-routine-update', 'AdminUpdateController@clsRtnEdt');
+    Route::post('/exam-routine-update', 'AdminUpdateController@exmRtnEdt');
     
     /*
      * Post method
      */
-    Route::post('/update-profile/', 'ProfileController@updateProfile');
-    Route::post('/password-change/', 'ProfileController@changePassword');
+    Route::post('/update-profile', 'ProfileController@updateProfile');
+    Route::post('/password-change', 'ProfileController@changePassword');
     
-    Route::post('/subject-add/', 'AdminInsertController@addSubject');
-    Route::post('/insert-class-time/', 'AdminInsertController@classTime');
-    Route::post('/routine-create/', 'AdminInsertController@routineCreate');
-    Route::post('/exam-time/', 'AdminInsertController@examTime');
-    Route::post('/create-exm-routine/', 'AdminInsertController@crtExmRtn');
-    Route::post('/insert-number/', 'AdminInsertController@insrtNum');
+    Route::post('/subject-add', 'AdminInsertController@addSubject');
+    Route::post('/insert-class-time', 'AdminInsertController@classTime');
+    Route::post('/routine-create', 'AdminInsertController@routineCreate');
+    Route::post('/exam-time', 'AdminInsertController@examTime');
+    Route::post('/create-exm-routine', 'AdminInsertController@crtExmRtn');
+    Route::post('/insert-number', 'AdminInsertController@insrtNum');
     
-    Route::post('/select-subject/', 'CommonInsertController@selectSubject');
+    Route::post('/select-subject', 'CommonInsertController@selectSubject');
     /*
      * For ajax
      */
@@ -94,6 +99,7 @@ Route::middleware('userCheck')->group(function(){
     Route::get('/exm-time-ajax/{scltyp}', 'AjaxController@addExmTme');
     Route::get('/edit-cls-rtn/{rtnid}', 'AjaxController@editClassRoutine');
     Route::get('/edit-exm-rtn/{exmid}', 'AjaxController@editExamRoutine');
+    Route::get('/settings-rslt-sstm/{exmid}', 'AjaxController@resultSystem');
     
     /*
      * For delete
@@ -103,13 +109,13 @@ Route::middleware('userCheck')->group(function(){
 });
 
 //Super Admin Area ==============================
-Route::get('/sm-super-admin/', 'SuperAdminController@index');
-Route::post('/super-admin-login/', 'SuperAdminController@superAdminLogin');
-Route::get('/super-dashboard/', 'SuperAdminController@super_dashboard');
+Route::get('/sm-super-admin', 'SuperAdminController@index');
+Route::post('/super-admin-login', 'SuperAdminController@superAdminLogin');
+Route::get('/super-dashboard', 'SuperAdminController@super_dashboard');
 
 Route::middleware('superAdmin')->group(function(){
     //GET Methods ============
-    Route::get('/logout-super/', 'SuperAdminController@logoutSuper');
+    Route::get('/logout-super', 'SuperAdminController@logoutSuper');
 
     Route::get('/admin-request-view', 'SuperAdminController@admin_req_view');
     Route::get('/admin-approve/{id}', 'SuperAdminController@admin_approve');
@@ -162,11 +168,11 @@ Route::middleware('superAdmin')->group(function(){
 
 
 //Referrer Area ==============================
-Route::get('/referrer/', 'ReferrerController@index');
+Route::get('/referrer', 'ReferrerController@index');
 Route::get('/referrer-registration', 'ReferrerController@referrer_registration');
-Route::get('/referrer-dashboard/', 'ReferrerController@referrer_dashboard');
+Route::get('/referrer-dashboard', 'ReferrerController@referrer_dashboard');
 
-Route::post('/referrer-login/', 'ReferrerController@referrerLogin');
+Route::post('/referrer-login', 'ReferrerController@referrerLogin');
 Route::post('/referrer-data', 'ReferrerController@referrer_data');
 
 Route::middleware('ReferrerCheck')->group(function(){

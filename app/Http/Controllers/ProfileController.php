@@ -26,6 +26,8 @@ class ProfileController extends Controller {
         } elseif ($usrInfo->usrtyp == 'Student' AND $usrInfo->usrpwr == 0) {
             $leftMenu = view('menu.studentmenu');
             $usrProfile = view('profile.usrprofile');
+        } else {
+            return Redirect::to('/');
         }
 
         return view('dboardcontainer')->with('leftmenu', $leftMenu)->with('content', $usrProfile);
@@ -42,6 +44,8 @@ class ProfileController extends Controller {
         } elseif ($usrInfo->usrtyp == 'Student' AND $usrInfo->usrpwr == 0) {
             $leftMenu = view('menu.studentmenu');
             $editProfile = view('profile.profile-edit');
+        } else {
+            return Redirect::to('/');
         }
 
         return view('dboardcontainer')->with('leftmenu', $leftMenu)->with('content', $editProfile);
@@ -58,6 +62,8 @@ class ProfileController extends Controller {
         } elseif ($usrInfo->usrtyp == 'Student' AND $usrInfo->usrpwr == 0) {
             $leftMenu = view('menu.studentmenu');
             $editProfile = view('profile.password-change');
+        } else {
+            return Redirect::to('/');
         }
 
         return view('dboardcontainer')->with('leftmenu', $leftMenu)->with('content', $editProfile);

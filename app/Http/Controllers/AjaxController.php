@@ -121,7 +121,7 @@ class AjaxController extends Controller {
             endforeach;
         }
     }
-    
+
     public function listStudentOptionRol($cls) {
         $sclCde = Session::get('usrInfo')->sclcd;
         $stdCls = $cls;
@@ -423,7 +423,7 @@ class AjaxController extends Controller {
         echo '</div>';
         echo '</div>';
     }
-    
+
     public function editExamRoutine($exmid) {
         $edtexmrtn = DB::table('exmrtn')->select('*')->where('id', $exmid)->first();
         echo '<div class = "row" style = "margin-bottom:15px; color: rgb(121, 121, 121); font-weight: bold; text-align: center;">';
@@ -450,6 +450,34 @@ class AjaxController extends Controller {
         echo '</div>';
         echo '</div>';
         echo '</div>';
+    }
+
+    public function resultSystem($exmid) {
+        $sclCde = Session::get('usrInfo')->sclcd;
+        if ($exmid == TRUE):
+            if ($exmid == 'Yes'):
+                $sttng = 1;
+                $rssttng = array();
+                $rssttng['sttng'] = $sttng;
+                DB::table('sttng')->where('sclcd', $sclCde)->where('sttngnm', 'rs')->update($rssttng);
+                echo '<select class="btn btn-info btn-sm" style="padding: 0px; font-weight: bold;" onchange="ajaxGET(\'rslt\',\'' . url('/settings-rslt-sstm/\'') . '+this.value)">
+                    <option value="Yes" selected="selected">Yes</option>
+                    <option value="No">No</option>
+                </select>';
+            endif;
+            if ($exmid == 'No'):
+                $sttng = 0;
+                $rssttng = array();
+                $rssttng['sttng'] = $sttng;
+                DB::table('sttng')->where('sclcd', $sclCde)->where('sttngnm', 'rs')->update($rssttng);
+                echo '<select class="btn btn-danger btn-sm" style="padding: 0px; font-weight: bold;" onchange="ajaxGET(\'rslt\',\'' . url('/settings-rslt-sstm/\'') . '+this.value)">
+                    <option value="Yes">Yes</option>
+                    <option value="No" selected="selected">No</option>
+                </select>';
+            endif;
+        else:
+            echo '###';
+        endif;
     }
 
 }

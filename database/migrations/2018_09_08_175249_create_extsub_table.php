@@ -18,6 +18,7 @@ class CreateExtsubTable extends Migration
             $table->string('sclcd', 11);
             $table->string('exsub', 30);
             $table->unsignedInteger('exsubcd')->unique();
+            $table->foreign('sclcd')->references('sclcd')->on('sclreg');
         });
     }
 

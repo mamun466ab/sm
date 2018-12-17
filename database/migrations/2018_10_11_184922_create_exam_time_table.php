@@ -18,6 +18,7 @@ class CreateExamTimeTable extends Migration
             $table->string('sclcd', 11);
             $table->string('fsttm', 20);
             $table->string('sndtm', 20);
+            $table->foreign('sclcd')->references('sclcd')->on('sclreg');
         });
     }
 

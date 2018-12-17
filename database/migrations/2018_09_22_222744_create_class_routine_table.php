@@ -23,6 +23,7 @@ class CreateClassRoutineTable extends Migration
             $table->string('tue', 150);
             $table->string('wed', 150);
             $table->string('thu', 150);
+            $table->foreign('sclcd')->references('sclcd')->on('sclreg');
         });
     }
 

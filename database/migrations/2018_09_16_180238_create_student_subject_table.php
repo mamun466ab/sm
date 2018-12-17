@@ -19,6 +19,7 @@ class CreateStudentSubjectTable extends Migration
             $table->string('sclcd', 11);
             $table->string('sub', 255);
             $table->string('frthsub', 50)->nullable();
+            $table->foreign('sclcd')->references('sclcd')->on('sclreg');
         });
     }
 

@@ -6,8 +6,10 @@
             <name>sm</name>
         </data>
         <spellchecker-wordlist xmlns="http://www.netbeans.org/ns/spellchecker-wordlist/1">
+            <word>customjs</word>
             <word>Datepicker</word>
             <word>elseif</word>
+            <word>endsection</word>
             <word>GPA</word>
             <word>Khatun</word>
             <word>rstInfo</word>

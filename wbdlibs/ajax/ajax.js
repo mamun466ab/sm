@@ -9,7 +9,7 @@ function ajaxGET(div,url){
 	  if(xmlhttp.readyState==4 && xmlhttp.status==200){
 		document.getElementById(div).innerHTML=xmlhttp.responseText;
 	  }else{
-		  document.getElementById(div).innerHTML="Loading..."; 
+		  document.getElementById(div).innerHTML="<span style='color:blue;'>Wait...</span>"; 
 		  //document.getElementById(div).innerHTML="<img src='./images/loader/3.gif' />"; 
 	  }
 	}
