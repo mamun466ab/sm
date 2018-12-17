@@ -141,9 +141,15 @@ class RegController extends Controller {
             $usrRegInfo['usrsts'] = 0;
             $usrRegInfo['jondte'] = date('Y-m-d');
             $usrRegInfo['usrmbl'] = $request->adn_mbl;
+            
+            $sttngInfo = array();
+            $sttngInfo['sclcd'] = strtoupper($request->scl_cde);
+            $sttngInfo['sttngnm'] = 'rs';
+            $sttngInfo['sttng'] = 0;
 
             DB::table('sclreg')->insert($sclRegInfo);
             DB::table('usrreg')->insert($usrRegInfo);
+            DB::table('sttng')->insert($sttngInfo);
 
             return response()->json(['success' => '!!! School Registration Successfully Completed. !!!']);
         } else {

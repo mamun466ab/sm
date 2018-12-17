@@ -15,8 +15,9 @@ class CreateDistrictTable extends Migration
     {
         Schema::create('usrdst', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('dst');
+            $table->string('dst', 40);
             $table->unsignedInteger('dvnid');
+            $table->foreign('dvnid')->references('id')->on('usrdvn');
         });
     }
 

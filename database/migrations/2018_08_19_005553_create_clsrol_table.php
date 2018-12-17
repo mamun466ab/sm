@@ -19,6 +19,7 @@ class CreateClsrolTable extends Migration
             $table->string('sclcd', 11);
             $table->unsignedInteger('stdcls');
             $table->unsignedInteger('stdrol');
+            $table->foreign('sclcd')->references('sclcd')->on('sclreg');
         });
     }
 

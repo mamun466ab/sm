@@ -15,8 +15,9 @@ class CreateThanaTable extends Migration
     {
         Schema::create('usrthn', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('thn');
+            $table->string('thn', 40);
             $table->unsignedInteger('dstid');
+            $table->foreign('dstid')->references('id')->on('usrdst');
         });
     }
 

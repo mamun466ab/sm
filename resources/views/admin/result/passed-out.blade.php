@@ -21,9 +21,10 @@
                                         <th>Ser No</th>
                                         <th>Name</th>
                                         <th>Class</th>
-                                        <th>Email</th>
-                                        <th>Mobile No</th>
-                                        <th>Join Date</th>
+                                        <th>Session</th>
+                                        <th>Roll</th>
+                                        <th>Total Mark</th>
+                                        <th>New Roll</th>
                                         <th>Remarks</th>
                                     </tr>
                                 </thead>

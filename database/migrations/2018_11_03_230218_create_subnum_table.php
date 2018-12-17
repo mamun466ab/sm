@@ -23,6 +23,7 @@ class CreateSubnumTable extends Migration
             $table->unsignedInteger('ssn');
             $table->string('exmtyp', 30);
             $table->tinyInteger('sts')->nullable();
+            $table->foreign('sclcd')->references('sclcd')->on('sclreg');
         });
     }
 

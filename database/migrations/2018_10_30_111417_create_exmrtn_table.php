@@ -20,6 +20,7 @@ class CreateExmrtnTable extends Migration
             $table->string('exmdte', 10);
             $table->string('fstsub', 150);
             $table->string('sndsub', 150);
+            $table->foreign('sclcd')->references('sclcd')->on('sclreg');
         });
     }
 

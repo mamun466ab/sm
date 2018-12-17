@@ -15,8 +15,9 @@ class CreateDivisionTable extends Migration
     {
         Schema::create('usrdvn', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('dvn');
+            $table->string('dvn', 40);
             $table->unsignedInteger('cntid');
+            $table->foreign('cntid')->references('id')->on('usrcnt');
         });
     }
 

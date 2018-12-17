@@ -21,6 +21,7 @@ class CreateTtlnumTable extends Migration
             $table->unsignedInteger('ttlnum');
             $table->unsignedInteger('ssn');
             $table->string('exmtyp', 30);
+            $table->foreign('sclcd')->references('sclcd')->on('sclreg');
         });
     }
 

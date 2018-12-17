@@ -24,6 +24,7 @@ return array(
     'App\\Http\\Controllers\\ProfileController' => $baseDir . '/app/Http/Controllers/ProfileController.php',
     'App\\Http\\Controllers\\ReferrerController' => $baseDir . '/app/Http/Controllers/ReferrerController.php',
     'App\\Http\\Controllers\\RegController' => $baseDir . '/app/Http/Controllers/RegController.php',
+    'App\\Http\\Controllers\\SettingsController' => $baseDir . '/app/Http/Controllers/SettingsController.php',
     'App\\Http\\Controllers\\SigninController' => $baseDir . '/app/Http/Controllers/SigninController.php',
     'App\\Http\\Controllers\\SuperAdminController' => $baseDir . '/app/Http/Controllers/SuperAdminController.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',

@@ -75,6 +75,7 @@
                 <div class="col-md-2 col-sm-12">
                     <?php
                     $exmtyp = DB::table('exmtm')->select('exmtyp')->where('sclcd', $sclcd)->where('scltyp', $scltyp)->first();
+                    $rssettng = DB::table('sttng')->select('sttng')->where('sclcd', $sclcd)->where('sttngnm', 'rs')->first();
                     if(!empty($exmtyp->exmtyp)):
                         $exmtypslected = $exmtyp->exmtyp;
                     else:
@@ -523,20 +524,27 @@
                                 </table>
 
                                 <table border="0" style="margin-bottom: 15px; float: left; font-size: 14px;">
+                                    @if($rssettng->sttng == 0)
                                     <tr>
                                         <td class="txtbold">Total Number</td> <td class="txtbold"> &nbsp;:&nbsp; </td>
                                         <td>
                                             {{ $ttlNum }}
                                         </td>
                                     </tr>
+                                    @endif
+                                    
                                     @if(count($rsltExtInfo) > 0)
+                                    @if($rssettng->sttng == 1)
                                     <tr>
-                                        <td class="txtbold">Total Number <span style="font-size:12px;">(With Extra Subject)</span></td> <td class="txtbold"> &nbsp;:&nbsp; </td>
+                                        <td class="txtbold">Total Number</td> <td class="txtbold"> &nbsp;:&nbsp; </td>
                                         <td>
                                             {{ $ttlNumWExt }}
                                         </td>
                                     </tr>
                                     @endif
+                                    @endif
+                                    
+                                    @if($rssettng->sttng == 0)
                                     <tr>
                                         <td class="txtbold">GPA</td> <td class="txtbold"> &nbsp;:&nbsp; </td>
                                         <td><?php
@@ -572,9 +580,12 @@
                                             @endif
                                         </td>
                                     </tr>
+                                    @endif
+                                    
                                     @if(count($rsltExtInfo) > 0)
+                                    @if($rssettng->sttng == 1)
                                     <tr>
-                                        <td class="txtbold">GPA <span style="font-size:12px;">(With Extra Subject)</span></td> <td class="txtbold"> &nbsp;:&nbsp; </td>
+                                        <td class="txtbold">GPA</td> <td class="txtbold"> &nbsp;:&nbsp; </td>
                                         <td>
                                             <?php
                                             $ttlsub = (count($rsltExtInfo) + count($rstInfo));
@@ -608,6 +619,9 @@
                                         </td>
                                     </tr>
                                     @endif
+                                    @endif
+                                    
+                                    @if($rssettng->sttng == 0)
                                     <tr>
                                         <td class="txtbold">Position</td> <td class="txtbold"> &nbsp;:&nbsp; </td>
                                         <td>
@@ -623,10 +637,12 @@
                                             ?>
                                         </td>
                                     </tr>
+                                    @endif
                                     
                                     @if(count($rsltExtInfo) > 0)
+                                    @if($rssettng->sttng == 1)
                                     <tr>
-                                        <td class="txtbold">Position <span style="font-size:12px;">(With Extra Subject)</span></td> <td class="txtbold"> &nbsp;:&nbsp; </td>
+                                        <td class="txtbold">Position</td> <td class="txtbold"> &nbsp;:&nbsp; </td>
                                         <td>
                                             <?php
                                             if ($ttlNumWExt):
@@ -640,6 +656,7 @@
                                             ?>
                                         </td>
                                     </tr>
+                                    @endif
                                     @endif
 
                                 </table>
